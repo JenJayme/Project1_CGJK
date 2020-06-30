@@ -1,0 +1,12 @@
+.invisible {
+    display: none;
+}
+
+[data-visibility = "visible"] {
+    display: block;
+}
+
+[data-visibility = "invisible"] {
+    display: none;
+}
+
