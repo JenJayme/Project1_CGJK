@@ -20,6 +20,7 @@ function screen_switcher(id_name) {
 };
 
 // SEGMENT 1: USER INITIALIZATION
+// Kaitlins workstation
 
 // This initialiation sequence will assess whether or not the user is new or returning
 if (localStorage.getItem('isreturning') === null) {
