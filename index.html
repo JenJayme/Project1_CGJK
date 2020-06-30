@@ -1,0 +1,65 @@
+<main id='new_user' data-visible="visible">
+    <!-- Screen for new user -->
+</main>
+<main id='my_profile' data-visible="invisible">
+</main>
+<main id='initial_prompt' data-visible='invisible'>
+    <!-- Screen asking if they are looking for a meal or going to do an activity -->
+</main>
+<main id='activity' data-visible='invisible'>
+    <!-- Where are you going and how you are getting there? -->
+</main>
+<main id='meal' data-visible="invisible">
+    <!-- What are you in the mood for? -->
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+    // Zomato API
+
+    $.ajax({
+        url: 'https://developers.zomato.com/api/v2.1/search?q=Burger&count=4',
+        method: 'GET',
+        headers: { 'X-Zomato-API-Key': '1dc29c917607ec14f7f9f5309c721b3c' }
+    }).then(function (response) {
+        console.log(response)
+    })
+
+    // TomTom API
+
+    $.ajax({
+        url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=3920&streetName=Seeley&municipality=Chicago&countrySubdivision=Illinoiso&postalCode=60618',
+        method: 'GET'
+    }).then(function (response) {
+        console.log(response)
+    })
+
+    $.ajax({
+        url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=1034&streetName=Wells&municipality=Chicago&countrySubdivision=Illinois&postalCode=60610',
+        method: 'GET'
+    }).then(function (response) {
+        console.log(response)
+    })
+
+    // Open Route API
+    
+    $.ajax({
+        // Longitude comes first, then latitude, in each query url
+        url: 'https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=-87.68021,41.95303&end=-87.63451,41.90145',
+        method: 'GET'
+    }).then(function (response) {
+        console.log(response)
+    })
+
+    // To get a photo, see https://developer.marvel.com/documentation/images
+    $.ajax({
+        url: 'https://gateway.marvel.com:443/v1/public/characters?&apikey=e4b2fe04b3afe81bc5f373b59655f738',
+        method: 'GET'
+    })
+</script>
+
+<!-- Zomato API key: 1dc29c917607ec14f7f9f5309c721b3c -->
+<!-- Geocoder API key:  AIzaSyB-nfaiC7qS-317U3UHDjGo4JVc0gW8m_A-->
+<!-- Route distance calculator API key: 5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3 -->
+<!-- Marvel, Public key: e4b2fe04b3afe81bc5f373b59655f738 -->
