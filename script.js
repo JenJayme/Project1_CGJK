@@ -112,7 +112,7 @@ else {
 // ------------------------------------------------------------------------------------------------
 
 // SEGMENT 4: GENERAL MOVEMENT SEARCH
-
+// Colin's work station
 // 1. The starting and ending addresses are give from segment 2 in the form of the object.
 // 2. The TomTom API converts these to geocoordinates.
 // 3. These geocoordinates are used by the Open Route API to find a distance.
