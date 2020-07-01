@@ -115,7 +115,7 @@ else {
 // SEGMENT 4: GENERAL MOVEMENT SEARCH
 // Colin's work station
 $.ajax({
-url: 'https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=-87.68-21,41.95303&end=-87.63451,41.90145',
+url: 'https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=-87.68021,41.95303&end=-87.63451,41.90145',
 method: 'GET'
 }).then(function (response) {
 // console.log(response);
@@ -126,7 +126,9 @@ method: 'GET'
 // Create ajax call to calculate the directions to travel on foot 
 // parse info from object response
 // calculate in terms of miles and minutes traveled
-
+    // Duration is measured in seconds
+    // Distance is measured in meters
+        // Conversion of meters to miles -- divide total meters by 1609 
 
 
 
