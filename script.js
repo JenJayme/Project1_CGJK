@@ -114,6 +114,17 @@ else {
 
 // SEGMENT 4: GENERAL MOVEMENT SEARCH
 // Colin's work station
+$.ajax({
+url: 'https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=-87.68-21,41.95303&end=-87.63451,41.90145',
+method: 'GET'
+}).then(function (response) {
+console.log(response);
+})
+
+blah blah blah - Kesha 
+// Test "1" - branch
+// API key for OR: 
+// 5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3
 // 1. The starting and ending addresses are give from segment 2 in the form of the object.
 // 2. The TomTom API converts these to geocoordinates.
 // 3. These geocoordinates are used by the Open Route API to find a distance.
