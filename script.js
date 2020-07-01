@@ -121,6 +121,10 @@ method: 'GET'
 console.log(response);
 })
 
+<<<<<<< HEAD
+=======
+blah blah blah - Kesha 
+>>>>>>> c618693008cdf7cf54c6fa98486e0eb4f49ddb29
 // Test "1" - branch
 // API key for OR: 
 // 5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3
