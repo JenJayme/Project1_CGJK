@@ -118,10 +118,19 @@ $.ajax({
 url: 'https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=-87.68-21,41.95303&end=-87.63451,41.90145',
 method: 'GET'
 }).then(function (response) {
-console.log(response);
+// console.log(response);
 })
 
-blah blah blah - Kesha
+// Main function: take in two sets of geo cordinates and calculate the distance of travel. 
+// Create/collab variables for geocords (4 data sets total)
+// Create ajax call to calculate the directions to travel on foot 
+// parse info from object response
+// calculate in terms of miles and minutes traveled
+
+
+
+
+
 // Test "1" - branch
 // API key for OR: 
 // 5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3
