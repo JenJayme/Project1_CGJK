@@ -53,34 +53,35 @@
 
     // Taking mode of travel response from user 
 
-    modeTranspo = "";
+    moveMode = "bike";
 
     function colinFunction(cordA, cordB) {
 
-        if ((moveMode === "walk") || (moveMode === "run")) {
-            modeTranspo = "foot-walking";
-        } else {
-            modeTranspo = "cycling-regular";
-        };
-        
-        // vars from user & Jen
+        // cordinate values from TomTom
         var cordA = "-87.68021,41.95303";
         var cordB = "-87.63451,41.90145";
-        var modeTranspo = "cycling-regular";
 
-        var queryUrl =
-            "https://api.openrouteservice.org/v2/directions/" + modeTranspo + "?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
 
+        if ((moveMode === "walk") || (moveMode === "run")) {
+            var queryUrl = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
+
+        } else {
+        var queryUrl = "https://api.openrouteservice.org/v2/directions/cycling-regular?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
+        
+    };
         $.ajax({
             // Longitude comes first, then latitude, in each query url
             url: queryUrl,
             method: 'GET'
         }).then(function (responseB) {
-            console.log("Colin's Obj:");
+
             // console checks
+            console.log("Colin's Obj:");
             console.log(responseB);
             console.log("Total distance travelled " + responseB.features[0].properties.summary.distance);
             console.log("Total time travelled " + responseB.features[0].properties.summary.duration);
+
+
             // Takes distance in meters and converts it to miles
             var distanceMeters = responseB.features[0].properties.summary.distance;
             var distanceMiles = distanceMeters / 1609;
@@ -93,7 +94,7 @@
 
             // function colinFunction(cordA, cordB, transpoMode) {
         })
-    // };
+    };
 
 
     // To get a photo, see https://developer.marvel.com/documentation/images
@@ -103,10 +104,10 @@
     })
     colinFunction();
 </script>
-<!-- Test 2 branch -->
+// <!-- Test 2 branch -->
 
 
-<!-- Zomato API key: 1dc29c917607ec14f7f9f5309c721b3c -->
-<!-- Geocoder API key:  AIzaSyB-nfaiC7qS-317U3UHDjGo4JVc0gW8m_A-->
-<!-- Route distance calculator API key: 5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3 -->
-<!-- Marvel, Public key: e4b2fe04b3afe81bc5f373b59655f738 -->
+// <!-- Zomato API key: 1dc29c917607ec14f7f9f5309c721b3c -->
+// <!-- Geocoder API key:  AIzaSyB-nfaiC7qS-317U3UHDjGo4JVc0gW8m_A-->
+// <!-- Route distance calculator API key: 5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3 -->
+// <!-- Marvel, Public key: e4b2fe04b3afe81bc5f373b59655f738 -->
