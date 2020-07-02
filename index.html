@@ -51,15 +51,25 @@
     // var cordA = "-87.68021,41.95303";
     // var cordB = "-87.63451,41.90145";
 
+    // Taking mode of travel response from user 
+
+    modeTranspo = "";
+
     function colinFunction(cordA, cordB) {
 
+        if ((moveMode === "walk") || (moveMode === "run")) {
+            modeTranspo = "foot-walking";
+        } else {
+            modeTranspo = "cycling-regular";
+        };
+        
         // vars from user & Jen
         var cordA = "-87.68021,41.95303";
         var cordB = "-87.63451,41.90145";
-        var modeTranspo = "foot-walking";
+        var modeTranspo = "cycling-regular";
 
         var queryUrl =
-            "https://api.openrouteservice.org/v2/directions/" + modeTranspo + "?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" +cordA + "&end=" + cordB;
+            "https://api.openrouteservice.org/v2/directions/" + modeTranspo + "?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
 
         $.ajax({
             // Longitude comes first, then latitude, in each query url
@@ -83,7 +93,7 @@
 
             // function colinFunction(cordA, cordB, transpoMode) {
         })
-    };
+    // };
 
 
     // To get a photo, see https://developer.marvel.com/documentation/images
