@@ -1,19 +1,22 @@
 // All the variables and jQuery DOM pointers can be assigned here
-var userStatus;
 var superheroName;
 var superhero_src;
+var score;
 
 
 // The screen switcher function will toggle between which screen is displayed.
 function screen_switcher(id_name) {
 
     var main_divs = $('main');
-    for (i = 0; i < main_divs.length; i++) {
-        if (main_divs[i].attr('id') === id_name) {
-            main_divs[i].attr('data-visible', 'visible');
-        } else {
-            main_divs[i].attr('data-visible', 'invisible')
+    for (i=0; i<main_divs.length; i++) {
+        console.log(main_divs[i])
+        if (main_divs[i].getAttribute('id') === id_name) {
+            main_divs[i].setAttribute('style', 'display:block');
+        }
+        else {
+            main_divs[i].setAttribute('style', 'display:none')
         };
+        console.log(main_divs[i])
 
     };
 };
@@ -22,30 +25,37 @@ function screen_switcher(id_name) {
 // Kaitlins workstation
 
 // This initialiation sequence will assess whether or not the user is new or returning
-if (localStorage.getItem('isreturning') === null) {
-    userStatus = 'new';
-} else {
-    userStatus = 'returning'
-};
 
-function new_user() {
-    // This is the main initialization function for a first time user. It will must do several things:
-    // 1. It must give the user options for possible avatars to choose.
-    // 1. When an avatar is chosen, it must create in local storage a 'superhero name' and 'superhero image' items which store the user avatar.
-    // 2. It must create variables for the score (and possibly level) and store these in local storage as well.
-    // 3. It must append the score and image to the appropriate part of the DOM.
+function display_UI() {
+    $('#user-interface').attr('style', "display:block")
 }
 
-function returning_user() {
-    // This is the main initialization function for returning users. It must:
-    // 1. It must retrieve the same superhero name and image stored in the new_user function.
-    // 2. It must retrieve the user score and level and append them to the appropriate part of the DOM.
+if (localStorage.getItem('user character') === null) {
+    screen_switcher('new-user');
+    $('.card').on("click", function() {
+        localStorage.setItem('user character', $(this).attr('id'));
+        localStorage.setItem('user score', 0);
+        
+        $('#user-interface').attr('style', "display:block")
+        screen_switcher('initial-prompt');
+
+    })
 }
 
-if (userStatus === 'new') {
-    new_user();
-} else {
-    returning_user();
+else {
+
+    display_UI()
+    screen_switcher('initial-prompt')
+    display_user_info()
+}
+
+function display_user_info() {
+    // Function which will display user info in profile section
+}
+
+function update_score(points) {
+    score += points;
+    localStorage.setItem('user score', score);
 }
 
 // OTHER OBJECTIVES:
@@ -99,6 +109,19 @@ if (userStatus === 'new') {
 
 // SEGMENT 3: RESTAURANT SEARCH
 
+// Gabe's Workstation
+
+function find_restuarant(initial_lat, initial_lon, trans_mode) {
+    var queryURL = 'https://developers.zomato.com/api/v2.1/search?' + 
+    $.ajax({
+            url: 'https://developers.zomato.com/api/v2.1/search?q=Mexican&q=Healthy&count=4',
+            method: 'GET',
+            headers: { 'X-Zomato-API-Key': '1dc29c917607ec14f7f9f5309c721b3c' }
+        }).then(function (response) {
+            console.log(response)
+        })
+}
+    
 // 1. An AJAX call will be made to find some number of related restaurants in the area matching the keys within a certain radius.
 // 2. The address of each restaurant will be converted to geocoordinates using the TomTom API
 // 3. The current address is fed to the TomTom API to get geocoordinates.
