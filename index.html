@@ -48,8 +48,12 @@
         // Longitude comes first, then latitude, in each query url
         url: 'https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=-87.68021,41.95303&end=-87.63451,41.90145',
         method: 'GET'
-    }).then(function (response) {
-        console.log(response)
+    }).then(function (responseB) {
+        console.log("Colin's Obj:");
+        console.log(responseB);
+        console.log("Total distance travelled " + responseB.features[0].properties.summary.distance);
+        console.log("Total distance travelled " + responseB.features[0].properties.summary.duration);
+        console.log("==========================");
     })
 
     // To get a photo, see https://developer.marvel.com/documentation/images

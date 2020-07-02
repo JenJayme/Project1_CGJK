@@ -8,11 +8,10 @@ var superhero_src;
 function screen_switcher(id_name) {
 
     var main_divs = $('main');
-    for (i=0; i<main_divs.length; i++) {
+    for (i = 0; i < main_divs.length; i++) {
         if (main_divs[i].attr('id') === id_name) {
             main_divs[i].attr('data-visible', 'visible');
-        }
-        else {
+        } else {
             main_divs[i].attr('data-visible', 'invisible')
         };
 
@@ -25,49 +24,45 @@ function screen_switcher(id_name) {
 // This initialiation sequence will assess whether or not the user is new or returning
 if (localStorage.getItem('isreturning') === null) {
     userStatus = 'new';
-}
-
-else {
+} else {
     userStatus = 'returning'
 };
 
 function new_user() {
     // This is the main initialization function for a first time user. It will must do several things:
-        // 1. It must give the user options for possible avatars to choose.
-        // 1. When an avatar is chosen, it must create in local storage a 'superhero name' and 'superhero image' items which store the user avatar.
-        // 2. It must create variables for the score (and possibly level) and store these in local storage as well.
-        // 3. It must append the score and image to the appropriate part of the DOM.
+    // 1. It must give the user options for possible avatars to choose.
+    // 1. When an avatar is chosen, it must create in local storage a 'superhero name' and 'superhero image' items which store the user avatar.
+    // 2. It must create variables for the score (and possibly level) and store these in local storage as well.
+    // 3. It must append the score and image to the appropriate part of the DOM.
 }
 
 function returning_user() {
     // This is the main initialization function for returning users. It must:
-        // 1. It must retrieve the same superhero name and image stored in the new_user function.
-        // 2. It must retrieve the user score and level and append them to the appropriate part of the DOM.
+    // 1. It must retrieve the same superhero name and image stored in the new_user function.
+    // 2. It must retrieve the user score and level and append them to the appropriate part of the DOM.
 }
 
 if (userStatus === 'new') {
     new_user();
-}
-
-else {
+} else {
     returning_user();
 }
 
 // OTHER OBJECTIVES:
-    // 1. Create a function which updates score. Ideally, some number of earned points is passed in from segment two. There needs to be a function which
-    //      accepts these additional points, adds them to the current score, and possible levels up the user if enough points are earned.
-    // 2. As an added bit of functionality, the user can pick a new avatar to 'unlock' upon reaching a new level. There should be a 'profile' page
-    //      where the user can toggle between all the different unlocked avatars.
+// 1. Create a function which updates score. Ideally, some number of earned points is passed in from segment two. There needs to be a function which
+//      accepts these additional points, adds them to the current score, and possible levels up the user if enough points are earned.
+// 2. As an added bit of functionality, the user can pick a new avatar to 'unlock' upon reaching a new level. There should be a 'profile' page
+//      where the user can toggle between all the different unlocked avatars.
 
 
 // ---------------------------------------------------------------------------------------------
 
 // The Segment1 - Segment2 junction:
 
-    // 1. Segment 1 does not need to pass too much information to Segment 2. Possibly, Segment 2 might need to access information about 
-    //      superhero avatar in local storage for interactiveness.
-    // 2. Segment 2, after having calculated new earned points, Segment 2 must pass the number to segment 1 as a raw number. Segment 1 can
-    //      then update score and level in local storage.
+// 1. Segment 1 does not need to pass too much information to Segment 2. Possibly, Segment 2 might need to access information about 
+//      superhero avatar in local storage for interactiveness.
+// 2. Segment 2, after having calculated new earned points, Segment 2 must pass the number to segment 1 as a raw number. Segment 1 can
+//      then update score and level in local storage.
 
 
 // ---------------------------------------------------------------------------------------------
@@ -75,31 +70,31 @@ else {
 // SEGMENT 2: User activity prompting
 
 // OBJECTIVES:
-    // 1. The user is asked if they are going to eat or going to do an activity. This information can be stored in a variable, which
-    //      might be later used in an if-else sequence to determine the application flow.
-    // 2. IF the user is going to do an activity:
-            // They are prompted to put in the address of their starting place.
-            // They are asked to put in the address of their ending location.
-            // They are asked how they plan to arrive there.
-    // 3. IF the user is going to eat:
-            // They are asked to enter what kind of food they are interested in, and possibly given some set of options.
-            // They are asked how they plan on getting there.
+// 1. The user is asked if they are going to eat or going to do an activity. This information can be stored in a variable, which
+//      might be later used in an if-else sequence to determine the application flow.
+// 2. IF the user is going to do an activity:
+// They are prompted to put in the address of their starting place.
+// They are asked to put in the address of their ending location.
+// They are asked how they plan to arrive there.
+// 3. IF the user is going to eat:
+// They are asked to enter what kind of food they are interested in, and possibly given some set of options.
+// They are asked how they plan on getting there.
 
-    // 4. If the user is eating, a DOM table is set up. This table will be built with a jQuery extension library which makes tables more aesthetic and interactive.
-    // 5. Create a basic algorithm for calculating the score from the mode of transportation and distance traveled.
+// 4. If the user is eating, a DOM table is set up. This table will be built with a jQuery extension library which makes tables more aesthetic and interactive.
+// 5. Create a basic algorithm for calculating the score from the mode of transportation and distance traveled.
 
 
 // -----------------------------------------------------------------------------------------------
 
 // The Segment2 - Segment3/4 junction:
 
-    // If the user wants a meal, segment 2 will pass the current address, as well as the restaurant search parameters, to segment3.
-    // If the user just wants to go do an activity, segment 2 will pass to segment 4 the current address and the destination address.
+// If the user wants a meal, segment 2 will pass the current address, as well as the restaurant search parameters, to segment3.
+// If the user just wants to go do an activity, segment 2 will pass to segment 4 the current address and the destination address.
 
-    // NOTE: To be compatible with the Open Route API, address information should be taken from the user and organized into an OBJECT:
-    //  Address object format: {street_number: <>, street_name: <>, city: <>, state: <>, zip_code: <>}
+// NOTE: To be compatible with the Open Route API, address information should be taken from the user and organized into an OBJECT:
+//  Address object format: {street_number: <>, street_name: <>, city: <>, state: <>, zip_code: <>}
 
-        
+
 // ------------------------------------------------------------------------------------------------       
 
 // SEGMENT 3: RESTAURANT SEARCH
@@ -117,22 +112,32 @@ else {
 // 3. These geocoordinates are used by the Open Route API to find a distance.
 // 4. This distance is fed to the segment 2 algorithm to add a certain number of points to the user score.
 
+
 // Colin's work station
-$.ajax({
-url: 'https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=-87.68021,41.95303&end=-87.63451,41.90145',
-method: 'GET'
-}).then(function (response) {
-// console.log(response);
-})
+// add variables in url to add in values
+// need coordinates to be global variables
+function colinFunction(cordA, cordB, transpoMode) {
+
+    var queryUrl = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA +"&end=-87.63451,41.90145";
+
+    $.ajax({
+        url: queryUrl,
+        method: 'GET'
+    }).then(function (response) {
+        console.log("Colin's obj " + response);
+        // console.log(response.____)
+    })
+};
+
 
 // Main function: take in two sets of geo cordinates and calculate the distance of travel. 
 // Create/collab variables for geocords (4 data sets total)
 // Create ajax call to calculate the directions to travel on foot 
 // parse info from object response
 // calculate in terms of miles and minutes traveled
-    // Duration is measured in seconds
-    // Distance is measured in meters
-        // Conversion of meters to miles -- divide total meters by 1609 
+// Duration is measured in seconds
+// Distance is measured in meters
+// Conversion of meters to miles -- divide total meters by 1609 
 
 // Test "1" - branch
 // API key for OR: 
