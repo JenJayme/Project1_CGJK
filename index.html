@@ -12,6 +12,10 @@
 <main id='meal' data-visible="invisible">
     <!-- What are you in the mood for? -->
 </main>
+<main id='confirmation'>
+    <h1>Hello World</h1>
+    <!-- What are you in the mood for? -->
+</main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -48,8 +52,21 @@
         // Longitude comes first, then latitude, in each query url
         url: 'https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=-87.68021,41.95303&end=-87.63451,41.90145',
         method: 'GET'
-    }).then(function (response) {
-        console.log(response)
+    }).then(function (responseB) {
+        console.log("Colin's Obj:");
+        // console checks
+        console.log(responseB);
+        console.log("Total distance travelled " + responseB.features[0].properties.summary.distance);
+        console.log("Total time travelled " + responseB.features[0].properties.summary.duration);
+        // Takes distance in meters and converts it to miles
+        var distanceMeters = responseB.features[0].properties.summary.distance;
+        var distanceMiles = distanceMeters / 1609;
+        // Makes number spit out two decimal places 
+        var twoDecimals = distanceMiles.toFixed(2);
+        // Outputs miles
+        // To do list: 1) Append a p tag with info 
+        $('#confirmation').text("Total distance walked " + twoDecimals+ " miles");
+        console.log("==========================");
     })
 
     // To get a photo, see https://developer.marvel.com/documentation/images
