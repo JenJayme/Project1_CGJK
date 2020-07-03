@@ -15,6 +15,7 @@
         <main id='new-user' class="center" style="display:none">
             <h1 class="center">Welcome!</h1>
             <h2 class="center">Choose a character before you start making healthier choices</h2>
+            <!-- Question from Jen: Do we want to put the superhero characters in an array of objects in the script.js, then when they choose a hero, it assigns the value of that hero to their profile, so we can greet them by name later and customize things based on their character?  In my section where it asks them what they want to do, I was going to greet them "Hello Iron Man" so would look for the name value based on selection. LMK -->
             <div class="row">
                 <div class="col s2 m2 l2">
                 </div>
@@ -81,7 +82,12 @@
                 </main>
                 <main id='initial-prompt' style="display:block">
                     <!-- Screen asking if they are looking for a meal or going to do an activity -->
-                    Yes
+                    <div id=userPromptDiv>
+                        <h1>Hello Iron Man!</h1>
+                        <h2 id="promptEatOrDo">What would you like to do to earn some points?</h2>
+                    </div>
+                    <button id="btn-eat">Grab A Bite</button>
+                    <button id="btn-go">Go Somewhere</button>
                 </main>
                 <main id='activity' style="display:none">
                     <!-- Where are you going and how you are getting there? -->

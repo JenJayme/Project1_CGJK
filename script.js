@@ -2,6 +2,37 @@
 var superheroName;
 var superhero_src;
 var score;
+var moveModesArr = ["walk","bike","run","skateboard","walk-jog"];
+var selectedMoveMove = "";
+var locationsArr = [
+    {
+        locName: "Home",
+        locStreetNumber: "64",
+        locStreetName: "Flicker Drive",
+        locCrossStreet: "Alameda del Prado",
+        locCity: "Novato",
+        locState: "CA",
+        locZip: "94949"
+    } ; {
+        locName: "School",
+        locStreetNumber: "64",
+        locStreetName: "399 Alameda De La Loma",
+        locCrossStreet: "Via Escondida",
+        locCity: "Novato",
+        locState: "CA",
+        locZip: "94949"
+    } ; {
+        locName: "Library",
+        locStreetNumber: "64",
+        locStreetName: "931 C Street",
+        locCrossStreet: "Main Gate Road",
+        locCity: "Novato",
+        locState: "CA",
+        locZip: "94949"
+    }
+];
+
+
 
 
 // The screen switcher function will toggle between which screen is displayed.
@@ -22,7 +53,6 @@ function screen_switcher(id_name) {
 };
 
 // SEGMENT 1: USER INITIALIZATION
-// Kaitlins workstation
 
 // This initialiation sequence will assess whether or not the user is new or returning
 
