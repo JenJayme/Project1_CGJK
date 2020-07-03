@@ -239,18 +239,51 @@ function update_score(points) {
 
 // Gabe's Workstation
 
-function find_restuarant(initial_lat, initial_lon, trans_mode) {
-    var queryURL = 'https://developers.zomato.com/api/v2.1/search?' +
+function find_restaurants(address_object, trans_mode) {
+    var street_num = address_object.locStreetNumber;
+    var street_name = address_object.locStreetName;
+    var city = address_object.locCity;
+    var state = address_object.locState
+    var zip_code = address_object.locZip;
+
+    var current_loc_url = 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=' + street_num + '&streetName=' + street_name + '&municipality=' + city + '&countrySubdivision=' + state + '&postalCode=' + zip_code
+    $.ajax({
+        url: current_loc_url,
+        method: 'GET'
+    }).then(function(response) {
+
+        console.log(response)
+        var current_lat = response.results[0].position.lat;
+        var current_lon = response.results[0].position.lon;
+
+        let zomato_url = 'https://developers.zomato.com/api/v2.1/search?q=Healthy&lat=' + current_lat + '&lon=' + current_lon + '&radius=3218'
         $.ajax({
-            url: 'https://developers.zomato.com/api/v2.1/search?q=Mexican&q=Healthy&count=4',
+            url: zomato_url,
             method: 'GET',
             headers: {
                 'X-Zomato-API-Key': '1dc29c917607ec14f7f9f5309c721b3c'
-            }
+            }   
         }).then(function (response) {
             console.log(response)
+            for (const place of response.restaurants) {
+                let restaurant_name = place.restaurant.name;
+                let restaurant_lat = place.restaurant.location.latitude;
+                let restaurant_lon = place.restaurant.location.longitude;
+                openRoute_url = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + current_lon + ',' + current_lat + "&end=" + restaurant_lon + ',' + restaurant_lat;
+                $.ajax({
+                    url: openRoute_url,
+                    method: 'GET'
+                }).then(function(response){
+                    console.log(restaurant_name)
+                    console.log(response)
+                })
+            }
         })
+    })
+        
 }
+
+find_restaurants(locationsArr[1])
 
 // 1. An AJAX call will be made to find some number of related restaurants in the area matching the keys within a certain radius.
 // 2. The address of each restaurant will be converted to geocoordinates using the TomTom API
