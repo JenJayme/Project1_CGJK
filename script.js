@@ -67,12 +67,11 @@ var locationsArr = [
 function screen_switcher(id_name) {
 
     var main_divs = $('main');
-    for (i=0; i<main_divs.length; i++) {
+    for (i = 0; i < main_divs.length; i++) {
         console.log(main_divs[i])
         if (main_divs[i].getAttribute('id') === id_name) {
             main_divs[i].setAttribute('style', 'display:block');
-        }
-        else {
+        } else {
             main_divs[i].setAttribute('style', 'display:none')
         };
         console.log(main_divs[i])
@@ -90,17 +89,15 @@ function display_UI() {
 
 if (localStorage.getItem('user character') === null) {
     screen_switcher('new-user');
-    $('.card').on("click", function() {
+    $('.card').on("click", function () {
         localStorage.setItem('user character', $(this).attr('id'));
         localStorage.setItem('user score', 0);
-        
+
         $('#user-interface').attr('style', "display:block")
         screen_switcher('initial-prompt');
 
     })
-}
-
-else {
+} else {
 
     display_UI()
     screen_switcher('initial-prompt')
@@ -243,16 +240,18 @@ function update_score(points) {
 // Gabe's Workstation
 
 function find_restuarant(initial_lat, initial_lon, trans_mode) {
-    var queryURL = 'https://developers.zomato.com/api/v2.1/search?' + 
-    $.ajax({
+    var queryURL = 'https://developers.zomato.com/api/v2.1/search?' +
+        $.ajax({
             url: 'https://developers.zomato.com/api/v2.1/search?q=Mexican&q=Healthy&count=4',
             method: 'GET',
-            headers: { 'X-Zomato-API-Key': '1dc29c917607ec14f7f9f5309c721b3c' }
+            headers: {
+                'X-Zomato-API-Key': '1dc29c917607ec14f7f9f5309c721b3c'
+            }
         }).then(function (response) {
             console.log(response)
         })
 }
-    
+
 // 1. An AJAX call will be made to find some number of related restaurants in the area matching the keys within a certain radius.
 // 2. The address of each restaurant will be converted to geocoordinates using the TomTom API
 // 3. The current address is fed to the TomTom API to get geocoordinates.
@@ -261,39 +260,129 @@ function find_restuarant(initial_lat, initial_lon, trans_mode) {
 
 // ------------------------------------------------------------------------------------------------
 // SEGMENT 4: GENERAL MOVEMENT SEARCH
-// 1. The start and ending addresses are give from segment 2 in the form of the object.
+// Process Overview
+// 1. The starting and ending addresses are give from segment 2 in the form of the object.
 // 2. The TomTom API converts these to geocoordinates.
 // 3. These geocoordinates are used by the Open Route API to find a distance.
 // 4. This distance is fed to the segment 2 algorithm to add a certain number of points to the user score.
 
+// Taking address info from Jen and creating geo-cords from it
+function tomTomNoFood() {
 
-// Colin's work station
-// add variables in url to add in values
-// need coordinates to be global variables
-function colinFunction(cordA, cordB, transpoMode) {
+    // local variables to use in openRoute
+    var cordA = '';
+    var cordB = '';
 
-    var queryUrl = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA +"&end=-87.63451,41.90145";
-
+    // First TomTom call - from HOME
     $.ajax({
-        url: queryUrl,
+        // &countrySubdivision=Illinoiso&postalCode=60618 example of state and zip 
+        // might need states to be spelled fully. 
+        url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=' + locationsArr[0].locStreetNumber + '&streetName=' + locationsArr[0].locStreetName + '&municipality=' + locationsArr[0].locCity + '&countrySubdivision=' + locationsArr[0].locState + '&postalCode=' + locationsArr[0].locZip,
         method: 'GET'
-    }).then(function (response) {
-        console.log("Colin's obj " + response);
-        // console.log(response.____)
+    }).then(function (responseTTNFa) {
+
+        // console log clarity 
+        console.log("First cordinate");
+        console.log(responseTTNFa);
+        console.log("======================")
+
+        // Testing Geo-Cordinates from first TomTom call
+        console.log(responseTTNFa[1].lat);
+        console.log(responseTTNFa[1].lon);
+
+        //  Geo-Cordinates from first TomTom call
+        cordA = (responseTTNFa[1].lat) + "," + responseTTNFa[1].lon;
     })
+
+    // Second TomTom call - from Secondary Location
+    // COMMENT - Only works if Secondary Location is located as the second object in locationsArr
+    $.ajax({
+        // &countrySubdivision=Illinoiso&postalCode=60618 example of state and zip 
+        // might need states to be spelled fully. 
+        url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=' + locationsArr[1].locStreetNumber + '&streetName=' + locationsArr[1].locStreetName + '&municipality=' + locationsArr[1].locCity + '&countrySubdivision=' + locationsArr[1].locState + '&postalCode=' + locationsArr[1].locZip,
+        method: 'GET'
+    }).then(function (responseTTNFb) {
+
+        // console log clarity 
+        console.log("First cordinate");
+        console.log(responseTTNFb);
+        console.log("======================")
+
+        // Testing Geo-Cordinates from first TomTom call
+        console.log(responseTTNFb[1].lat);
+        console.log(responseTTNFb[1].lon);
+
+        //  Geo-Cordinates from first TomTom call
+        cordB = (responseTTNFb[1].lat) + "," + responseTTNFb[1].lon;
+    })
+
+
+    // conditional to make sure openRoute isn't called until both geocordinates are filled in
+    if ((cordA !== '') && (cordB !== '')) {
+        // Only call openRoute AFTER you get geo-cords from TT
+        openRouteNF();
+    }
+
+
+    // Taking mode of travel response from user & Jen
+    // Test variable
+    // selectedMoveMode = "bike";
+
+    function openRouteNF(cordA, cordB) {
+
+        // Console log tests for cords
+        console.log("Colins TT cord check");
+        console.log("cordA =" + cordA);
+        console.log("cordB =" + cordB);
+        console.log("================");
+
+        // Test cordinate values from TomTom
+        // var cordA = "-87.68021,41.95303";
+        // var cordB = "-87.63451,41.90145";
+
+        if ((moveMode === "walk") || (moveMode === "run")) {
+            var queryUrl = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
+
+        } else {
+            var queryUrl = "https://api.openrouteservice.org/v2/directions/cycling-regular?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
+
+        };
+        $.ajax({
+            // Longitude comes first, then latitude, in each query url
+            url: queryUrl,
+            method: 'GET'
+        }).then(function (response) {
+
+            // console checks
+            console.log("Colin's Obj:");
+            console.log(response);
+            console.log("Total distance traveled " + responseB.features[0].properties.summary.distance);
+            console.log("Total time travelled " + responseB.features[0].properties.summary.duration);
+
+
+            // Takes distance in meters and converts it to miles
+            var distanceMeters = responseB.features[0].properties.summary.distance;
+            var distanceMiles = distanceMeters / 1609;
+            // Makes number spit out two decimal places 
+            var twoDecimals = distanceMiles.toFixed(2);
+            // Outputs miles
+            // To do list: 1) Append a p tag with info 
+            $('#confirmation').text("Total distance walked " + twoDecimals + " miles");
+            console.log("==========================");
+        });
+    };
 };
 
+// Create generate score function here?
 
-// Main function: take in two sets of geo cordinates and calculate the distance of travel. 
-// Create/collab variables for geocords (4 data sets total)
-// Create ajax call to calculate the directions to travel on foot 
-// parse info from object response
-// calculate in terms of miles and minutes traveled
-// Duration is measured in seconds
-// Distance is measured in meters
-// Conversion of meters to miles -- divide total meters by 1609 
 
-// Test "1" - branch
+// Marvel API
+// To get a photo, see https://developer.marvel.com/documentation/images
+//   $.ajax({
+//     url: 'https://gateway.marvel.com:443/v1/public/characters?&apikey=e4b2fe04b3afe81bc5f373b59655f738',
+//     method: 'GET'
+// })
+
 // API key for OR: 
 // 5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3
 
