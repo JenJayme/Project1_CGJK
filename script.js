@@ -182,7 +182,9 @@ function find_restuarant(initial_lat, initial_lon, trans_mode) {
 
 
 // Taking address info from Jen and creating geo-cords from it
-function tomTomNoFood() {
+function tomTomNoFood(address_one, address_two) {
+    // address_one and address_two are objects
+    var locName = address_one.locName;
 
     // local variables to use in openRoute
     var cordA = '';
@@ -207,6 +209,7 @@ function tomTomNoFood() {
 
         //  Geo-Cordinates from first TomTom call
         cordA = (responseTTNFa[1].lat) + "," + responseTTNFa[1].lon;
+        
     })
 
     // Second TomTom call - from Secondary Location
