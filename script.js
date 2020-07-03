@@ -265,14 +265,21 @@ function find_restuarant(initial_lat, initial_lon, trans_mode) {
 // Taking address info from Jen and creating geo-cords from it
 function doubleAddressRoute(addressObj1, addressObj2) {
 
-    // Extracting info from address object 1
-    var streetNumber1 = addressObj1.locStreetNumber;
-    var streetName1 = addressObj1.locStreetName;
-    // var crossStreet1 = addressObj1.locCrossStreet;
-    var city1 = addressObj1.locCity;
-    var state1 = addressObj1.locState;
-    var zip1 = addressObj1.locZip;
+    // // Extracting info from address object 1
+    // var streetNumber1 = addressObj1.locStreetNumber;
+    // var streetName1 = addressObj1.locStreetName;
+    // // var crossStreet1 = addressObj1.locCrossStreet;
+    // var city1 = addressObj1.locCity;
+    // var state1 = addressObj1.locState;
+    // var zip1 = addressObj1.locZip;
 
+      // Testing TomTom with Address 1
+      var streetNumber1 = "1421";
+      var streetName1 = "Lexington Drive";
+      // var crossStreet1 = addressObj1.locCrossStreet;
+      var city1 = "San Jose";
+      var state1 = "CA";
+      var zip1 = "95117";
 
     // local variables to use in openRoute
     var cordA = '';
@@ -287,13 +294,13 @@ function doubleAddressRoute(addressObj1, addressObj2) {
     }).then(function (responseOne) {
 
         // console log clarity 
-        console.log("First cordinate");
+        console.log("First cordinate:");
         console.log(responseOne);
         console.log("======================")
 
         // Testing Geo-Cordinates from first TomTom call
-        console.log(responseOne[1].lat);
-        console.log(responseOne[1].lon);
+        console.log(responseOne.results[0].position.lat);
+        console.log(responseOne.results[0].position.lon);
 
         //  Geo-Cordinates from first TomTom call
         cordA = (responseOne[1].lat) + "," + responseOne[1].lon;
@@ -348,7 +355,7 @@ function doubleAddressRoute(addressObj1, addressObj2) {
                 // var cordA = "-87.68021,41.95303";
                 // var cordB = "-87.63451,41.90145";
 
-                if ((moveMode === "walk") || (moveMode === "run")) {
+                if (((selectedMoveMode === "walk") || (selectedMoveMode === "run") || (selectedMoveMode === "walk-jog"))){
                     var queryUrl = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
 
                 } else {
@@ -377,6 +384,10 @@ function doubleAddressRoute(addressObj1, addressObj2) {
                     // To do list: 1) Append a p tag with info 
                     $('#confirmation').text("Total distance walked " + twoDecimals + " miles");
                     console.log("==========================");
+
+
+                    // Create generate score function here?
+                    // Test 1
                 });
             };
         })
@@ -385,17 +396,13 @@ function doubleAddressRoute(addressObj1, addressObj2) {
 
 // Create generate score function here?
 // Test 1
-
-// Marvel API
-// To get a photo, see https://developer.marvel.com/documentation/images
-//   $.ajax({
-//     url: 'https://gateway.marvel.com:443/v1/public/characters?&apikey=e4b2fe04b3afe81bc5f373b59655f738',
-//     method: 'GET'
-// })
+doubleAddressRoute ();
 
 // API key for OR: 
 // 5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3
 
 $(document).ready(function () {
+
+
     // buildHeroCards()
 });
