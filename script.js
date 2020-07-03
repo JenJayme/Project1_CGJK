@@ -273,13 +273,13 @@ function doubleAddressRoute(addressObj1, addressObj2) {
     // var state1 = addressObj1.locState;
     // var zip1 = addressObj1.locZip;
 
-      // Testing TomTom with Address 1
-      var streetNumber1 = "1421";
-      var streetName1 = "Lexington Drive";
-      // var crossStreet1 = addressObj1.locCrossStreet;
-      var city1 = "San Jose";
-      var state1 = "CA";
-      var zip1 = "95117";
+    // Testing TomTom with Address 1
+    var streetNumber1 = "1421";
+    var streetName1 = "Lexington Drive";
+    // var crossStreet1 = addressObj1.locCrossStreet;
+    var city1 = "San Jose";
+    var state1 = "CA";
+    var zip1 = "95117";
 
     // local variables to use in openRoute
     var cordA = '';
@@ -299,20 +299,27 @@ function doubleAddressRoute(addressObj1, addressObj2) {
         console.log("======================")
 
         // Testing Geo-Cordinates from first TomTom call
-        console.log(responseOne.results[0].position.lat);
-        console.log(responseOne.results[0].position.lon);
+        console.log("First lat: " + responseOne.results[0].position.lat);
+        console.log("First lon: " + responseOne.results[0].position.lon);
 
         //  Geo-Cordinates from first TomTom call
-        cordA = (responseOne[1].lat) + "," + responseOne[1].lon;
+        cordA = responseOne.results[0].position.lat + "," + responseOne.results[0].position.lon;
 
-    // Extracting info from address object 2
-        var streetNumber2 = addressObj2.locStreetNumber;
-        var streetName2 = addressObj2.locStreetName;
+        // // Extracting info from address object 2
+        // var streetNumber2 = addressObj2.locStreetNumber;
+        // var streetName2 = addressObj2.locStreetName;
+        // // var crossStreet1 = addressObj1.locCrossStreet;
+        // var city2 = addressObj2.locCity;
+        // var state2 = addressObj2.locState;
+        // var zip2 = addressObj2.locZip;
+
+        // Testing TomTom with Address 2
+        var streetNumber2 = "10100";
+        var streetName2 = "Finch Ave";
         // var crossStreet1 = addressObj1.locCrossStreet;
-        var city2 = addressObj2.locCity;
-        var state2 = addressObj2.locState;
-        var zip2 = addressObj2.locZip;
-
+        var city2 = "Cupertino";
+        var state2 = "CA";
+        var zip2 = "95014";
         // Second TomTom call - from Secondary Location
         // COMMENT - Only works if Secondary Location is located as the second object in locationsArr
         $.ajax({
@@ -322,19 +329,22 @@ function doubleAddressRoute(addressObj1, addressObj2) {
             url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=' + streetNumber2 + '&streetName=' + streetName2 + '&municipality=' + city2 + '&countrySubdivision=' + state2 + '&postalCode=' + zip2,
             method: 'GET'
 
-        }).then(function (responseTTNFb) {
+        }).then(function (responseTwo) {
 
             // console log clarity 
             console.log("Second cordinate");
-            console.log(responseTTNFb);
+            console.log(responseTwo);
             console.log("======================")
 
             // Testing Geo-Cordinates from first TomTom call
-            console.log(responseTTNFb[1].lat);
-            console.log(responseTTNFb[1].lon);
+            console.log("Second lat: " + responseTwo.results[0].position.lat);
+            console.log("Second lon: " + responseTwo.results[0].position.lon);
 
             //  Geo-Cordinates from first TomTom call
-            cordB = (responseTTNFb[1].lat) + "," + responseTTNFb[1].lon;
+            cordB = responseTwo.results[0].position.lat + "," + responseTwo.results[0].position.lon;
+
+            console.log("This is cordA: " +cordA);
+            console.log("This is cordB: " +cordB);
 
             // Calling openRoute API
             openRouteNF();
@@ -343,10 +353,9 @@ function doubleAddressRoute(addressObj1, addressObj2) {
             // Test variable
             // selectedMoveMode = "bike";
 
-            function openRouteNF(cordA, cordB) {
+            function openRouteNF() {
 
                 // Console log tests for cords
-                console.log("Colins TT cord check");
                 console.log("cordA =" + cordA);
                 console.log("cordB =" + cordB);
                 console.log("================");
@@ -355,7 +364,9 @@ function doubleAddressRoute(addressObj1, addressObj2) {
                 // var cordA = "-87.68021,41.95303";
                 // var cordB = "-87.63451,41.90145";
 
-                if (((selectedMoveMode === "walk") || (selectedMoveMode === "run") || (selectedMoveMode === "walk-jog"))){
+                selectedMoveMode = "walk";
+
+                if (((selectedMoveMode === "walk") || (selectedMoveMode === "run") || (selectedMoveMode === "walk-jog"))) {
                     var queryUrl = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
 
                 } else {
@@ -396,7 +407,7 @@ function doubleAddressRoute(addressObj1, addressObj2) {
 
 // Create generate score function here?
 // Test 1
-doubleAddressRoute ();
+doubleAddressRoute();
 
 // API key for OR: 
 // 5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3
