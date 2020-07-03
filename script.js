@@ -8,6 +8,7 @@ var moveModesArr = ["walk", "bike", "run", "skateboard", "walk-jog"];
 var selectedMoveMode = "";
 
 // The following array will be replaced by an api function "get superheroes" from Gabe that returns an array of superhero objects.  This is just mock data for us to use in page layout.
+
 var heroesArr = [{
     heroID: 1,
     heroName: "Black Widow",
@@ -26,9 +27,11 @@ var heroesArr = [{
     heroImgURL: "https://ca-times.brightspotcdn.com/dims4/default/4c8db25/2147483647/strip/true/crop/1988x1118+0+0/resize/840x472!/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F0d%2F8a%2Fd79cac66abbd1b9731dcee088d54%2Fla-trabrown-1478289681-snap-photo"
 }];
 
+
 console.log(heroesArr);
 
 // The following "locations" array of objects is designed to be used in a drop-down for saved start points and destinations, and can be appended when user enters new locations.  I've entered some mock data for testing. -Jen
+
 var locationsArr = [{
     locName: "Home",
     locStreetNumber: "64",
@@ -54,6 +57,7 @@ var locationsArr = [{
     locState: "CA",
     locZip: "94949"
 }];
+
 
 //When user selects a location from the locationArr, the selected object will be pushed to travelStart and destination.  Alternately, we could simply push locationsArr.locName[i] to travelStart 
 // var travelStart = {};
@@ -153,31 +157,83 @@ function update_score(points) {
 
 // ---------------------------------------------------------------------------------------------
 
-// SEGMENT 2: User activity prompting - following lines need to be adjusted to sync up var names. This is work from tutoring session but requires tinkering.  
-// finish this function to push addressFormObj to locationsArr
-// var addressFormObj;
-// var pointsEarned;
-// var submitBtn = $('#submitBtn');
-// const LS_KEY = "journey";
-// // Retrieves the form values and assign to addressFormObj as an object
-// function getFormValues() {
-//   var transportMode;
-//   var startAddress = $('#startAddress').val(), 
-//       startCity = $('#startCity').val(), 
-//       startState = $('#startState').val(), 
-//       startZip = $('#startZip').val(), ;
-//   var destinationAddress, destinationCity, destinationState, destinationZip;
-//   addressFormObj = {
-//     transportMode : transportMode,
-//     startAddress: startAddress,
-//     startCity: startCity,
-//     startState: startState,
-//     startZip: startZip
-//     destinationAddress: destinationAddress,
-//     destinationCity: destinationCity,
-//     destinationState: destinationState,
-//     destinationZip: destinationZip
-//   };
+// SEGMENT 2: USER ACTIVITY PROMPTING - OBJECTIVES:
+// 1. The user is asked if they are going to eat or do an activity. Their responses will be used in an if-else sequence to determine the application flow.
+// As of 7.3, the question "What would you like to do" is inserted into a div in the index.html, with buttons for Grab A Bite and Go Somewhere.
+//TO DO: Need to write event listeners on those buttons to call functions to screen switch to activity or meal divs.
+
+// TO DO: The following function will create start and end point objects for use by Colin's function, and also push those to the locations array.  Needs to be finished and adjusted to sync up var names
+
+//need an event listener on this
+// screen_switcher("address-input");
+var submitBtn = $('#submitBtn');
+
+function getStartValues() {
+    // Retrieves the form values and assigns them to startPointObj
+    var startPointObj;
+    var startLocName = $('#startLocName').val();
+    var startAddress = $('#startAddress').val();
+    startCity = $('#startCity').val();
+    startState = $('#startState').val();
+    startZip = $('#startZip').val();
+
+    startPointObj = {
+        startAddress: startAddress,
+        startCity: startCity,
+        startState: startState,
+        startZip: startZip
+    }; // end of startPointObj
+
+    return startPointObj;
+}// end of getStartValues function
+
+//we probably don't need this stuff:
+// function startingPointSaver () {
+//     const LS_KEY = "journey";
+// }; end of startingPointSaver function
+// function endPointSaver {
+//     // Retrieves the form values and assigns them to endPointObj
+//     var submitBtn = $('#submitBtn');
+//     const LS_KEY = "journey";
+
+function getEndValues() {
+    var endPointObj, endLocName, endAddress, endCity, endState, endZip;
+    endLocName = $('#endLocName').val();
+    endAddress = $('#endAddress').val();
+    endCity = $('#endCity').val();
+    endState: $('#endState').val();
+    endZip = $('#endZip').val();
+
+    endPointObj = {
+        endLocName: endLocName,
+        endAddress: endAddress,
+        endCity: endCity,
+        endState: endState,
+        endZip: endZip
+    } // end of endPointObj
+    return endPointObj;
+}; // end of getEndValues function
+
+function storeLocations(startPointObj,endPointObj) {
+    // localStorage.saveItem(LS_KEY, JSON.stringify(startPointobj));
+    locationsArr.push(startPointObj);
+    locationsArr.push(endPointObj);
+}; //end of storeLocations function
+// };//end of endPointSaver function
+
+// var goBtn = $('#btn-go');
+// goBtn.on('click', screen_switcher("address-input"));
+
+screen_switcher("address-input");
+
+submitBtn.on('click', function(event) {
+    event.preventDefault();
+    var startPointObj = getStartValues();
+    var endPointObj = getEndValues();
+    storeLocations(startPointObj, endPointObj);
+    console.log("PointA :"+ JSON.stringify(startPointObj) + "PointB :" + JSON.stringify(endPointObj))
+});
+
 // }
 // function saveToLocalStorage(obj) {
 //   localStorage.saveItem(LS_KEY, JSON.stringify(obj));
@@ -187,20 +243,8 @@ function update_score(points) {
 //   // TODO: submit distance via API call that calculates the points
 //   // Save the calculated points to pointsEarned variable
 // }
-// submitBtn.on('click', function() {
-//   getFormValues();
-//   saveToLocalStorage();
-//   calculatePoints();
-// });
 
 
-// OBJECTIVES:
-// 1. The user is asked if they are going to eat or going to do an activity. This information can be stored in a variable, which
-//      might be later used in an if-else sequence to determine the application flow.
-
-// 7.2.20 6:50pm Status from Jen:
-// The question "What would you like to do" is inserted into the div in the index.html, along with buttons for Grab A Bite and Go Somewhere.  
-//Event listeners on those buttons will initialize functions to prompt user for answers: 
 //onclick Go Somewhere, prompt user to select mode of transportation, and enter start point and destination.  Start point and destination can be selected from a drop-down which pulls options from the Locations array on the script.
 
 //onclick Grab a Bite, prompt user to select mode of transport and start point, then launch Zomato search (Gabe's function).  
@@ -229,13 +273,13 @@ function update_score(points) {
 //  Address object format: {street_number: <>, street_name: <>, city: <>, state: <>, zip_code: <>}
 
 
-// ------------------------------------------------------------------------------------------------       
+// ------------------------------------------------------------------------------------------------
 
 // SEGMENT 3: RESTAURANT SEARCH
 
 // Gabe's Workstation
-
-function find_restuarant(initial_lat, initial_lon, trans_mode) {
+function find_restaraunt(initial_lat, initial_lon, trans_mode) {
+    // Note to Gabe: I hope you don't mind, I fixed a typo on restaurant here.  It was spelled incorrectly as restaurant. OK? -Jen 7.3.20
     var queryURL = 'https://developers.zomato.com/api/v2.1/search?' +
         $.ajax({
             url: 'https://developers.zomato.com/api/v2.1/search?q=Mexican&q=Healthy&count=4',
@@ -416,6 +460,9 @@ doubleAddressRoute();
 // 5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3
 
 $(document).ready(function () {
+
+
+
 
 
     // buildHeroCards()

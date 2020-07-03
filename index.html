@@ -96,7 +96,10 @@
                     <button id="btn-eat">Grab A Bite</button>
                     <button id="btn-go">Go Somewhere</button>
                 </main>
-                <main id="go-somewhere-div" style="display:block">
+
+                <!-- Section 2 (Jen): Following div is for when user wants to go somewhere. This space holds a form with input prompts for mode of transport, start address & destination.-->
+
+                <main id="activity" style="display:block">
                     <h2>How do you plan to travel?</h2>
                     <form action="#">
                         <p>
@@ -125,11 +128,14 @@
                         </p>
                     </form>
                 </main>
-                <main id="address-input" style="display:block">
-                    <form class="input-field">
+
+                <!-- Section 2 (Jen): Next div is for when user wants to have a meal.  This space holds a form with prompts to choose mode of transport and enter start address.  Submit button will launch Zomato function. -->
+                <main id="address-input" style="display:none">
+                    <form method="post" class="input-field">
                         <div class="row">
                             <div class="col s4 m4 l4">
                                 <h4>Starting Location</h4>
+                                Location Name <input type="text" id="startLocName" name="startLocName" />
                                 Address <input type="text" id="startAddress" name="startAddress" />
                                 City <input type="text" id="startCity" name="startCity" />
                                 State <input type="text" id="startState" name="startState" />
@@ -137,19 +143,22 @@
                             </div>
                             <div class="col s4 m4 l4">
                                 <h4>Destination</h4>
-                                Address: <input type="text" id="endAddress" name="endAddress" />
-                                City: <input type="text" id="endCity" name="endCity" />
-                                State: <input type="text" id="endState" name="endState" />
+                                Location Name <input type="text" id="endLocName" name="endLocName" />
+                                Address <input type="text" id="endAddress" name="endAddress" />
+                                City <input type="text" id="endCity" name="endCity" />
+                                State <input type="text" id="endState" name="endState" />
                                 Zip <input type="text" id="endZip" name="endZip" />
                             </div>
                         </div>
                         <div class="row">
                             <div class="col s4 m4 l4">
                                 <input type="submit" id="submitBtn" class="submit-button" style="align-items: center;">
+                                <!-- TODO: add an click event listener to submit button the click event handler must read in the form values -->
                             </div>
                         </div>
                     </form>
                 </main>
+
                 </main>
                 <!-- TODO: add an click event listener to submit button the click event handler must read in the form values -->
 
@@ -197,6 +206,7 @@
             -->
     </div>
 
+
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -215,7 +225,7 @@
         // // TomTom API
 
         // $.ajax({
-        //     url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=3920&streetName=Seeley&municipality=Chicago&countrySubdivision=Illinoiso&postalCode=60618',
+        //     url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=3920&streetName=Seeley&municipality=Chicago&countrySubdivision=Il&postalCode=60618',
         //     method: 'GET'
         // }).then(function (response) {
         //     console.log(response)
