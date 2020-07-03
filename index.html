@@ -1,114 +1,159 @@
-<main id='new_user' data-visible="visible">
-    <!-- Screen for new user -->
-</main>
-<main id='my_profile' data-visible="invisible">
-</main>
-<main id='initial_prompt' data-visible='invisible'>
-    <!-- Screen asking if they are looking for a meal or going to do an activity -->
-</main>
-<main id='activity' data-visible='invisible'>
-    <!-- Where are you going and how you are getting there? -->
-</main>
-<main id='meal' data-visible="invisible">
-    <!-- What are you in the mood for? -->
-</main>
-<main id='confirmation'>
-    <h1>Hello World</h1>
-    <!-- What are you in the mood for? -->
-</main>
+<html>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript">
-    // Zomato API
+<head>
 
-    $.ajax({
-        url: 'https://developers.zomato.com/api/v2.1/search?q=Burger&count=4',
-        method: 'GET',
-        headers: {
-            'X-Zomato-API-Key': '1dc29c917607ec14f7f9f5309c721b3c'
-        }
-    }).then(function (response) {
-        console.log(response)
-    })
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    // TomTom API
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
 
-    $.ajax({
-        url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=3920&streetName=Seeley&municipality=Chicago&countrySubdivision=Illinoiso&postalCode=60618',
-        method: 'GET'
-    }).then(function (response) {
-        console.log(response)
-    })
+<body>
 
-    $.ajax({
-        url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=1034&streetName=Wells&municipality=Chicago&countrySubdivision=Illinois&postalCode=60610',
-        method: 'GET'
-    }).then(function (response) {
-        console.log(response)
-    })
+    <div class="container">
+        <main id='new-user' class="center" style="display:none">
+            <h1 class="center">Welcome!</h1>
+            <h2 class="center">Choose a character before you start making healthier choices</h2>
+            <!-- Question from Jen: How do I access the chosen superhero name so on my section it can greet them with "Hello Iron Man, what would you like to do to earn some points?"" (grab a meal or go somewhere)  After the ajax query do we get an object back with the superhero's info, from which I can grab the hero name? LMK -->
+            <div class="row">
+                <div class="col s2 m2 l2">
+                </div>
+                <div class="col s2 m2 l2">
+                    <div class="card" id="Miles Morales">
+                        <div class="card-image">
+                            <img
+                                src="https://66.media.tumblr.com/1660aaf63f281fc31564d42c8b3ed887/tumblr_pku5xlUfU11rda9da_540.jpg">
+                        </div>
+                        <div class="card-content">
+                            <p>Hero Name</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s2 m2 l2">
+                    <div class="card" id="Iron Man">
+                        <div class="card-image">
+                            <img src="https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg">
+                        </div>
+                        <div class="card-content">
+                            <p>Hero Name</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s2 m2 l2">
+                    <div class="card" id="Black Widow">
+                        <div class="card-image">
+                            <img src="https://i.pinimg.com/originals/64/16/a9/6416a9d467b9d4d8149586c51171eb55.jpg">
+                        </div>
+                        <div class="card-content">
+                            <p>Hero Name</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s2 m2 l2">
+                    <div class="card" id="Ms Marvel">
+                        <div class="card-image">
+                            <img
+                                src="https://ca-times.brightspotcdn.com/dims4/default/4c8db25/2147483647/strip/true/crop/1988x1118+0+0/resize/840x472!/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F0d%2F8a%2Fd79cac66abbd1b9731dcee088d54%2Fla-trabrown-1478289681-snap-photo">
+                        </div>
+                        <div class="card-content">
+                            <p>Hero Name</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s2 m2 l2">
+                </div>
+            </div>
 
-    // Open Route API - Colin's workspace
-    // var cordA = "-87.68021,41.95303";
-    // var cordB = "-87.63451,41.90145";
+        </main>
 
-    // Taking mode of travel response from user & Jen
-    selectedMoveMode = "bike";
+        <div id="user-interface" class="row" style="display:none">
 
-    // CHANGE
-    function colinFunction(cordA, cordB) {
+            <div class="col s3 grey">
+                <!-- Grey navigation panel -->
+                <img id="profile-img" src="" class="responsive-img"> 
+            </div>
 
-        // cordinate values from TomTom
-        var cordA = "-87.68021,41.95303";
-        var cordB = "-87.63451,41.90145";
+            <div class="col s9">
+                <!-- Teal page content  -->
+
+                <main id='my-profile' style="display:none">
+
+                </main>
+                <main id='initial-prompt' style="display:block">
+                    <!-- Screen asking if they are looking for a meal or going to do an activity -->
+                    <div id=userPromptDiv>
+                        <h1>Hello Iron Man!</h1>
+                        <h2 id="promptEatOrDo">What would you like to do to earn some points?</h2>
+                    </div>
+                    <button id="btn-eat">Grab A Bite</button>
+                    <button id="btn-go">Go Somewhere</button>
+                </main>
+                <main id='activity' style="display:none">
+                    <!-- Where are you going and how you are getting there? -->
+                    Yes
+                </main>
+                <main id='meal' style="display:none">
+                    <!-- What are you in the mood for? -->
+                </main>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+
+    <!-- // Zomato API
+
+        // $.ajax({
+        //     url: 'https://developers.zomato.com/api/v2.1/search?q=Mexican&q=Healthy&count=4',
+        //     method: 'GET',
+        //     headers: { 'X-Zomato-API-Key': '1dc29c917607ec14f7f9f5309c721b3c' }
+        // }).then(function (response) {
+        //     console.log(response)
+        // })
+
+        // // TomTom API
+
+        // $.ajax({
+        //     url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=3920&streetName=Seeley&municipality=Chicago&countrySubdivision=Illinoiso&postalCode=60618',
+        //     method: 'GET'
+        // }).then(function (response) {
+        //     console.log(response)
+        // })
+
+        // $.ajax({
+        //     url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=1034&streetName=Wells&municipality=Chicago&countrySubdivision=Illinois&postalCode=60610',
+        //     method: 'GET'
+        // }).then(function (response) {
+
+        // })
+
+        // // Open Route API
+
+        // $.ajax({
+        //     // Longitude comes first, then latitude, in each query url
+        //     url: 'https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=-87.68021,41.95303&end=-87.63451,41.90145',
+        //     method: 'GET'
+        // }).then(function (response) {
+        //     console.log(response)
+        // })
+
+        // // To get a photo, see https://developer.marvel.com/documentation/images
+        // $.ajax({
+        //     url: 'https://gateway.marvel.com:443/v1/public/characters?&apikey=e4b2fe04b3afe81bc5f373b59655f738',
+        //     method: 'GET'
+        // }) -->
+    <!-- Test 2 branch -->
 
 
-        if ((moveMode === "walk") || (moveMode === "run")) {
-            var queryUrl = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
+    <!-- Zomato API key: 1dc29c917607ec14f7f9f5309c721b3c -->
+    <!-- Geocoder API key:  AIzaSyB-nfaiC7qS-317U3UHDjGo4JVc0gW8m_A-->
+    <!-- Route distance calculator API key: 5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3 -->
+    <!-- Marvel, Public key: e4b2fe04b3afe81bc5f373b59655f738 -->
 
-        } else {
-        var queryUrl = "https://api.openrouteservice.org/v2/directions/cycling-regular?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
-        
-    };
-        $.ajax({
-            // Longitude comes first, then latitude, in each query url
-            url: queryUrl,
-            method: 'GET'
-        }).then(function (responseB) {
+</body>
 
-            // console checks
-            console.log("Colin's Obj:");
-            console.log(responseB);
-            console.log("Total distance travelled " + responseB.features[0].properties.summary.distance);
-            console.log("Total time travelled " + responseB.features[0].properties.summary.duration);
-
-
-            // Takes distance in meters and converts it to miles
-            var distanceMeters = responseB.features[0].properties.summary.distance;
-            var distanceMiles = distanceMeters / 1609;
-            // Makes number spit out two decimal places 
-            var twoDecimals = distanceMiles.toFixed(2);
-            // Outputs miles
-            // To do list: 1) Append a p tag with info 
-            $('#confirmation').text("Total distance walked " + twoDecimals + " miles");
-            console.log("==========================");
-
-            // function colinFunction(cordA, cordB, transpoMode) {
-                // something new 
-        })
-    };
-
-
-    // To get a photo, see https://developer.marvel.com/documentation/images
-    $.ajax({
-        url: 'https://gateway.marvel.com:443/v1/public/characters?&apikey=e4b2fe04b3afe81bc5f373b59655f738',
-        method: 'GET'
-    })
-    colinFunction();
-</script>
-// <!-- Test 2 branch -->
-
-
-// <!-- Zomato API key: 1dc29c917607ec14f7f9f5309c721b3c -->
-// <!-- Geocoder API key:  AIzaSyB-nfaiC7qS-317U3UHDjGo4JVc0gW8m_A-->
-// <!-- Route distance calculator API key: 5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3 -->
-// <!-- Marvel, Public key: e4b2fe04b3afe81bc5f373b59655f738 -->
+</html>

@@ -1,51 +1,96 @@
 // All the variables and jQuery DOM pointers can be assigned here
-var userStatus;
 var superheroName;
 var superhero_src;
+var score;
 
+//The following array will be used for a drop-down to select mode of transportation.  The move the user selects will be returned to the selectedMoveMode var, to be used in Colin's distance/points calculation function.
+// var moveModesArr = ["walk","bike","run","skateboard","walk-jog"];
+// var selectedMoveMode = "";
+
+//The following "locations" array of objects is designed to be used in a drop-down for saved start points and destinations, and can be appended when user enters new locations.  I've entered some sample info for testing. -Jen
+// var locationsArr = [
+//     {
+//         locName: "Home",
+//         locStreetNumber: "64",
+//         locStreetName: "Flicker Drive",
+//         locCrossStreet: "Alameda del Prado",
+//         locCity: "Novato",
+//         locState: "CA",
+//         locZip: "94949"
+//     } ; {
+//         locName: "School",
+//         locStreetNumber: "64",
+//         locStreetName: "399 Alameda De La Loma",
+//         locCrossStreet: "Via Escondida",
+//         locCity: "Novato",
+//         locState: "CA",
+//         locZip: "94949"
+//     } ; {
+//         locName: "Library",
+//         locStreetNumber: "64",
+//         locStreetName: "931 C Street",
+//         locCrossStreet: "Main Gate Road",
+//         locCity: "Novato",
+//         locState: "CA",
+//         locZip: "94949"
+//     }
+// ];
+
+//When user selects a location from the locationArr, the selected object will be pushed to travelStart and destination.  Alternately, we could simply push locationsArr.locName[i] to travelStart 
+// var travelStart = {};
+// var destination - {};
 
 // The screen switcher function will toggle between which screen is displayed.
 function screen_switcher(id_name) {
 
     var main_divs = $('main');
-    for (i = 0; i < main_divs.length; i++) {
-        if (main_divs[i].attr('id') === id_name) {
-            main_divs[i].attr('data-visible', 'visible');
-        } else {
-            main_divs[i].attr('data-visible', 'invisible')
+    for (i=0; i<main_divs.length; i++) {
+        console.log(main_divs[i])
+        if (main_divs[i].getAttribute('id') === id_name) {
+            main_divs[i].setAttribute('style', 'display:block');
+        }
+        else {
+            main_divs[i].setAttribute('style', 'display:none')
         };
+        console.log(main_divs[i])
 
     };
 };
 
 // SEGMENT 1: USER INITIALIZATION
-// Kaitlins workstation
 
 // This initialiation sequence will assess whether or not the user is new or returning
-if (localStorage.getItem('isreturning') === null) {
-    userStatus = 'new';
-} else {
-    userStatus = 'returning'
-};
 
-function new_user() {
-    // This is the main initialization function for a first time user. It will must do several things:
-    // 1. It must give the user options for possible avatars to choose.
-    // 1. When an avatar is chosen, it must create in local storage a 'superhero name' and 'superhero image' items which store the user avatar.
-    // 2. It must create variables for the score (and possibly level) and store these in local storage as well.
-    // 3. It must append the score and image to the appropriate part of the DOM.
+function display_UI() {
+    $('#user-interface').attr('style', "display:block")
 }
 
-function returning_user() {
-    // This is the main initialization function for returning users. It must:
-    // 1. It must retrieve the same superhero name and image stored in the new_user function.
-    // 2. It must retrieve the user score and level and append them to the appropriate part of the DOM.
+if (localStorage.getItem('user character') === null) {
+    screen_switcher('new-user');
+    $('.card').on("click", function() {
+        localStorage.setItem('user character', $(this).attr('id'));
+        localStorage.setItem('user score', 0);
+        
+        $('#user-interface').attr('style', "display:block")
+        screen_switcher('initial-prompt');
+
+    })
 }
 
-if (userStatus === 'new') {
-    new_user();
-} else {
-    returning_user();
+else {
+
+    display_UI()
+    screen_switcher('initial-prompt')
+    display_user_info()
+}
+
+function display_user_info() {
+    // Function which will display user info in profile section
+}
+
+function update_score(points) {
+    score += points;
+    localStorage.setItem('user score', score);
 }
 
 // OTHER OBJECTIVES:
@@ -72,6 +117,15 @@ if (userStatus === 'new') {
 // OBJECTIVES:
 // 1. The user is asked if they are going to eat or going to do an activity. This information can be stored in a variable, which
 //      might be later used in an if-else sequence to determine the application flow.
+
+// 7.2.20 6:50pm Status from Jen:
+// The question "What would you like to do" is inserted into the div in the index.html, along with buttons for Grab A Bite and Go Somewhere.  
+//Event listeners on those buttons will initialize functions to prompt user for answers: 
+//onclick Go Somewhere, prompt user to select mode of transportation, and enter start point and destination.  Start point and destination can be selected from a drop-down which pulls options from the Locations array on the script.
+
+//onclick Grab a Bite, prompt user to select mode of transport and start point, then launch Zomato search (Gabe's function).  
+//run function = find_restuarant(initial_lat, initial_lon, trans_mode)
+
 // 2. IF the user is going to do an activity:
 // They are prompted to put in the address of their starting place.
 // They are asked to put in the address of their ending location.
@@ -99,6 +153,19 @@ if (userStatus === 'new') {
 
 // SEGMENT 3: RESTAURANT SEARCH
 
+// Gabe's Workstation
+
+function find_restuarant(initial_lat, initial_lon, trans_mode) {
+    var queryURL = 'https://developers.zomato.com/api/v2.1/search?' + 
+    $.ajax({
+            url: 'https://developers.zomato.com/api/v2.1/search?q=Mexican&q=Healthy&count=4',
+            method: 'GET',
+            headers: { 'X-Zomato-API-Key': '1dc29c917607ec14f7f9f5309c721b3c' }
+        }).then(function (response) {
+            console.log(response)
+        })
+}
+    
 // 1. An AJAX call will be made to find some number of related restaurants in the area matching the keys within a certain radius.
 // 2. The address of each restaurant will be converted to geocoordinates using the TomTom API
 // 3. The current address is fed to the TomTom API to get geocoordinates.
