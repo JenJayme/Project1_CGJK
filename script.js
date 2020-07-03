@@ -303,7 +303,7 @@ function doubleAddressRoute(addressObj1, addressObj2) {
         console.log("First lon: " + responseOne.results[0].position.lon);
 
         //  Geo-Cordinates from first TomTom call
-        cordA = responseOne.results[0].position.lat + "," + responseOne.results[0].position.lon;
+        cordA = responseOne.results[0].position.lon + "," + responseOne.results[0].position.lat;
 
         // // Extracting info from address object 2
         // var streetNumber2 = addressObj2.locStreetNumber;
@@ -341,7 +341,7 @@ function doubleAddressRoute(addressObj1, addressObj2) {
             console.log("Second lon: " + responseTwo.results[0].position.lon);
 
             //  Geo-Cordinates from first TomTom call
-            cordB = responseTwo.results[0].position.lat + "," + responseTwo.results[0].position.lon;
+            cordB = responseTwo.results[0].position.lon + "," + responseTwo.results[0].position.lat;
 
             console.log("This is cordA: " +cordA);
             console.log("This is cordB: " +cordB);
@@ -377,13 +377,13 @@ function doubleAddressRoute(addressObj1, addressObj2) {
                     // Longitude comes first, then latitude, in each query url
                     url: queryUrl,
                     method: 'GET'
-                }).then(function (response) {
+                }).then(function (responseB) {
 
                     // console checks
                     console.log("Colin's Obj:");
-                    console.log(response);
+                    console.log(responseB);
                     console.log("Total distance traveled " + responseB.features[0].properties.summary.distance);
-                    console.log("Total time travelled " + responseB.features[0].properties.summary.duration);
+                    // console.log("Total time travelled " + responseB.features[0].properties.summary.duration);
 
 
                     // Takes distance in meters and converts it to miles
@@ -393,6 +393,9 @@ function doubleAddressRoute(addressObj1, addressObj2) {
                     var twoDecimals = distanceMiles.toFixed(2);
                     // Outputs miles
                     // To do list: 1) Append a p tag with info 
+
+                    console.log("Miles traveled: " + twoDecimals);
+
                     $('#confirmation').text("Total distance walked " + twoDecimals + " miles");
                     console.log("==========================");
 
