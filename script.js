@@ -180,57 +180,22 @@ function find_restuarant(initial_lat, initial_lon, trans_mode) {
 // 4. This distance is fed to the segment 2 algorithm to add a certain number of points to the user score.
 
 
-  // Open Route API - Colin's workspace
-    // var cordA = "-87.68021,41.95303";
-    // var cordB = "-87.63451,41.90145";
+// Colin's work station
+// add variables in url to add in values
+// need coordinates to be global variables
+function colinFunction(cordA, cordB, transpoMode) {
 
-    // Taking mode of travel response from user & Jen
-    selectedMoveMode = "bike";
+    var queryUrl = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA +"&end=-87.63451,41.90145";
 
-    // CHANGE
-    function colinFunction(cordA, cordB) {
-
-        // cordinate values from TomTom
-        var cordA = "-87.68021,41.95303";
-        var cordB = "-87.63451,41.90145";
-
-
-        if ((moveMode === "walk") || (moveMode === "run")) {
-            var queryUrl = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
-
-        } else {
-        var queryUrl = "https://api.openrouteservice.org/v2/directions/cycling-regular?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
-        
-    };
-        $.ajax({
-            // Longitude comes first, then latitude, in each query url
-            url: queryUrl,
-            method: 'GET'
-        }).then(function (responseB) {
-
-            // console checks
-            console.log("Colin's Obj:");
-            console.log(responseB);
-            console.log("Total distance travelled " + responseB.features[0].properties.summary.distance);
-            console.log("Total time travelled " + responseB.features[0].properties.summary.duration);
-
-
-            // Takes distance in meters and converts it to miles
-            var distanceMeters = responseB.features[0].properties.summary.distance;
-            var distanceMiles = distanceMeters / 1609;
-            // Makes number spit out two decimal places 
-            var twoDecimals = distanceMiles.toFixed(2);
-            // Outputs miles
-            // To do list: 1) Append a p tag with info 
-            $('#confirmation').text("Total distance walked " + twoDecimals + " miles");
-            console.log("==========================");
-
-            // function colinFunction(cordA, cordB, transpoMode) {
-                // something new 
-        })
-    };
-    colinFunction();
-
+    $.ajax({
+        url: queryUrl,
+        method: 'GET'
+    }).then(function (response) {
+        console.log("Colin's obj " + response);
+        // console.log(response.____)
+    })
+};
+// Hope
 
 // Main function: take in two sets of geo cordinates and calculate the distance of travel. 
 // Create/collab variables for geocords (4 data sets total)
