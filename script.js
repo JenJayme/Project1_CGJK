@@ -2,38 +2,43 @@
 var superheroName;
 var superhero_src;
 var score;
-var moveModesArr = ["walk","bike","run","skateboard","walk-jog"];
-var selectedMoveMove = "";
-var locationsArr = [
-    {
-        locName: "Home",
-        locStreetNumber: "64",
-        locStreetName: "Flicker Drive",
-        locCrossStreet: "Alameda del Prado",
-        locCity: "Novato",
-        locState: "CA",
-        locZip: "94949"
-    } ; {
-        locName: "School",
-        locStreetNumber: "64",
-        locStreetName: "399 Alameda De La Loma",
-        locCrossStreet: "Via Escondida",
-        locCity: "Novato",
-        locState: "CA",
-        locZip: "94949"
-    } ; {
-        locName: "Library",
-        locStreetNumber: "64",
-        locStreetName: "931 C Street",
-        locCrossStreet: "Main Gate Road",
-        locCity: "Novato",
-        locState: "CA",
-        locZip: "94949"
-    }
-];
 
+//The following array will be used for a drop-down to select mode of transportation.  The move the user selects will be returned to the selectedMoveMode var, to be used in Colin's distance/points calculation function.
+// var moveModesArr = ["walk","bike","run","skateboard","walk-jog"];
+// var selectedMoveMode = "";
 
+//The following "locations" array of objects is designed to be used in a drop-down for saved start points and destinations, and can be appended when user enters new locations.  I've entered some sample info for testing. -Jen
+// var locationsArr = [
+//     {
+//         locName: "Home",
+//         locStreetNumber: "64",
+//         locStreetName: "Flicker Drive",
+//         locCrossStreet: "Alameda del Prado",
+//         locCity: "Novato",
+//         locState: "CA",
+//         locZip: "94949"
+//     } ; {
+//         locName: "School",
+//         locStreetNumber: "64",
+//         locStreetName: "399 Alameda De La Loma",
+//         locCrossStreet: "Via Escondida",
+//         locCity: "Novato",
+//         locState: "CA",
+//         locZip: "94949"
+//     } ; {
+//         locName: "Library",
+//         locStreetNumber: "64",
+//         locStreetName: "931 C Street",
+//         locCrossStreet: "Main Gate Road",
+//         locCity: "Novato",
+//         locState: "CA",
+//         locZip: "94949"
+//     }
+// ];
 
+//When user selects a location from the locationArr, the selected object will be pushed to travelStart and destination.  Alternately, we could simply push locationsArr.locName[i] to travelStart 
+// var travelStart = {};
+// var destination - {};
 
 // The screen switcher function will toggle between which screen is displayed.
 function screen_switcher(id_name) {
@@ -112,6 +117,15 @@ function update_score(points) {
 // OBJECTIVES:
 // 1. The user is asked if they are going to eat or going to do an activity. This information can be stored in a variable, which
 //      might be later used in an if-else sequence to determine the application flow.
+
+// 7.2.20 6:50pm Status from Jen:
+// The question "What would you like to do" is inserted into the div in the index.html, along with buttons for Grab A Bite and Go Somewhere.  
+//Event listeners on those buttons will initialize functions to prompt user for answers: 
+//onclick Go Somewhere, prompt user to select mode of transportation, and enter start point and destination.  Start point and destination can be selected from a drop-down which pulls options from the Locations array on the script.
+
+//onclick Grab a Bite, prompt user to select mode of transport and start point, then launch Zomato search (Gabe's function).  
+//run function = find_restuarant(initial_lat, initial_lon, trans_mode)
+
 // 2. IF the user is going to do an activity:
 // They are prompted to put in the address of their starting place.
 // They are asked to put in the address of their ending location.
