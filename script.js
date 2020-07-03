@@ -209,9 +209,9 @@ function tomTomNoFood() {
         cordA = (responseTTNFa[1].lat) + "," + responseTTNFa[1].lon;
     })
 
-     // Second TomTom call - from Secondary Location
-     // COMMENT - Only works if Secondary Location is located as the second object in locationsArr
-     $.ajax({
+    // Second TomTom call - from Secondary Location
+    // COMMENT - Only works if Secondary Location is located as the second object in locationsArr
+    $.ajax({
         // &countrySubdivision=Illinoiso&postalCode=60618 example of state and zip 
         // might need states to be spelled fully. 
         url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=' + locationsArr[1].locStreetNumber + '&streetName=' + locationsArr[1].locStreetName + '&municipality=' + locationsArr[1].locCity + '&countrySubdivision=' + locationsArr[1].locState + '&postalCode=' + locationsArr[1].locZip,
@@ -229,32 +229,31 @@ function tomTomNoFood() {
 
         //  Geo-Cordinates from first TomTom call
         cordB = (responseTTNFb[1].lat) + "," + responseTTNFb[1].lon;
-
-        // Call openRoute to generate path and distance
-       
     })
 
 
-// conditional to make sure openRoute isn't called until both geocordinates are filled in
-if ((cordA !== '') && (cordB !== '')) {
-     // Only call openRoute AFTER you get geo-cords from TT
-     openRouteNF();
-}
+    // conditional to make sure openRoute isn't called until both geocordinates are filled in
+    if ((cordA !== '') && (cordB !== '')) {
+        // Only call openRoute AFTER you get geo-cords from TT
+        openRouteNF();
+    }
 
-
-    // Open Route API - Colin's workspace
-    // var cordA = "-87.68021,41.95303";
-    // var cordB = "-87.63451,41.90145";
 
     // Taking mode of travel response from user & Jen
-    selectedMoveMode = "bike";
+    // Test variable
+    // selectedMoveMode = "bike";
 
     function openRouteNF(cordA, cordB) {
 
-        // cordinate values from TomTom
-        var cordA = "-87.68021,41.95303";
-        var cordB = "-87.63451,41.90145";
+        // Console log tests for cords
+        console.log("Colins TT cord check");
+        console.log("cordA =" + cordA);
+        console.log("cordB =" + cordB);
+        console.log("================");
 
+        // Test cordinate values from TomTom
+        // var cordA = "-87.68021,41.95303";
+        // var cordB = "-87.63451,41.90145";
 
         if ((moveMode === "walk") || (moveMode === "run")) {
             var queryUrl = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
@@ -272,7 +271,7 @@ if ((cordA !== '') && (cordB !== '')) {
             // console checks
             console.log("Colin's Obj:");
             console.log(response);
-            console.log("Total distance travelled " + responseB.features[0].properties.summary.distance);
+            console.log("Total distance traveled " + responseB.features[0].properties.summary.distance);
             console.log("Total time travelled " + responseB.features[0].properties.summary.duration);
 
 
@@ -285,47 +284,19 @@ if ((cordA !== '') && (cordB !== '')) {
             // To do list: 1) Append a p tag with info 
             $('#confirmation').text("Total distance walked " + twoDecimals + " miles");
             console.log("==========================");
-
-            // function colinFunction(cordA, cordB, transpoMode) {
-            // something new 
         });
-    };
-    // hope
-
-    // To get a photo, see https://developer.marvel.com/documentation/images
-    $.ajax({
-        url: 'https://gateway.marvel.com:443/v1/public/characters?&apikey=e4b2fe04b3afe81bc5f373b59655f738',
-        method: 'GET'
-    })
-
-    // Colin's work station
-    // add variables in url to add in values
-    // need coordinates to be global variables
-    function colinFunction(cordA, cordB, transpoMode) {
-
-        var queryUrl = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=-87.63451,41.90145";
-
-        $.ajax({
-            url: queryUrl,
-            method: 'GET'
-        }).then(function (response) {
-            console.log("Colin's obj " + response);
-            // console.log(response.____)
-        })
     };
 };
 
-// Hope
+// Create generate score function here?
 
-// Main function: take in two sets of geo cordinates and calculate the distance of travel. 
-// Create/collab variables for geocords (4 data sets total)
-// Create ajax call to calculate the directions to travel on foot 
-// parse info from object response
-// calculate in terms of miles and minutes traveled
-// Duration is measured in seconds
-// Distance is measured in meters
-// Conversion of meters to miles -- divide total meters by 1609 
 
-// Test "1" - branch
+// Marvel API
+// To get a photo, see https://developer.marvel.com/documentation/images
+//   $.ajax({
+//     url: 'https://gateway.marvel.com:443/v1/public/characters?&apikey=e4b2fe04b3afe81bc5f373b59655f738',
+//     method: 'GET'
+// })
+
 // API key for OR: 
 // 5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3
