@@ -185,7 +185,9 @@ function getStartValues() {
     }; // end of startPointObj
 
     return startPointObj;
+
 } // end of getStartValues function
+
 
 //we probably don't need this stuff:
 // function startingPointSaver () {
@@ -214,7 +216,9 @@ function getEndValues() {
     return endPointObj;
 }; // end of getEndValues function
 
+
 function storeLocations(startPointObj, endPointObj) {
+
     // localStorage.saveItem(LS_KEY, JSON.stringify(startPointobj));
     locationsArr.push(startPointObj);
     locationsArr.push(endPointObj);
@@ -226,12 +230,14 @@ function storeLocations(startPointObj, endPointObj) {
 
 screen_switcher("address-input");
 
+
 submitBtn.on('click', function (event) {
+
     event.preventDefault();
     var startPointObj = getStartValues();
     var endPointObj = getEndValues();
     storeLocations(startPointObj, endPointObj);
-    console.log("PointA :" + JSON.stringify(startPointObj) + "PointB :" + JSON.stringify(endPointObj))
+
 });
 
 // }
@@ -278,19 +284,38 @@ submitBtn.on('click', function (event) {
 // SEGMENT 3: RESTAURANT SEARCH
 
 // Gabe's Workstation
+
 function find_restaraunt(initial_lat, initial_lon, trans_mode) {
     // Note to Gabe: I hope you don't mind, I fixed a typo on restaurant here.  It was spelled incorrectly as restaurant. OK? -Jen 7.3.20
     var queryURL = 'https://developers.zomato.com/api/v2.1/search?' +
+
         $.ajax({
-            url: 'https://developers.zomato.com/api/v2.1/search?q=Mexican&q=Healthy&count=4',
+            url: zomato_url,
             method: 'GET',
             headers: {
                 'X-Zomato-API-Key': '1dc29c917607ec14f7f9f5309c721b3c'
-            }
+            }   
         }).then(function (response) {
             console.log(response)
+            for (const place of response.restaurants) {
+                let restaurant_name = place.restaurant.name;
+                let restaurant_lat = place.restaurant.location.latitude;
+                let restaurant_lon = place.restaurant.location.longitude;
+                openRoute_url = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + current_lon + ',' + current_lat + "&end=" + restaurant_lon + ',' + restaurant_lat;
+                $.ajax({
+                    url: openRoute_url,
+                    method: 'GET'
+                }).then(function(response){
+                    console.log(restaurant_name)
+                    console.log(response)
+                })
+            }
         })
+    })
+        
 }
+
+find_restaurants(locationsArr[1])
 
 // 1. An AJAX call will be made to find some number of related restaurants in the area matching the keys within a certain radius.
 // 2. The address of each restaurant will be converted to geocoordinates using the TomTom API
@@ -387,6 +412,7 @@ function doubleAddressRoute(addressObj1, addressObj2) {
             //  Geo-Cordinates from first TomTom call
             cordB = responseTwo.results[0].position.lon + "," + responseTwo.results[0].position.lat;
 
+
             console.log("This is cordA: " + cordA);
             console.log("This is cordB: " + cordB);
 
@@ -434,6 +460,7 @@ function doubleAddressRoute(addressObj1, addressObj2) {
                     var distanceMeters = responseB.features[0].properties.summary.distance;
                     var distanceMiles = distanceMeters / 1609;
                     // Makes number spit out two decimal places 
+
                     var finalDistance = distanceMiles.toFixed(2);
                     // Outputs miles
                     // To do list: 1) Append a p tag with info 
@@ -457,6 +484,7 @@ function doubleAddressRoute(addressObj1, addressObj2) {
 
                     // Upload Gabe's master
                 
+
                 });
             };
         })
