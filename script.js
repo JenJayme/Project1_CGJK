@@ -44,12 +44,11 @@ var score;
 function screen_switcher(id_name) {
 
     var main_divs = $('main');
-    for (i=0; i<main_divs.length; i++) {
+    for (i = 0; i < main_divs.length; i++) {
         console.log(main_divs[i])
         if (main_divs[i].getAttribute('id') === id_name) {
             main_divs[i].setAttribute('style', 'display:block');
-        }
-        else {
+        } else {
             main_divs[i].setAttribute('style', 'display:none')
         };
         console.log(main_divs[i])
@@ -67,17 +66,15 @@ function display_UI() {
 
 if (localStorage.getItem('user character') === null) {
     screen_switcher('new-user');
-    $('.card').on("click", function() {
+    $('.card').on("click", function () {
         localStorage.setItem('user character', $(this).attr('id'));
         localStorage.setItem('user score', 0);
-        
+
         $('#user-interface').attr('style', "display:block")
         screen_switcher('initial-prompt');
 
     })
-}
-
-else {
+} else {
 
     display_UI()
     screen_switcher('initial-prompt')
@@ -156,16 +153,18 @@ function update_score(points) {
 // Gabe's Workstation
 
 function find_restuarant(initial_lat, initial_lon, trans_mode) {
-    var queryURL = 'https://developers.zomato.com/api/v2.1/search?' + 
-    $.ajax({
+    var queryURL = 'https://developers.zomato.com/api/v2.1/search?' +
+        $.ajax({
             url: 'https://developers.zomato.com/api/v2.1/search?q=Mexican&q=Healthy&count=4',
             method: 'GET',
-            headers: { 'X-Zomato-API-Key': '1dc29c917607ec14f7f9f5309c721b3c' }
+            headers: {
+                'X-Zomato-API-Key': '1dc29c917607ec14f7f9f5309c721b3c'
+            }
         }).then(function (response) {
             console.log(response)
         })
 }
-    
+
 // 1. An AJAX call will be made to find some number of related restaurants in the area matching the keys within a certain radius.
 // 2. The address of each restaurant will be converted to geocoordinates using the TomTom API
 // 3. The current address is fed to the TomTom API to get geocoordinates.
@@ -179,6 +178,35 @@ function find_restuarant(initial_lat, initial_lon, trans_mode) {
 // 3. These geocoordinates are used by the Open Route API to find a distance.
 // 4. This distance is fed to the segment 2 algorithm to add a certain number of points to the user score.
 
+
+// Taking address info from Jen and creating geo-cords from it
+// 
+
+function tomTomNoFood() {
+
+// local variables to use in openRoute
+var cordA = '';
+var cordB= '';
+
+    $.ajax({
+        // &countrySubdivision=Illinoiso&postalCode=60618 example of state and zip 
+        // might need states to be spelled fully. 
+        url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=' + locationsArr[0].locStreetNumber + '&streetName=' +locationsArr[0].locStreetName + '&municipality=' +locationsArr[0].locCity + '&countrySubdivision='+locationsArr[0].locState +'&postalCode=' +locationsArr[0].locZip,
+        method: 'GET'
+    }).then(function (responseTTNF) {
+
+        // console log clarity 
+        console.log("First cordinate");
+        console.log(responseTTNF);
+        console.log("======================")
+
+       
+    })
+
+    // Call openRoute to generate path and distance
+    openRouteNoFood();
+
+
     // Open Route API - Colin's workspace
     // var cordA = "-87.68021,41.95303";
     // var cordB = "-87.63451,41.90145";
@@ -186,8 +214,7 @@ function find_restuarant(initial_lat, initial_lon, trans_mode) {
     // Taking mode of travel response from user & Jen
     selectedMoveMode = "bike";
 
-    // CHANGE
-    function colinFunction(cordA, cordB) {
+    function openRouteNoFood(cordA, cordB) {
 
         // cordinate values from TomTom
         var cordA = "-87.68021,41.95303";
@@ -198,18 +225,18 @@ function find_restuarant(initial_lat, initial_lon, trans_mode) {
             var queryUrl = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
 
         } else {
-        var queryUrl = "https://api.openrouteservice.org/v2/directions/cycling-regular?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
-        
-    };
+            var queryUrl = "https://api.openrouteservice.org/v2/directions/cycling-regular?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
+
+        };
         $.ajax({
             // Longitude comes first, then latitude, in each query url
             url: queryUrl,
             method: 'GET'
-        }).then(function (responseB) {
+        }).then(function (response) {
 
             // console checks
             console.log("Colin's Obj:");
-            console.log(responseB);
+            console.log(response);
             console.log("Total distance travelled " + responseB.features[0].properties.summary.distance);
             console.log("Total time travelled " + responseB.features[0].properties.summary.duration);
 
@@ -225,33 +252,34 @@ function find_restuarant(initial_lat, initial_lon, trans_mode) {
             console.log("==========================");
 
             // function colinFunction(cordA, cordB, transpoMode) {
-                // something new 
+            // something new 
         })
     };
-// hope
+    // hope
 
     // To get a photo, see https://developer.marvel.com/documentation/images
     $.ajax({
         url: 'https://gateway.marvel.com:443/v1/public/characters?&apikey=e4b2fe04b3afe81bc5f373b59655f738',
         method: 'GET'
     })
-    colinFunction();
 
-// Colin's work station
-// add variables in url to add in values
-// need coordinates to be global variables
-function colinFunction(cordA, cordB, transpoMode) {
+    // Colin's work station
+    // add variables in url to add in values
+    // need coordinates to be global variables
+    function colinFunction(cordA, cordB, transpoMode) {
 
-    var queryUrl = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA +"&end=-87.63451,41.90145";
+        var queryUrl = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=-87.63451,41.90145";
 
-    $.ajax({
-        url: queryUrl,
-        method: 'GET'
-    }).then(function (response) {
-        console.log("Colin's obj " + response);
-        // console.log(response.____)
-    })
+        $.ajax({
+            url: queryUrl,
+            method: 'GET'
+        }).then(function (response) {
+            console.log("Colin's obj " + response);
+            // console.log(response.____)
+        })
+    };
 };
+
 // Hope
 
 // Main function: take in two sets of geo cordinates and calculate the distance of travel. 
