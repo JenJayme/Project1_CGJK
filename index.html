@@ -1,12 +1,13 @@
+<!DOCTYPE html>
 <html>
 
 <head>
-
+    <title>What Are We Doing?</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 </head>
 
 <body>
@@ -15,7 +16,13 @@
         <main id='new-user' class="center" style="display:none">
             <h1 class="center">Welcome!</h1>
             <h2 class="center">Choose a character before you start making healthier choices</h2>
-            <!-- Question from Jen: How do I access the chosen superhero name so on my section it can greet them with "Hello Iron Man, what would you like to do to earn some points?"" (grab a meal or go somewhere)  After the ajax query do we get an object back with the superhero's info, from which I can grab the hero name? LMK -->
+            <!-- Question from Jen: How do I access the chosen superhero name so on my section it can greet them with "Hello Iron Man, what would you like to do to earn some points?" After the ajax query do we get an object back with the superhero's info, from which I can grab the hero name? LMK -->
+
+            <!-- new div set up to append from heroes array in script.js. Jen's tutor recommends doing it this way. -->
+            <!-- <div class="row heroes-row">
+            </div> -->
+
+            <!-- Gabe's hero card setup -->
             <div class="row">
                 <div class="col s2 m2 l2">
                 </div>
@@ -63,7 +70,7 @@
                 </div>
                 <div class="col s2 m2 l2">
                 </div>
-            </div>
+            </div> --> -->
 
         </main>
 
@@ -71,7 +78,7 @@
 
             <div class="col s3 grey">
                 <!-- Grey navigation panel -->
-                <img id="profile-img" src="" class="responsive-img"> 
+                <img id="profile-img" src="" class="responsive-img">
             </div>
 
             <div class="col s9">
@@ -82,13 +89,72 @@
                 </main>
                 <main id='initial-prompt' style="display:block">
                     <!-- Screen asking if they are looking for a meal or going to do an activity -->
-                    <div id=userPromptDiv>
-                        <h1>Hello Iron Man!</h1>
+                    <div id="userPromptDiv">
+                        <h1 id="greeting"></h1>
                         <h2 id="promptEatOrDo">What would you like to do to earn some points?</h2>
                     </div>
                     <button id="btn-eat">Grab A Bite</button>
                     <button id="btn-go">Go Somewhere</button>
                 </main>
+                <main id="go-somewhere-div" style="display:block">
+                    <h2>How do you plan to travel?</h2>
+                    <form action="#">
+                        <p>
+                            <label>
+                                <input name="group1" type="radio" checked />
+                                <span>Walk (50 points per mile)</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <input name="group1" type="radio" />
+                                <span>Run (100 points per mile)</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <input class="with-gap" name="group1" type="radio" />
+                                <span>Bike (80 points per mile)</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <input name="group1" type="radio" disabled="disabled" />
+                                <span>Skateboard (80 points per mile)</span>
+                            </label>
+                        </p>
+                    </form>
+                </main>
+                <main id="address-input" style="display:block">
+                    <form class="input-field">
+                        <div class="row">
+                            <div class="col s4 m4 l4">
+                                <h4>Starting Location</h4>
+                                Address <input type="text" id="startAddress" name="startAddress" />
+                                City <input type="text" id="startCity" name="startCity" />
+                                State <input type="text" id="startState" name="startState" />
+                                Zip <input type="text" id="startZip" name="startZip" />
+                            </div>
+                            <div class="col s4 m4 l4">
+                                <h4>Destination</h4>
+                                Address: <input type="text" id="endAddress" name="endAddress" />
+                                City: <input type="text" id="endCity" name="endCity" />
+                                State: <input type="text" id="endState" name="endState" />
+                                Zip <input type="text" id="endZip" name="endZip" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s4 m4 l4">
+                                <input type="submit" id="submitBtn" class="submit-button" style="align-items: center;">
+                            </div>
+                        </div>
+                    </form>
+                </main>
+                </main>
+                <!-- TODO: add an click event listener to submit button the click event handler must read in the form values -->
+
+                </form>
+
                 <main id='activity' style="display:none">
                     <!-- Where are you going and how you are getting there? -->
                     Yes
@@ -100,6 +166,49 @@
             </div>
 
         </div>
+
+
+        <!-- Section 2 (Jen): This This div for use when user wants to go somewhere, will space to prompt user for mode of transport, start address & destination via form. 
+
+            <form method="post" id="addressForm" name="addressForm">
+            Mode of transport: 
+              // Each is a radio button]
+              () Walk  // <input type="radio" name="transportMode" value="walk" />
+              () Bike
+              () Skateboard
+              () Wog
+            start location: 
+              Address: <input type="text" id="startAddress" name="streetAddress" />
+              City: <input type="text" id="startCity" name="city" />
+              State: <input type="text" id="startState" name="state" />
+              Zip: <input type="text" id="startZip" name="zip" />
+            Destination:
+              Address: [input tag]
+              City: [input tag]
+              State: [input tag]
+              Zip: [input]
+            <input type="submit" id="submitBtn" class="submit-button" >
+              // TODO: add an click event listener to submit button
+              // the click event handler must read in the form values
+            </form> -->
+    </div>
+
+    <div id="eat-div" class="row" style="display:none">
+
+        <!-- 
+            Section 2 (Jen): This div for use when user wants to have a meal, will hold prompts for mode of transport, start address & destination via form.  
+
+            <form method="post" id="addressForm" name="addressForm">
+            Mode of transport: 
+              // Each is a radio button]
+              () Walk  // <input type="radio" name="transportMode" value="walk" />
+              () Bike
+              () Skateboard
+              () Wog
+            -->
+
+    </div>
+
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
