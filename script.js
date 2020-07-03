@@ -184,34 +184,62 @@ function find_restuarant(initial_lat, initial_lon, trans_mode) {
 // Taking address info from Jen and creating geo-cords from it
 function tomTomNoFood() {
 
-// local variables to use in openRoute
-var cordA = '';
-var cordB= '';
+    // local variables to use in openRoute
+    var cordA = '';
+    var cordB = '';
 
-// First TomTom call - from HOME
+    // First TomTom call - from HOME
     $.ajax({
         // &countrySubdivision=Illinoiso&postalCode=60618 example of state and zip 
         // might need states to be spelled fully. 
-        url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=' + locationsArr[0].locStreetNumber + '&streetName=' +locationsArr[0].locStreetName + '&municipality=' +locationsArr[0].locCity + '&countrySubdivision='+locationsArr[0].locState +'&postalCode=' +locationsArr[0].locZip,
+        url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=' + locationsArr[0].locStreetNumber + '&streetName=' + locationsArr[0].locStreetName + '&municipality=' + locationsArr[0].locCity + '&countrySubdivision=' + locationsArr[0].locState + '&postalCode=' + locationsArr[0].locZip,
         method: 'GET'
-    }).then(function (responseTTNF) {
+    }).then(function (responseTTNFa) {
 
         // console log clarity 
         console.log("First cordinate");
-        console.log(responseTTNF);
+        console.log(responseTTNFa);
         console.log("======================")
-        
+
         // Testing Geo-Cordinates from first TomTom call
-        console.log(responseTTNF[1].lat);
-        console.log(responseTTNF[1].lon);
+        console.log(responseTTNFa[1].lat);
+        console.log(responseTTNFa[1].lon);
 
         //  Geo-Cordinates from first TomTom call
-       cordA = (responseTTNF[1].lat) + "," + responseTTNF[1].lon;
-
+        cordA = (responseTTNFa[1].lat) + "," + responseTTNFa[1].lon;
     })
 
-    // Call openRoute to generate path and distance
-    openRouteNoFood();
+     // Second TomTom call - from Secondary Location
+     // COMMENT - Only works if Secondary Location is located as the second object in locationsArr
+     $.ajax({
+        // &countrySubdivision=Illinoiso&postalCode=60618 example of state and zip 
+        // might need states to be spelled fully. 
+        url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=' + locationsArr[1].locStreetNumber + '&streetName=' + locationsArr[1].locStreetName + '&municipality=' + locationsArr[1].locCity + '&countrySubdivision=' + locationsArr[1].locState + '&postalCode=' + locationsArr[1].locZip,
+        method: 'GET'
+    }).then(function (responseTTNFb) {
+
+        // console log clarity 
+        console.log("First cordinate");
+        console.log(responseTTNFb);
+        console.log("======================")
+
+        // Testing Geo-Cordinates from first TomTom call
+        console.log(responseTTNFb[1].lat);
+        console.log(responseTTNFb[1].lon);
+
+        //  Geo-Cordinates from first TomTom call
+        cordB = (responseTTNFb[1].lat) + "," + responseTTNFb[1].lon;
+
+        // Call openRoute to generate path and distance
+       
+    })
+
+
+// conditional to make sure openRoute isn't called until both geocordinates are filled in
+if ((cordA !== '') && (cordB !== '')) {
+     // Only call openRoute AFTER you get geo-cords from TT
+     openRouteNF();
+}
 
 
     // Open Route API - Colin's workspace
@@ -221,7 +249,7 @@ var cordB= '';
     // Taking mode of travel response from user & Jen
     selectedMoveMode = "bike";
 
-    function openRouteNoFood(cordA, cordB) {
+    function openRouteNF(cordA, cordB) {
 
         // cordinate values from TomTom
         var cordA = "-87.68021,41.95303";
@@ -260,7 +288,7 @@ var cordB= '';
 
             // function colinFunction(cordA, cordB, transpoMode) {
             // something new 
-        })
+        });
     };
     // hope
 
