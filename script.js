@@ -173,6 +173,8 @@ function find_restuarant(initial_lat, initial_lon, trans_mode) {
 
 // ------------------------------------------------------------------------------------------------
 // SEGMENT 4: GENERAL MOVEMENT SEARCH
+
+// Process Overview
 // 1. The starting and ending addresses are give from segment 2 in the form of the object.
 // 2. The TomTom API converts these to geocoordinates.
 // 3. These geocoordinates are used by the Open Route API to find a distance.
@@ -180,14 +182,13 @@ function find_restuarant(initial_lat, initial_lon, trans_mode) {
 
 
 // Taking address info from Jen and creating geo-cords from it
-// 
-
 function tomTomNoFood() {
 
 // local variables to use in openRoute
 var cordA = '';
 var cordB= '';
 
+// First TomTom call - from HOME
     $.ajax({
         // &countrySubdivision=Illinoiso&postalCode=60618 example of state and zip 
         // might need states to be spelled fully. 
@@ -199,8 +200,14 @@ var cordB= '';
         console.log("First cordinate");
         console.log(responseTTNF);
         console.log("======================")
+        
+        // Testing Geo-Cordinates from first TomTom call
+        console.log(responseTTNF[1].lat);
+        console.log(responseTTNF[1].lon);
 
-       
+        //  Geo-Cordinates from first TomTom call
+       cordA = (responseTTNF[1].lat) + "," + responseTTNF[1].lon;
+
     })
 
     // Call openRoute to generate path and distance
