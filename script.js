@@ -454,6 +454,7 @@ function doubleAddressRoute(addressObj1, addressObj2) {
                     totalScore = finalDistance * 10;
                     console.log(totalScore);
                 } 
+                
                 });
             };
         })
