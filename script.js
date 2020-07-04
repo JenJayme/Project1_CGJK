@@ -1,7 +1,7 @@
 // All the variables and jQuery DOM pointers can be assigned here
 var superheroName;
 var superhero_src;
-var score;
+var score = 10;
 
 // The following array will be used for a drop-down to select mode of transportation.  The move the user selects will be returned to the selectedMoveMode var, to be used in Colin's distance/points calculation function.
 var moveModesArr = ["walk", "bike", "run", "skateboard", "walk-jog"];
@@ -408,7 +408,7 @@ function doubleAddressRoute(addressObj1, addressObj2) {
                 // var cordA = "-87.68021,41.95303";
                 // var cordB = "-87.63451,41.90145";
 
-                selectedMoveMode = "walk";
+                selectedMoveMode = "skateboard";
 
                 if (((selectedMoveMode === "walk") || (selectedMoveMode === "run") || (selectedMoveMode === "walk-jog"))) {
                     var queryUrl = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
@@ -476,13 +476,19 @@ function scoreGenerator(totalDistance) {
         console.log(totalScore);
     }
 
-    confirmationPage ();
+    confirmationPage (totalDistance, totalScore);
 }
 
-function confirmationPage() {
-
-
+// Confirm page 
+function confirmationPage(finalDistance, totalScore) {
+// $('#confirmation').text() ... below. 
+console.log("Awesome! If you " + selectedMoveMode + " " + finalDistance + " miles, you will earn " + totalScore + " points!");
+currentHighScore = parseInt(score) + parseInt(totalScore);
+console.log("Since starting project Miles, you have earned " + currentHighScore + " points!");
+// localStorage.setItem('user score', )
 }
+
+
 // Create generate score function here?
 // Test 1
 doubleAddressRoute();
