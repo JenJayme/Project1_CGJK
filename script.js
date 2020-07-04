@@ -324,6 +324,8 @@ function find_restaurants(address_object) {
         }).then(function (response) {
             console.log(response)
         })
+})
+
 }
 
 // 1. An AJAX call will be made to find some number of related restaurants in the area matching the keys within a certain radius.
@@ -537,4 +539,4 @@ $(document).ready(function () {
 
 
     // buildHeroCards()
-});
+})
