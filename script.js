@@ -67,14 +67,13 @@ var locationsArr = [{
 function screen_switcher(id_name) {
 
     var main_divs = $('main');
+    console.log(main_divs)
     for (i = 0; i < main_divs.length; i++) {
-        console.log(main_divs[i])
         if (main_divs[i].getAttribute('id') === id_name) {
             main_divs[i].setAttribute('style', 'display:block');
         } else {
             main_divs[i].setAttribute('style', 'display:none')
         };
-        console.log(main_divs[i])
 
     };
 };
@@ -82,6 +81,7 @@ function screen_switcher(id_name) {
 // SEGMENT 1: USER INITIALIZATION
 
 // This initialiation sequence will assess whether or not the user is new or returning
+
 
 function display_UI() {
     $('#user-interface').attr('style', "display:block")
@@ -92,10 +92,8 @@ if (localStorage.getItem('user character') === null) {
     $('.card').on("click", function () {
         localStorage.setItem('user character', $(this).attr('id'));
         localStorage.setItem('user score', 0);
-
         $('#user-interface').attr('style', "display:block")
         screen_switcher('initial-prompt');
-
     })
 } else {
 
@@ -165,7 +163,8 @@ function update_score(points) {
 // TO DO: The following function will create start and end point objects for use by Colin's function, and also push those to the locations array.  Needs to be finished and adjusted to sync up var names
 
 //need an event listener on this
-// screen_switcher("address-input");
+// screen_switcher("address-input");$
+
 var submitBtn = $('#submitBtn');
 
 function getStartValues() {
@@ -221,10 +220,6 @@ function storeLocations(startPointObj, endPointObj) {
 }; //end of storeLocations function
 // };//end of endPointSaver function
 
-// var goBtn = $('#btn-go');
-// goBtn.on('click', screen_switcher("address-input"));
-
-screen_switcher("address-input");
 
 submitBtn.on('click', function (event) {
     event.preventDefault();
@@ -278,9 +273,48 @@ submitBtn.on('click', function (event) {
 // SEGMENT 3: RESTAURANT SEARCH
 
 // Gabe's Workstation
-function find_restaraunt(initial_lat, initial_lon, trans_mode) {
-    // Note to Gabe: I hope you don't mind, I fixed a typo on restaurant here.  It was spelled incorrectly as restaurant. OK? -Jen 7.3.20
-    var queryURL = 'https://developers.zomato.com/api/v2.1/search?' +
+
+
+$('#btn-eat').on("click", function() {
+    screen_switcher('eat-div');
+})
+
+$('#meal-submit').on("click", function(event) {
+    event.preventDefault();
+    let street_num = $('#startNumber2').val();
+    let street_name = $('#startStreet2').val();
+    let city = $('#startCity2').val();
+    let state = $('#startState2').val();
+    let zip = $('#startZip2').val();
+
+    let address = {locStreetNumber: street_num,
+            locStreetName: street_name,
+            locCity: city,
+            locState: state,
+            locZip: zip}
+    
+    find_restaurants(address)
+})
+
+function find_restaurants(address_object) {
+    var street_num = address_object.locStreetNumber;
+    var street_name = address_object.locStreetName;
+    var city = address_object.locCity;
+    var state = address_object.locState
+    var zip_code = address_object.locZip;
+
+    var current_loc_url = 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=' + street_num + '&streetName=' + street_name + '&municipality=' + city + '&countrySubdivision=' + state + '&postalCode=' + zip_code
+    $.ajax({
+        url: current_loc_url,
+        method: 'GET'
+    }).then(function(response) {
+
+        console.log(response)
+        var current_lat = response.results[0].position.lat;
+        var current_lon = response.results[0].position.lon;
+
+        let zomato_url = 'https://developers.zomato.com/api/v2.1/search?q=Healthy&lat=' + current_lat + '&lon=' + current_lon + '&radius=8050'
+
         $.ajax({
             url: 'https://developers.zomato.com/api/v2.1/search?q=Mexican&q=Healthy&count=4',
             method: 'GET',
@@ -491,7 +525,7 @@ console.log("Since starting project Miles, you have earned " + currentHighScore 
 
 // Create generate score function here?
 // Test 1
-doubleAddressRoute();
+// doubleAddressRoute();
 
 // API key for OR: 
 // 5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3
