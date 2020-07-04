@@ -8,56 +8,56 @@ var moveModesArr = ["walk", "bike", "run", "skateboard", "walk-jog"];
 var selectedMoveMode = "";
 
 // The following array will be replaced by an api function "get superheroes" from Gabe that returns an array of superhero objects.  This is just mock data for us to use in page layout.
-var heroesArr = [
-    {
-        heroID: 1,
-        heroName: "Black Widow",
-        heroImgURL: "https://i.pinimg.com/originals/64/16/a9/6416a9d467b9d4d8149586c51171eb55.jpg"
-    }, {
-        heroID: 2,
-        heroName: "Iron Man",
-        heroImgURL: "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg"
-    }, {
-        heroID: 3,
-        heroName: "Miles Morales",
-        heroImgURL: "https://66.media.tumblr.com/1660aaf63f281fc31564d42c8b3ed887/tumblr_pku5xlUfU11rda9da_540.jpg"
-    }, {
-        heroID: 4,
-        heroName: "Ms. Marvel",
-        heroImgURL: "https://ca-times.brightspotcdn.com/dims4/default/4c8db25/2147483647/strip/true/crop/1988x1118+0+0/resize/840x472!/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F0d%2F8a%2Fd79cac66abbd1b9731dcee088d54%2Fla-trabrown-1478289681-snap-photo"
-    }
-];
+
+var heroesArr = [{
+    heroID: 1,
+    heroName: "Black Widow",
+    heroImgURL: "https://i.pinimg.com/originals/64/16/a9/6416a9d467b9d4d8149586c51171eb55.jpg"
+}, {
+    heroID: 2,
+    heroName: "Iron Man",
+    heroImgURL: "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg"
+}, {
+    heroID: 3,
+    heroName: "Miles Morales",
+    heroImgURL: "https://66.media.tumblr.com/1660aaf63f281fc31564d42c8b3ed887/tumblr_pku5xlUfU11rda9da_540.jpg"
+}, {
+    heroID: 4,
+    heroName: "Ms. Marvel",
+    heroImgURL: "https://ca-times.brightspotcdn.com/dims4/default/4c8db25/2147483647/strip/true/crop/1988x1118+0+0/resize/840x472!/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F0d%2F8a%2Fd79cac66abbd1b9731dcee088d54%2Fla-trabrown-1478289681-snap-photo"
+}];
+
 
 console.log(heroesArr);
 
 // The following "locations" array of objects is designed to be used in a drop-down for saved start points and destinations, and can be appended when user enters new locations.  I've entered some mock data for testing. -Jen
-var locationsArr = [
-    {
-        locName: "Home",
-        locStreetNumber: "64",
-        locStreetName: "Flicker Drive",
-        locCrossStreet: "Alameda del Prado",
-        locCity: "Novato",
-        locState: "CA",
-        locZip: "94949"
-    }, {
-        locName: "School",
-        locStreetNumber: "64",
-        locStreetName: "399 Alameda De La Loma",
-        locCrossStreet: "Via Escondida",
-        locCity: "Novato",
-        locState: "CA",
-        locZip: "94949"
-    }, {
-        locName: "Library",
-        locStreetNumber: "64",
-        locStreetName: "931 C Street",
-        locCrossStreet: "Main Gate Road",
-        locCity: "Novato",
-        locState: "CA",
-        locZip: "94949"
-    }
-];
+
+var locationsArr = [{
+    locName: "Home",
+    locStreetNumber: "64",
+    locStreetName: "Flicker Drive",
+    locCrossStreet: "Alameda del Prado",
+    locCity: "Novato",
+    locState: "CA",
+    locZip: "94949"
+}, {
+    locName: "School",
+    locStreetNumber: "64",
+    locStreetName: "399 Alameda De La Loma",
+    locCrossStreet: "Via Escondida",
+    locCity: "Novato",
+    locState: "CA",
+    locZip: "94949"
+}, {
+    locName: "Library",
+    locStreetNumber: "64",
+    locStreetName: "931 C Street",
+    locCrossStreet: "Main Gate Road",
+    locCity: "Novato",
+    locState: "CA",
+    locZip: "94949"
+}];
+
 
 //When user selects a location from the locationArr, the selected object will be pushed to travelStart and destination.  Alternately, we could simply push locationsArr.locName[i] to travelStart 
 // var travelStart = {};
@@ -185,7 +185,9 @@ function getStartValues() {
     }; // end of startPointObj
 
     return startPointObj;
-}// end of getStartValues function
+
+} // end of getStartValues function
+
 
 //we probably don't need this stuff:
 // function startingPointSaver () {
@@ -214,7 +216,9 @@ function getEndValues() {
     return endPointObj;
 }; // end of getEndValues function
 
-function storeLocations(startPointObj,endPointObj) {
+
+function storeLocations(startPointObj, endPointObj) {
+
     // localStorage.saveItem(LS_KEY, JSON.stringify(startPointobj));
     locationsArr.push(startPointObj);
     locationsArr.push(endPointObj);
@@ -226,12 +230,14 @@ function storeLocations(startPointObj,endPointObj) {
 
 screen_switcher("address-input");
 
-submitBtn.on('click', function(event) {
+
+submitBtn.on('click', function (event) {
+
     event.preventDefault();
     var startPointObj = getStartValues();
     var endPointObj = getEndValues();
     storeLocations(startPointObj, endPointObj);
-    console.log("PointA :"+ JSON.stringify(startPointObj) + "PointB :" + JSON.stringify(endPointObj))
+
 });
 
 // }
@@ -278,19 +284,38 @@ submitBtn.on('click', function(event) {
 // SEGMENT 3: RESTAURANT SEARCH
 
 // Gabe's Workstation
+
 function find_restaraunt(initial_lat, initial_lon, trans_mode) {
     // Note to Gabe: I hope you don't mind, I fixed a typo on restaurant here.  It was spelled incorrectly as restaurant. OK? -Jen 7.3.20
     var queryURL = 'https://developers.zomato.com/api/v2.1/search?' +
+
         $.ajax({
-            url: 'https://developers.zomato.com/api/v2.1/search?q=Mexican&q=Healthy&count=4',
+            url: zomato_url,
             method: 'GET',
             headers: {
                 'X-Zomato-API-Key': '1dc29c917607ec14f7f9f5309c721b3c'
-            }
+            }   
         }).then(function (response) {
             console.log(response)
+            for (const place of response.restaurants) {
+                let restaurant_name = place.restaurant.name;
+                let restaurant_lat = place.restaurant.location.latitude;
+                let restaurant_lon = place.restaurant.location.longitude;
+                openRoute_url = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + current_lon + ',' + current_lat + "&end=" + restaurant_lon + ',' + restaurant_lat;
+                $.ajax({
+                    url: openRoute_url,
+                    method: 'GET'
+                }).then(function(response){
+                    console.log(restaurant_name)
+                    console.log(response)
+                })
+            }
         })
+    })
+        
 }
+
+find_restaurants(locationsArr[1])
 
 // 1. An AJAX call will be made to find some number of related restaurants in the area matching the keys within a certain radius.
 // 2. The address of each restaurant will be converted to geocoordinates using the TomTom API
@@ -307,7 +332,23 @@ function find_restaraunt(initial_lat, initial_lon, trans_mode) {
 // 4. This distance is fed to the segment 2 algorithm to add a certain number of points to the user score.
 
 // Taking address info from Jen and creating geo-cords from it
-function tomTomNoFood() {
+function doubleAddressRoute(addressObj1, addressObj2) {
+
+    // // Extracting info from address object 1
+    // var streetNumber1 = addressObj1.locStreetNumber;
+    // var streetName1 = addressObj1.locStreetName;
+    // // var crossStreet1 = addressObj1.locCrossStreet;
+    // var city1 = addressObj1.locCity;
+    // var state1 = addressObj1.locState;
+    // var zip1 = addressObj1.locZip;
+
+    // Testing TomTom with Address 1
+    var streetNumber1 = "1421";
+    var streetName1 = "Lexington Drive";
+    // var crossStreet1 = addressObj1.locCrossStreet;
+    var city1 = "San Jose";
+    var state1 = "CA";
+    var zip1 = "95117";
 
     // local variables to use in openRoute
     var cordA = '';
@@ -317,115 +358,152 @@ function tomTomNoFood() {
     $.ajax({
         // &countrySubdivision=Illinoiso&postalCode=60618 example of state and zip 
         // might need states to be spelled fully. 
-        url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=' + locationsArr[0].locStreetNumber + '&streetName=' + locationsArr[0].locStreetName + '&municipality=' + locationsArr[0].locCity + '&countrySubdivision=' + locationsArr[0].locState + '&postalCode=' + locationsArr[0].locZip,
+        url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=' + streetNumber1 + '&streetName=' + streetName1 + '&municipality=' + city1 + '&countrySubdivision=' + state1 + '&postalCode=' + zip1,
         method: 'GET'
-    }).then(function (responseTTNFa) {
+    }).then(function (responseOne) {
 
         // console log clarity 
-        console.log("First cordinate");
-        console.log(responseTTNFa);
+        console.log("First cordinate:");
+        console.log(responseOne);
         console.log("======================")
 
         // Testing Geo-Cordinates from first TomTom call
-        console.log(responseTTNFa[1].lat);
-        console.log(responseTTNFa[1].lon);
+        console.log("First lat: " + responseOne.results[0].position.lat);
+        console.log("First lon: " + responseOne.results[0].position.lon);
 
         //  Geo-Cordinates from first TomTom call
-        cordA = (responseTTNFa[1].lat) + "," + responseTTNFa[1].lon;
-    })
+        cordA = responseOne.results[0].position.lon + "," + responseOne.results[0].position.lat;
 
-    // Second TomTom call - from Secondary Location
-    // COMMENT - Only works if Secondary Location is located as the second object in locationsArr
-    $.ajax({
-        // &countrySubdivision=Illinoiso&postalCode=60618 example of state and zip 
-        // might need states to be spelled fully. 
-        url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=' + locationsArr[1].locStreetNumber + '&streetName=' + locationsArr[1].locStreetName + '&municipality=' + locationsArr[1].locCity + '&countrySubdivision=' + locationsArr[1].locState + '&postalCode=' + locationsArr[1].locZip,
-        method: 'GET'
-    }).then(function (responseTTNFb) {
+        // // Extracting info from address object 2
+        // var streetNumber2 = addressObj2.locStreetNumber;
+        // var streetName2 = addressObj2.locStreetName;
+        // // var crossStreet1 = addressObj1.locCrossStreet;
+        // var city2 = addressObj2.locCity;
+        // var state2 = addressObj2.locState;
+        // var zip2 = addressObj2.locZip;
 
-        // console log clarity 
-        console.log("First cordinate");
-        console.log(responseTTNFb);
-        console.log("======================")
-
-        // Testing Geo-Cordinates from first TomTom call
-        console.log(responseTTNFb[1].lat);
-        console.log(responseTTNFb[1].lon);
-
-        //  Geo-Cordinates from first TomTom call
-        cordB = (responseTTNFb[1].lat) + "," + responseTTNFb[1].lon;
-    })
-
-
-    // conditional to make sure openRoute isn't called until both geocordinates are filled in
-    if ((cordA !== '') && (cordB !== '')) {
-        // Only call openRoute AFTER you get geo-cords from TT
-        openRouteNF();
-    }
-
-
-    // Taking mode of travel response from user & Jen
-    // Test variable
-    // selectedMoveMode = "bike";
-
-    function openRouteNF(cordA, cordB) {
-
-        // Console log tests for cords
-        console.log("Colins TT cord check");
-        console.log("cordA =" + cordA);
-        console.log("cordB =" + cordB);
-        console.log("================");
-
-        // Test cordinate values from TomTom
-        // var cordA = "-87.68021,41.95303";
-        // var cordB = "-87.63451,41.90145";
-
-        if ((moveMode === "walk") || (moveMode === "run")) {
-            var queryUrl = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
-
-        } else {
-            var queryUrl = "https://api.openrouteservice.org/v2/directions/cycling-regular?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
-
-        };
+        // Testing TomTom with Address 2
+        var streetNumber2 = "10100";
+        var streetName2 = "Finch Ave";
+        // var crossStreet1 = addressObj1.locCrossStreet;
+        var city2 = "Cupertino";
+        var state2 = "CA";
+        var zip2 = "95014";
+        // Second TomTom call - from Secondary Location
+        // COMMENT - Only works if Secondary Location is located as the second object in locationsArr
         $.ajax({
-            // Longitude comes first, then latitude, in each query url
-            url: queryUrl,
+
+            // &countrySubdivision=Illinoiso&postalCode=60618 example of state and zip 
+            // might need states to be spelled fully. 
+            url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=' + streetNumber2 + '&streetName=' + streetName2 + '&municipality=' + city2 + '&countrySubdivision=' + state2 + '&postalCode=' + zip2,
             method: 'GET'
-        }).then(function (response) {
 
-            // console checks
-            console.log("Colin's Obj:");
-            console.log(response);
-            console.log("Total distance traveled " + responseB.features[0].properties.summary.distance);
-            console.log("Total time travelled " + responseB.features[0].properties.summary.duration);
+        }).then(function (responseTwo) {
+
+            // console log clarity 
+            console.log("Second cordinate");
+            console.log(responseTwo);
+            console.log("======================")
+
+            // Testing Geo-Cordinates from first TomTom call
+            console.log("Second lat: " + responseTwo.results[0].position.lat);
+            console.log("Second lon: " + responseTwo.results[0].position.lon);
+
+            //  Geo-Cordinates from first TomTom call
+            cordB = responseTwo.results[0].position.lon + "," + responseTwo.results[0].position.lat;
 
 
-            // Takes distance in meters and converts it to miles
-            var distanceMeters = responseB.features[0].properties.summary.distance;
-            var distanceMiles = distanceMeters / 1609;
-            // Makes number spit out two decimal places 
-            var twoDecimals = distanceMiles.toFixed(2);
-            // Outputs miles
-            // To do list: 1) Append a p tag with info 
-            $('#confirmation').text("Total distance walked " + twoDecimals + " miles");
-            console.log("==========================");
-        });
-    };
+            console.log("This is cordA: " + cordA);
+            console.log("This is cordB: " + cordB);
+
+            // Calling openRoute API
+            openRouteNF();
+
+            // Taking mode of travel response from user & Jen
+            // Test variable
+            // selectedMoveMode = "bike";
+
+            function openRouteNF() {
+
+                // Console log tests for cords
+                console.log("cordA =" + cordA);
+                console.log("cordB =" + cordB);
+                console.log("================");
+
+                // Test cordinate values from TomTom
+                // var cordA = "-87.68021,41.95303";
+                // var cordB = "-87.63451,41.90145";
+
+                selectedMoveMode = "walk";
+
+                if (((selectedMoveMode === "walk") || (selectedMoveMode === "run") || (selectedMoveMode === "walk-jog"))) {
+                    var queryUrl = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
+
+                } else {
+                    var queryUrl = "https://api.openrouteservice.org/v2/directions/cycling-regular?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
+
+                };
+                $.ajax({
+                    // Longitude comes first, then latitude, in each query url
+                    url: queryUrl,
+                    method: 'GET'
+                }).then(function (responseB) {
+
+                    // console checks
+                    console.log("Colin's Obj:");
+                    console.log(responseB);
+                    console.log("Total distance traveled " + responseB.features[0].properties.summary.distance);
+                    // console.log("Total time travelled " + responseB.features[0].properties.summary.duration);
+
+
+                    // Takes distance in meters and converts it to miles
+                    var distanceMeters = responseB.features[0].properties.summary.distance;
+                    var distanceMiles = distanceMeters / 1609;
+                    // Makes number spit out two decimal places 
+
+                    var finalDistance = distanceMiles.toFixed(2);
+                    // Outputs miles
+                    // To do list: 1) Append a p tag with info 
+
+                    console.log("Miles traveled: " + finalDistance);
+
+                    $('#confirmation').text("Total distance walked " + finalDistance + " miles");
+
+                    score = finalDistance;
+                
+                    // Create generate score function here?
+                    // Test 1
+
+                // Points per mile
+                // Walking : 
+
+                // if (selectedMoveMode === "walk") {
+                //     totalScore = twoDecimals * 10;
+                //     console.log(totalScore);
+                // } 
+
+                    // Upload Gabe's master
+                
+
+                });
+            };
+        })
+    })
 };
 
+
 // Create generate score function here?
-
-
-// Marvel API
-// To get a photo, see https://developer.marvel.com/documentation/images
-//   $.ajax({
-//     url: 'https://gateway.marvel.com:443/v1/public/characters?&apikey=e4b2fe04b3afe81bc5f373b59655f738',
-//     method: 'GET'
-// })
+// Test 1
+doubleAddressRoute();
 
 // API key for OR: 
 // 5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3
 
 $(document).ready(function () {
+
+
+
+
+
     // buildHeroCards()
 });
