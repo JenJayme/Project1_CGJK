@@ -9,64 +9,67 @@ var selectedMoveMode = "";
 
 // The following array will be replaced by an api function "get superheroes" from Gabe that returns an array of superhero objects.  This is just mock data for us to use in page layout.
 
-var heroesArr = [{
-    heroID: 1,
-    heroName: "Black Widow",
-    heroImgURL: "https://i.pinimg.com/originals/64/16/a9/6416a9d467b9d4d8149586c51171eb55.jpg"
-}, {
-    heroID: 2,
-    heroName: "Iron Man",
-    heroImgURL: "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg"
-}, {
-    heroID: 3,
-    heroName: "Miles Morales",
-    heroImgURL: "https://66.media.tumblr.com/1660aaf63f281fc31564d42c8b3ed887/tumblr_pku5xlUfU11rda9da_540.jpg"
-}, {
-    heroID: 4,
-    heroName: "Ms. Marvel",
-    heroImgURL: "https://ca-times.brightspotcdn.com/dims4/default/4c8db25/2147483647/strip/true/crop/1988x1118+0+0/resize/840x472!/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F0d%2F8a%2Fd79cac66abbd1b9731dcee088d54%2Fla-trabrown-1478289681-snap-photo"
-}];
-
+var heroesArr = [
+    {
+        heroID: 1,
+        heroName: "Black Widow",
+        heroImgURL: "https://i.pinimg.com/originals/64/16/a9/6416a9d467b9d4d8149586c51171eb55.jpg"
+    },{
+        heroID: 2,
+        heroName: "Iron Man",
+        heroImgURL: "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg"
+    },{
+        heroID: 3,
+        heroName: "Miles Morales",
+        heroImgURL: "https://66.media.tumblr.com/1660aaf63f281fc31564d42c8b3ed887/tumblr_pku5xlUfU11rda9da_540.jpg"
+    },{
+        heroID: 4,
+        heroName: "Ms. Marvel",
+        heroImgURL: "https://ca-times.brightspotcdn.com/dims4/default/4c8db25/2147483647/strip/true/crop/1988x1118+0+0/resize/840x472!/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F0d%2F8a%2Fd79cac66abbd1b9731dcee088d54%2Fla-trabrown-1478289681-snap-photo"
+    }
+];
 
 console.log(heroesArr);
 
 // The following "locations" array of objects is designed to be used in a drop-down for saved start points and destinations, and can be appended when user enters new locations.  I've entered some mock data for testing. -Jen
 
-var locationsArr = [{
-    locName: "Home",
-    locStreetNumber: "64",
-    locStreetName: "Flicker Drive",
-    locCrossStreet: "Alameda del Prado",
-    locCity: "Novato",
-    locState: "CA",
-    locZip: "94949"
-}, {
-    locName: "School",
-    locStreetNumber: "64",
-    locStreetName: "399 Alameda De La Loma",
-    locCrossStreet: "Via Escondida",
-    locCity: "Novato",
-    locState: "CA",
-    locZip: "94949"
-}, {
-    locName: "Library",
-    locStreetNumber: "64",
-    locStreetName: "931 C Street",
-    locCrossStreet: "Main Gate Road",
-    locCity: "Novato",
-    locState: "CA",
-    locZip: "94949"
-}];
+var locationsObj = {
+    "Home": {
+        locStreetNumber: "64",
+        locStreetName: "Flicker Drive",
+        locCrossStreet: "Alameda del Prado",
+        locCity: "Novato",
+        locState: "CA",
+        locZip: "94949"
+     },
+     "School": {
+        locStreetNumber: "64",
+        locStreetName: "399 Alameda De La Loma",
+        locCrossStreet: "Via Escondida",
+        locCity: "Novato",
+        locState: "CA",
+        locZip: "94949"
+     },
+     "Library": {
+        locStreetNumber: "64",
+        locStreetName: "931 C Street",
+        locCrossStreet: "Main Gate Road",
+        locCity: "Novato",
+        locState: "CA",
+        locZip: "94949"
+     }
+};
 
+console.log(locationsObj);
 
 //When user selects a location from the locationArr, the selected object will be pushed to travelStart and destination.  Alternately, we could simply push locationsArr.locName[i] to travelStart 
 // var travelStart = {};
 // var destination - {};
 
-// The screen switcher function will toggle between which screen is displayed.
-function screen_switcher(id_name) {
-
+// TUTORNOTE: New screen switcher function from Fred. His suggestion to fix bugs:
+function screen_switcher(id) {
     var main_divs = $('main');
+
     console.log(main_divs)
     for (i = 0; i < main_divs.length; i++) {
         if (main_divs[i].getAttribute('id') === id_name) {
@@ -75,8 +78,21 @@ function screen_switcher(id_name) {
             main_divs[i].setAttribute('style', 'display:none')
         };
 
-    };
-};
+// GABE'S SCREEN SWITCHER: The screen switcher function will toggle between which screen is displayed.
+// function screen_switcher(id_name) {
+
+//     var main_divs = $('main');
+//     for (i = 0; i < main_divs.length; i++) {
+//         console.log(main_divs[i])
+//         if (main_divs[i].getAttribute('id') === id_name) {
+//             main_divs[i].setAttribute('style', 'display:block');
+//         } else {
+//             main_divs[i].setAttribute('style', 'display:none')
+//         };
+//         console.log(main_divs[i])
+
+//     };
+// };
 
 // SEGMENT 1: USER INITIALIZATION
 
@@ -84,27 +100,20 @@ function screen_switcher(id_name) {
 
 
 function display_UI() {
-    $('#user-interface').attr('style', "display:block")
-}
 
-if (localStorage.getItem('user character') === null) {
-    screen_switcher('new-user');
-    $('.card').on("click", function () {
-        localStorage.setItem('user character', $(this).attr('id'));
-        localStorage.setItem('user score', 0);
-        $('#user-interface').attr('style', "display:block")
-        screen_switcher('initial-prompt');
-    })
-} else {
-
-    display_UI()
-    screen_switcher('initial-prompt')
-    display_user_info()
+    $('#user-interface').show();
+    // $('#user-interface').attr('style', "display:block")
+    //TUTORNOTE: Use show function and .hidden class instead of inline styling and add attribute
 }
 
 function display_user_info() {
-    $("#greeting").text("Hello " + localStorage.getItem("user character"));
+    $("#greeting").text("Hello " + localStorage.getItem("userCharacter"));
+    $("#profile-greeting").text("Hello " + localStorage.getItem("userCharacter"));
+    // var profileImg = $('#profile-img');
+    // profileImg = $('<div></div>').addClass('profile-image');
+    // profileImg.attr('style','background-image: url(("_____")')
     // Function which will display user info in profile section
+    //TUTORNOTE: user character should be userCharacter (no space, camelcase)
 }
 
 function update_score(points) {
@@ -112,36 +121,80 @@ function update_score(points) {
     localStorage.setItem('user score', score);
 }
 
+//TUTORNOTE: if then else statement and event handlers should be within the setup function, which is defined here but called in document.ready later. 
+function setUp() {
+
+    if (localStorage.getItem('user character') === null) {
+//TUTORNOTE: if (!localStorage.getItem('userCharacter'))
+//TUTOENOTE: The keys for local storage should not have spaces, that can throw errors. Removed spaces in userCharacter and userScore.
+        screen_switcher('new-user');
+        $('.card').on("click", function () {
+            localStorage.setItem('userCharacter', $(this).attr('id'));
+            localStorage.setItem('userScore', 0);
+
+            // Replace this: $('#user-interface').attr('style', "display:block") ...with:
+            $('#user-interface').show();
+            screen_switcher('initial-prompt');
+
+        })
+
+    } else {
+        display_UI()
+        screen_switcher('initial-prompt')
+        display_user_info()
+    }
+
+    var goBtn = $('#btn-go');
+    goBtn.on('click', screen_switcher("address-input"));
+
+    // screen_switcher("address-input");
+
+    submitBtn.on('click', function (event) {
+        event.preventDefault();
+        var startPointObj = getStartValues();
+        var endPointObj = getEndValues();
+        storeLocations(startPointObj, endPointObj);
+        console.log("PointA :" + JSON.stringify(startPointObj) + "PointB :" + JSON.stringify(endPointObj))
+    });
+}
+
 //This function is designed to set up the rows and columns with hero cards.
 
-// function buildHeroCards() {
-//     var heroesRow = $('.heroes-row');
-//     var col, card, cardImage, cardContent;
-//     var heroImage, heroName;
-//     var heroObject;
-//     for(var i = 0; i < heroesArr.length; i++) {
-//       heroObject = heroesArr[i];
-//       col = $('<div></div>').addClass('col s2 m2 l2');
-//       card = $('<div></div>').addClass('card').attr('id', heroObject.id);
-//       cardImage = $('<div></div>').addClass('card-image');
-//       heroImage = $('<img>').addClass('hero-image').attr('src', heroObject.heroImgURL);
-//       cardImage.append(heroImage);
-//       cardContent = $('<div></div>').addClass('card-content');
-//       heroName = $('<p></p>').addClass('hero-name').text(heroObject.heroName);
-//       cardContent.append(heroName);
-//       card.append(cardImage);
-//       card.append(cardContent);
-//       col.append(card);
-//       heroesRow.append(col);
-//   }
+function buildHeroCards() {
+    var heroesRow = $('.heroes-row');
+    var col, card, cardImage, cardContent;
+    var heroImage, heroName;
+    var heroObject;
 
-// 
+    for(var i = 0; i < heroesArr.length; i++) {
+      heroObject = heroesArr[i];
+      col = $('<div></div>').addClass('col s2 m2 l2');
+      card = $('<div></div>').addClass('card').attr('id', heroObject.id);
+      cardImage = $('<div></div>').addClass('card-image');
+      cardImage.attr('style','background-image: url(("' + heroObject.heroImgURL + '")');
+
+//TUTORNOTE: no longer need heroImage.  We assign a background image to <div class="card-image"> so we can make all the images the same size
+    //   heroImage = $('<img>').addClass('hero-image').attr('src', heroObject.heroImgURL);
+    //   cardImage.append(heroImage);
+
+      cardContent = $('<div></div>').addClass('card-content');
+      heroName = $('<p></p>').addClass('hero-name').text(heroObject.heroName);
+      cardContent.append(heroName);
+      card.append(cardImage);
+      card.append(cardContent);
+      col.append(card);
+      heroesRow.append(col);
+
+      console.log("HeroName:" + heroObject.heroName);
+      console.log("HeroImgURL:" + heroObject.heroImgURL);
+
+    
+    }
+};
 // OTHER OBJECTIVES:
-// 1. Create a function which updates score. Ideally, some number of earned points is passed in from segment two. There needs to be a function which
-//      accepts these additional points, adds them to the current score, and possible levels up the user if enough points are earned.
-// 2. As an added bit of functionality, the user can pick a new avatar to 'unlock' upon reaching a new level. There should be a 'profile' page
-//      where the user can toggle between all the different unlocked avatars.
+// 1. Create a function which updates score. Ideally, some number of earned points is passed in from segment two. There needs to be a function which accepts these additional points, adds them to the current score, and possible levels up the user if enough points are earned.
 
+// 2. As an added bit of functionality, the user can pick a new avatar to 'unlock' upon reaching a new level. There should be a 'profile' page where the user can toggle between all the different unlocked avatars.
 
 // ---------------------------------------------------------------------------------------------
 
@@ -162,8 +215,8 @@ function update_score(points) {
 
 // TO DO: The following function will create start and end point objects for use by Colin's function, and also push those to the locations array.  Needs to be finished and adjusted to sync up var names
 
-//need an event listener on this
-// screen_switcher("address-input");$
+
+//need an event listener on this: screen_switcher("address-input");
 
 var submitBtn = $('#submitBtn');
 
@@ -214,20 +267,12 @@ function getEndValues() {
 }; // end of getEndValues function
 
 function storeLocations(startPointObj, endPointObj) {
+
     // localStorage.saveItem(LS_KEY, JSON.stringify(startPointobj));
     locationsArr.push(startPointObj);
     locationsArr.push(endPointObj);
 }; //end of storeLocations function
 // };//end of endPointSaver function
-
-
-submitBtn.on('click', function (event) {
-    event.preventDefault();
-    var startPointObj = getStartValues();
-    var endPointObj = getEndValues();
-    storeLocations(startPointObj, endPointObj);
-    console.log("PointA :" + JSON.stringify(startPointObj) + "PointB :" + JSON.stringify(endPointObj))
-});
 
 // }
 // function saveToLocalStorage(obj) {
@@ -529,14 +574,15 @@ console.log("Since starting project Miles, you have earned " + currentHighScore 
 // Test 1
 // doubleAddressRoute();
 
-// API key for OR: 
+// API key for OR:
 // 5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3
 
-$(document).ready(function () {
 
+//TUTORNOTE: All functions called should be inside document.ready, including if then else statement, and all initialize activities should be in an initialize function
 
+$(document).ready(function() {
+    buildHeroCards();
+    setUp();
 
+});
 
-
-    // buildHeroCards()
-})
