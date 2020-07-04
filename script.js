@@ -333,11 +333,11 @@ function storeLocations(startPointObj, endPointObj) {
 // Gabe's Workstation
 
 
-$('#btn-eat').on("click", function() {
+$('#btn-eat').on("click", function () {
     screen_switcher('eat-div');
 })
 
-$('#meal-submit').on("click", function(event) {
+$('#meal-submit').on("click", function (event) {
     event.preventDefault();
     let street_num = $('#startNumber2').val();
     let street_name = $('#startStreet2').val();
@@ -345,12 +345,14 @@ $('#meal-submit').on("click", function(event) {
     let state = $('#startState2').val();
     let zip = $('#startZip2').val();
 
-    let address = {locStreetNumber: street_num,
-            locStreetName: street_name,
-            locCity: city,
-            locState: state,
-            locZip: zip}
-    
+    let address = {
+        locStreetNumber: street_num,
+        locStreetName: street_name,
+        locCity: city,
+        locState: state,
+        locZip: zip
+    }
+
     find_restaurants(address)
 })
 
@@ -388,7 +390,7 @@ function find_restaurants(address_object) {
     $.ajax({
         url: current_loc_url,
         method: 'GET'
-    }).then(function(response) {
+      }).then(function(response) {
 
         console.log(response)
         var current_lat = response.results[0].position.lat;
@@ -402,7 +404,7 @@ function find_restaurants(address_object) {
             headers: {
                 'X-Zomato-API-Key': '1dc29c917607ec14f7f9f5309c721b3c'
             }
-        }).then(function (response) {
+         }).then(function (response) {
             var tableData = []
             var i = 0 
             for (const place of response.restaurants) {
@@ -450,210 +452,244 @@ function find_restaurants(address_object) {
 // 4. These pairs of coordinates are fed to the Open Route API to calculate the distance of travel to each restaurant.
 // 5. The segment 2 algorithm is used to calculate a score for this restaurant. This score will be appended next to the restaurant choice in the segment 2 DOM table.
 
-// ------------------------------------------------------------------------------------------------
-// SEGMENT 4: GENERAL MOVEMENT SEARCH
-// Process Overview
-// 1. The starting and ending addresses are give from segment 2 in the form of the object.
-// 2. The TomTom API converts these to geocoordinates.
-// 3. These geocoordinates are used by the Open Route API to find a distance.
-// 4. This distance is fed to the segment 2 algorithm to add a certain number of points to the user score.
 
-// Taking address info from Jen and creating geo-cords from it
-function doubleAddressRoute(addressObj1, addressObj2) {
+ 
 
-    // // Extracting info from address object 1
-    // var streetNumber1 = addressObj1.locStreetNumber;
-    // var streetName1 = addressObj1.locStreetName;
-    // // var crossStreet1 = addressObj1.locCrossStreet;
-    // var city1 = addressObj1.locCity;
-    // var state1 = addressObj1.locState;
-    // var zip1 = addressObj1.locZip;
+        // ------------------------------------------------------------------------------------------------
+        // SEGMENT 4: GENERAL MOVEMENT SEARCH
+        // Process Overview
+        // 1. The starting and ending addresses are give from segment 2 in the form of the object.
+        // 2. The TomTom API converts these to geocoordinates.
+        // 3. These geocoordinates are used by the Open Route API to find a distance.
+        // 4. This distance is fed to the segment 2 algorithm to add a certain number of points to the user score.
 
-    // Testing TomTom with Address 1
-    var streetNumber1 = "1421";
-    var streetName1 = "Lexington Drive";
-    // var crossStreet1 = addressObj1.locCrossStreet;
-    var city1 = "San Jose";
-    var state1 = "CA";
-    var zip1 = "95117";
+        // Taking address info from Jen and creating geo-cords from it
+        function doubleAddressRoute(addressObj1, addressObj2) {
 
-    // local variables to use in openRoute
-    var cordA = '';
-    var cordB = '';
+            // // Extracting info from address object 1
+            // var streetNumber1 = addressObj1.locStreetNumber;
+            // var streetName1 = addressObj1.locStreetName;
+            // // var crossStreet1 = addressObj1.locCrossStreet;
+            // var city1 = addressObj1.locCity;
+            // var state1 = addressObj1.locState;
+            // var zip1 = addressObj1.locZip;
 
-    // First TomTom call - from HOME
-    $.ajax({
-        // &countrySubdivision=Illinoiso&postalCode=60618 example of state and zip 
-        // might need states to be spelled fully. 
-        url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=' + streetNumber1 + '&streetName=' + streetName1 + '&municipality=' + city1 + '&countrySubdivision=' + state1 + '&postalCode=' + zip1,
-        method: 'GET'
-    }).then(function (responseOne) {
+            // Testing TomTom with Address 1
+            var streetNumber1 = "1421";
+            var streetName1 = "Lexington Drive";
+            // var crossStreet1 = addressObj1.locCrossStreet;
+            var city1 = "San Jose";
+            var state1 = "CA";
+            var zip1 = "95117";
 
-        // console log clarity 
-        console.log("First cordinate:");
-        console.log(responseOne);
-        console.log("======================")
+            // local variables to use in openRoute
+            var cordA = '';
+            var cordB = '';
 
-        // Testing Geo-Cordinates from first TomTom call
-        console.log("First lat: " + responseOne.results[0].position.lat);
-        console.log("First lon: " + responseOne.results[0].position.lon);
+            // First TomTom call - from HOME
+            $.ajax({
+                // &countrySubdivision=Illinoiso&postalCode=60618 example of state and zip 
+                // might need states to be spelled fully. 
+                url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=' + streetNumber1 + '&streetName=' + streetName1 + '&municipality=' + city1 + '&countrySubdivision=' + state1 + '&postalCode=' + zip1,
+                method: 'GET'
+            }).then(function (responseOne) {
 
-        //  Geo-Cordinates from first TomTom call
-        cordA = responseOne.results[0].position.lon + "," + responseOne.results[0].position.lat;
+                // console log clarity 
+                console.log("First cordinate:");
+                console.log(responseOne);
+                console.log("======================")
 
-        // // Extracting info from address object 2
-        // var streetNumber2 = addressObj2.locStreetNumber;
-        // var streetName2 = addressObj2.locStreetName;
-        // // var crossStreet1 = addressObj1.locCrossStreet;
-        // var city2 = addressObj2.locCity;
-        // var state2 = addressObj2.locState;
-        // var zip2 = addressObj2.locZip;
+                // Testing Geo-Cordinates from first TomTom call
+                console.log("First lat: " + responseOne.results[0].position.lat);
+                console.log("First lon: " + responseOne.results[0].position.lon);
 
-        // Testing TomTom with Address 2
-        var streetNumber2 = "10100";
-        var streetName2 = "Finch Ave";
-        // var crossStreet1 = addressObj1.locCrossStreet;
-        var city2 = "Cupertino";
-        var state2 = "CA";
-        var zip2 = "95014";
-        // Second TomTom call - from Secondary Location
-        // COMMENT - Only works if Secondary Location is located as the second object in locationsArr
-        $.ajax({
+                //  Geo-Cordinates from first TomTom call
+                cordA = responseOne.results[0].position.lon + "," + responseOne.results[0].position.lat;
 
-            // &countrySubdivision=Illinoiso&postalCode=60618 example of state and zip 
-            // might need states to be spelled fully. 
-            url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=' + streetNumber2 + '&streetName=' + streetName2 + '&municipality=' + city2 + '&countrySubdivision=' + state2 + '&postalCode=' + zip2,
-            method: 'GET'
+                // // Extracting info from address object 2
+                // var streetNumber2 = addressObj2.locStreetNumber;
+                // var streetName2 = addressObj2.locStreetName;
+                // // var crossStreet1 = addressObj1.locCrossStreet;
+                // var city2 = addressObj2.locCity;
+                // var state2 = addressObj2.locState;
+                // var zip2 = addressObj2.locZip;
 
-        }).then(function (responseTwo) {
-
-            // console log clarity 
-            console.log("Second cordinate");
-            console.log(responseTwo);
-            console.log("======================")
-
-            // Testing Geo-Cordinates from first TomTom call
-            console.log("Second lat: " + responseTwo.results[0].position.lat);
-            console.log("Second lon: " + responseTwo.results[0].position.lon);
-
-            //  Geo-Cordinates from first TomTom call
-            cordB = responseTwo.results[0].position.lon + "," + responseTwo.results[0].position.lat;
-
-            console.log("This is cordA: " + cordA);
-            console.log("This is cordB: " + cordB);
-
-            // Calling openRoute API
-            openRouteNF();
-
-            // Taking mode of travel response from user & Jen
-            // Test variable
-            // selectedMoveMode = "bike";
-
-            function openRouteNF() {
-
-                // Console log tests for cords
-                console.log("cordA =" + cordA);
-                console.log("cordB =" + cordB);
-                console.log("================");
-
-                // Test cordinate values from TomTom
-                // var cordA = "-87.68021,41.95303";
-                // var cordB = "-87.63451,41.90145";
-
-                selectedMoveMode = "skateboard";
-
-                if (((selectedMoveMode === "walk") || (selectedMoveMode === "run") || (selectedMoveMode === "walk-jog"))) {
-                    var queryUrl = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
-
-                } else {
-                    var queryUrl = "https://api.openrouteservice.org/v2/directions/cycling-regular?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
-
-                };
+                // Testing TomTom with Address 2
+                var streetNumber2 = "10100";
+                var streetName2 = "Finch Ave";
+                // var crossStreet1 = addressObj1.locCrossStreet;
+                var city2 = "Cupertino";
+                var state2 = "CA";
+                var zip2 = "95014";
+                // Second TomTom call - from Secondary Location
+                // COMMENT - Only works if Secondary Location is located as the second object in locationsArr
                 $.ajax({
-                    // Longitude comes first, then latitude, in each query url
-                    url: queryUrl,
+                    // &countrySubdivision=Illinoiso&postalCode=60618 example of state and zip 
+                    // might need states to be spelled fully. 
+                    url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=' + streetNumber2 + '&streetName=' + streetName2 + '&municipality=' + city2 + '&countrySubdivision=' + state2 + '&postalCode=' + zip2,
                     method: 'GET'
-                }).then(function (responseB) {
 
-                    // console checks
-                    console.log("Colin's Obj:");
-                    console.log(responseB);
-                    // console.log("Total distance traveled " + responseB.features[0].properties.summary.distance);
-                    // console.log("Total time travelled " + responseB.features[0].properties.summary.duration);
+                }).then(function (responseTwo) {
+
+                    // console log clarity 
+                    console.log("Second cordinate");
+                    console.log(responseTwo);
+                    console.log("======================")
+
+                    // Testing Geo-Cordinates from first TomTom call
+                    console.log("Second lat: " + responseTwo.results[0].position.lat);
+                    console.log("Second lon: " + responseTwo.results[0].position.lon);
+
+                    //  Geo-Cordinates from first TomTom call
+                    cordB = responseTwo.results[0].position.lon + "," + responseTwo.results[0].position.lat;
+
+                    console.log("This is cordA: " + cordA);
+                    console.log("This is cordB: " + cordB);
+
+                    // Calling openRoute API
+                    openRouteNF();
+
+                    // Taking mode of travel response from user & Jen
+                    // Test variable
+                    // selectedMoveMode = "bike";
+
+                    function openRouteNF() {
+
+                        // Console log tests for cords
+                        console.log("cordA =" + cordA);
+                        console.log("cordB =" + cordB);
+                        console.log("================");
+
+                        // Test cordinate values from TomTom
+                        // var cordA = "-87.68021,41.95303";
+                        // var cordB = "-87.63451,41.90145";
+
+                        selectedMoveMode = "skateboard";
+
+                        if (((selectedMoveMode === "walk") || (selectedMoveMode === "run") || (selectedMoveMode === "walk-jog"))) {
+                            var queryUrl = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
+
+                        } else {
+                            var queryUrl = "https://api.openrouteservice.org/v2/directions/cycling-regular?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
+
+                        };
+                        $.ajax({
+                            // Longitude comes first, then latitude, in each query url
+                            url: queryUrl,
+                            method: 'GET'
+                        }).then(function (responseB) {
+
+                            // console checks
+                            console.log("Colin's Obj:");
+                            console.log(responseB);
+                            // console.log("Total distance traveled " + responseB.features[0].properties.summary.distance);
+                            // console.log("Total time travelled " + responseB.features[0].properties.summary.duration);
 
 
-                    // Takes distance in meters and converts it to miles
-                    var distanceMeters = responseB.features[0].properties.summary.distance;
-                    var distanceMiles = distanceMeters / 1609;
-                    // Makes number spit out two decimal places 
-                    var finalDistance = distanceMiles.toFixed(2);
-                    // Outputs miles
-                    // To do list: 1) Append a p tag with info 
+                            // Takes distance in meters and converts it to miles
+                            var distanceMeters = responseB.features[0].properties.summary.distance;
+                            var distanceMiles = distanceMeters / 1609;
+                            // Makes number spit out two decimal places 
+                            var finalDistance = distanceMiles.toFixed(2);
+                            // Outputs miles
+                            // To do list: 1) Append a p tag with info 
 
-                    console.log("Miles traveled: " + finalDistance);
+                            console.log("Miles traveled: " + finalDistance);
 
-                    $('#confirmation').text("Total distance walked " + finalDistance + " miles");
-                    scoreGenerator(finalDistance);
-                    // score = finalDistance;
+                            $('#confirmation').text("Total distance walked " + finalDistance + " miles");
+                            scoreGenerator(finalDistance);
+                            // score = finalDistance;
 
-                    // Create generate score function here?
-                    // Test 1
+                            // Create generate score function here?
+                            // Test 1
 
+                        })
+                    }
                 })
-            }
-        })
+            })
+        });
+    console.log("check1");
+    doubleAddressRoute();
+    // Points per mile - Score function
+    function scoreGenerator(totalDistance) {
+        if (selectedMoveMode === "walk") {
+            totalScore = (totalDistance * 10).toFixed();
+            console.log(totalScore);
+        }
+        if (selectedMoveMode === "walk-jog") {
+            totalScore = (totalDistance * 20).toFixed();
+            console.log(totalScore);
+        }
+        if (selectedMoveMode === "run") {
+            totalScore = (totalDistance * 30).toFixed();
+            console.log(totalScore);
+        }
+        if (selectedMoveMode === "skateboard") {
+            totalScore = (totalDistance * 15).toFixed();
+            console.log(totalScore);
+        }
+        if (selectedMoveMode === "bike") {
+            totalScore = (totalDistance * 25).toFixed();
+            console.log(totalScore);
+        }
+
+        confirmationPage(totalDistance, totalScore);
+    }
+
+    // Confirm page 
+    function confirmationPage(finalDistance, totalScore) {
+        // $('#confirmMessage').text() ... below. 
+        console.log("Awesome! If you " + selectedMoveMode + " " + finalDistance + " miles, you will earn " + totalScore + " points!");
+        currentHighScore = parseInt(score) + parseInt(totalScore);
+        // $('#displayHighScore').text() ... below. 
+        console.log("Since starting project Miles, you have earned " + currentHighScore + " points!");
+        // localStorage.setItem('user score', )
+    }
+
+    // Return home function
+    // This is on the last div; however, we could make this a button that persists throughout
+    $('#btn-home').on("click", function () {
+        // May need to rename this main id 
+        screen_switcher(new - user);
     })
-};
 
-// Points per mile - Score function
-function scoreGenerator(totalDistance) {
-    if (selectedMoveMode === "walk") {
-        totalScore = (totalDistance * 10).toFixed();
-        console.log(totalScore);
-    }
-    if (selectedMoveMode === "walk-jog") {
-        totalScore = (totalDistance * 20).toFixed();
-        console.log(totalScore);
-    }
-    if (selectedMoveMode === "run") {
-        totalScore = (totalDistance * 30).toFixed();
-        console.log(totalScore);
-    }
-    if (selectedMoveMode === "skateboard") {
-        totalScore = (totalDistance * 15).toFixed();
-        console.log(totalScore);
-    }
-    if (selectedMoveMode === "bike") {
-        totalScore = (totalDistance * 25).toFixed();
-        console.log(totalScore);
-    }
+    // Function to move back one page
+    $('#btn-previous').on("click", function () {
 
-    confirmationPage (totalDistance, totalScore);
-}
+        // Find the id of the parent-main div 
+        var parentId = $(this).parent().attr('id');
+        // Send that parentId to s_s_prev
+        screen_switcher_previous(parentId);
 
-// Confirm page 
-function confirmationPage(finalDistance, totalScore) {
-// $('#confirmation').text() ... below. 
-console.log("Awesome! If you " + selectedMoveMode + " " + finalDistance + " miles, you will earn " + totalScore + " points!");
-currentHighScore = parseInt(score) + parseInt(totalScore);
-console.log("Since starting project Miles, you have earned " + currentHighScore + " points!");
-// localStorage.setItem('user score', )
-}
+    });
 
+    function screen_switcher_previous(id_name) {
 
-// Create generate score function here?
-// Test 1
-// doubleAddressRoute();
+        var main_divs = $('main');
+        console.log(main_divs)
+        for (i = 0; i < main_divs.length; i++) {
+            // finds the parentId
+            if (main_divs[i].getAttribute('id') === id_name) {
+            // displays the main div previous on page
+                main_divs[i - 1].setAttribute('style', 'display:block');
+            } else {
+                main_divs[i].setAttribute('style', 'display:none')
+            };
 
-// API key for OR:
-// 5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3
+        };
+    };
+
+    // Create generate score function here?
+    // Test 1
 
 
 //TUTORNOTE: All functions called should be inside document.ready, including if then else statement, and all initialize activities should be in an initialize function
+
 
 $(document).ready(function() {
     buildHeroCards();
     setUp();
 
 });
+
 

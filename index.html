@@ -72,7 +72,7 @@
                 </div>
                 <div class="col s2 m2 l2">
                 </div>
-=======
+
             </div>
 
         </main>
@@ -192,7 +192,7 @@
                     </form>
                 </main>
 
-                <main id="eat-div" class="row" style="display:none">
+                <main id="eat-div" class="row hidden">
                     <h2 id="meal-header">Enter your current location</h2>
                     <form method="post" class="input-field" id="meal-location">
                         <div class="row">
@@ -215,14 +215,13 @@
                     </form>
                 </main>
                 <!-- TODO: add an click event listener to submit button the click event handler must read in the form values -->
-
+                <main id='confirmation' class="hidden">
+                    <h2 id='confirmMessage'></h2>
+                    <h4 id='displayHighScore'></h4>
+                    <button id='btn-home'>Restart</button>
+                </main>
             </div>
         </div>
-
-
-        <main id='confirmation' style="display:block">
-           
-        </main>
     </div>
     <!-- Section 2 (Jen): This This div for use when user wants to go somewhere, will space to prompt user for mode of transport, start address & destination via form. 
 
