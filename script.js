@@ -426,7 +426,7 @@ function doubleAddressRoute(addressObj1, addressObj2) {
                     // console checks
                     console.log("Colin's Obj:");
                     console.log(responseB);
-                    console.log("Total distance traveled " + responseB.features[0].properties.summary.distance);
+                    // console.log("Total distance traveled " + responseB.features[0].properties.summary.distance);
                     // console.log("Total time travelled " + responseB.features[0].properties.summary.duration);
 
 
@@ -437,31 +437,52 @@ function doubleAddressRoute(addressObj1, addressObj2) {
                     var finalDistance = distanceMiles.toFixed(2);
                     // Outputs miles
                     // To do list: 1) Append a p tag with info 
-                    
+
                     console.log("Miles traveled: " + finalDistance);
 
                     $('#confirmation').text("Total distance walked " + finalDistance + " miles");
-
+                    scoreGenerator(finalDistance);
                     // score = finalDistance;
-                
+
                     // Create generate score function here?
                     // Test 1
 
-                // Points per mile
-                // Walking : 
-
-                if (selectedMoveMode === "walk") {
-                    totalScore = finalDistance * 10;
-                    console.log(totalScore);
-                } 
-                
-                });
-            };
+                })
+            }
         })
     })
 };
 
+// Points per mile - Score function
+function scoreGenerator(totalDistance) {
+    if (selectedMoveMode === "walk") {
+        totalScore = (totalDistance * 10).toFixed();
+        console.log(totalScore);
+    }
+    if (selectedMoveMode === "walk-jog") {
+        totalScore = (totalDistance * 20).toFixed();
+        console.log(totalScore);
+    }
+    if (selectedMoveMode === "run") {
+        totalScore = (totalDistance * 30).toFixed();
+        console.log(totalScore);
+    }
+    if (selectedMoveMode === "skateboard") {
+        totalScore = (totalDistance * 15).toFixed();
+        console.log(totalScore);
+    }
+    if (selectedMoveMode === "bike") {
+        totalScore = (totalDistance * 25).toFixed();
+        console.log(totalScore);
+    }
 
+    confirmationPage ();
+}
+
+function confirmationPage() {
+
+
+}
 // Create generate score function here?
 // Test 1
 doubleAddressRoute();
