@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="dist/css/tabulator.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/tabulator-tables@4.0.5/dist/css/tabulator.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.0.5/dist/js/tabulator.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="style.css">
 
@@ -71,7 +72,7 @@
                 </div>
                 <div class="col s2 m2 l2">
                 </div>
-=======
+
             </div>
 
         </main>
@@ -191,7 +192,7 @@
                     </form>
                 </main>
 
-                <main id="eat-div" class="row" style="display:none">
+                <main id="eat-div" class="row hidden">
                     <h2 id="meal-header">Enter your current location</h2>
                     <form method="post" class="input-field" id="meal-location">
                         <div class="row">
@@ -214,14 +215,13 @@
                     </form>
                 </main>
                 <!-- TODO: add an click event listener to submit button the click event handler must read in the form values -->
-
+                <main id='confirmation' class="hidden">
+                    <h2 id='confirmMessage'></h2>
+                    <h4 id='displayHighScore'></h4>
+                    <button id='btn-home'>Restart</button>
+                </main>
             </div>
         </div>
-
-
-        <main id='confirmation' style="display:block">
-           
-        </main>
     </div>
     <!-- Section 2 (Jen): This This div for use when user wants to go somewhere, will space to prompt user for mode of transport, start address & destination via form. 
 
