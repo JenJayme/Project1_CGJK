@@ -21,11 +21,11 @@
             <h2 class="center">Choose a character before you start making healthier choices</h2>
 
             <!-- Fred's hero card setup -->
-            <div class="row heroes-row"></div>
+            <!-- <div class="row heroes-row"></div> -->
 
 
             <!-- Gabe's hero card setup -->
-            <!-- <div class="row">
+            <div class="row">
                 <div class="col s2 m2 l2">
                 </div>
                 <div class="col s2 m2 l2">
@@ -80,7 +80,6 @@
         <div id="user-interface" class="row hidden">
 
             <div class="col s3 nav">
-                <!-- Grey navigation panel -->
                 <!-- <svg width="500" height="350">
                     <defs>
                        <clipPath id="myCircle">
@@ -88,7 +87,7 @@
                        </clipPath>
                     </defs>
                     <image width="500" height="350" xlink:href="https://i.pinimg.com/originals/64/16/a9/6416a9d467b9d4d8149586c51171eb55.jpg" clip-path="url(#myCircle)" />
-                 </svg> -->
+                 </svg>  -->
 
                 <img id="profile-img" class="responsive-img"
                     src="https://i.pinimg.com/originals/64/16/a9/6416a9d467b9d4d8149586c51171eb55.jpg">
@@ -124,29 +123,33 @@
                     <form action="#">
                         <p>
                             <label>
-                                <input name="group1" type="radio" checked />
+                                <input class="transpo" id="walk" name="group1" type="radio" />
                                 <span>Walk (50 points per mile)</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input name="group1" type="radio" />
+                                <input class="transpo" id="run" name="group1" type="radio" />
                                 <span>Run (100 points per mile)</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input class="with-gap" name="group1" type="radio" />
+                                <input class="transpo" id="bike" class="with-gap" name="group1" type="radio" />
                                 <span>Bike (80 points per mile)</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input name="group1" type="radio" disabled="disabled" />
+                                <input class="transpo" id="skateboard" name="group1" type="radio" />
                                 <span>Skateboard (80 points per mile)</span>
                             </label>
                         </p>
                     </form>
+                    <button id="transpo-submitBtn" class="btn blue darken-8 waves-effect waves-light" type="submit"
+                        name="action" style="float:right">Submit
+                        <i class="material-icons right">send</i>
+                    </button>
                 </main>
 
                 <!-- Section 2 (Jen): Next div is for when user wants to have a meal.  This space holds a form with prompts to choose mode of transport and enter start address.  Submit button will launch Zomato function. -->
@@ -204,7 +207,7 @@
                                 State <input type="text" id="startState2" name="startState" />
                                 Zip <input type="text" id="startZip2" name="startZip" />
                             </div>
-                            
+
                         </div>
                         <div class="row">
                             <div class="col s4 m4 l4">
