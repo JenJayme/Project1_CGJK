@@ -230,13 +230,17 @@ function screen_switcher(id) {
             // Retrieves the form values and assigns them to startPointObj
             var startPointObj;
             var startLocName = $('#startLocName').val();
-            var startAddress = $('#startAddress').val();
+            // var startAddress = $('#startAddress').val();
+            startLocName = $('#startLocName').val()
+            startLocNum = $('#startNum').val();
+            startName = $('#startName').val();
             startCity = $('#startCity').val();
             startState = $('#startState').val();
             startZip = $('#startZip').val();
 
             startPointObj = {
-                startAddress: startAddress,
+                startNum: startLocNum,
+                startName: startName,
                 startCity: startCity,
                 startState: startState,
                 startZip: startZip
@@ -270,14 +274,16 @@ function screen_switcher(id) {
         function getEndValues() {
             var endPointObj, endLocName, endAddress, endCity, endState, endZip;
             endLocName = $('#endLocName').val();
-            endAddress = $('#endAddress').val();
+            endNum = $('#endNum').val();
+            endName = $('#endName').val();
             endCity = $('#endCity').val();
             endState = $('#endState').val();
             endZip = $('#endZip').val();
 
             endPointObj = {
                 endLocName: endLocName,
-                endAddress: endAddress,
+                endNum: endNum, 
+                endName: endName,
                 endCity: endCity,
                 endState: endState,
                 endZip: endZip
@@ -472,21 +478,21 @@ function screen_switcher(id) {
     // Taking address info from Jen and creating geo-cords from it
     function doubleAddressRoute(addressObj1, addressObj2) {
 
-        // // Extracting info from address object 1
-        // var streetNumber1 = addressObj1.locStreetNumber;
-        // var streetName1 = addressObj1.locStreetName;
-        // // var crossStreet1 = addressObj1.locCrossStreet;
-        // var city1 = addressObj1.locCity;
-        // var state1 = addressObj1.locState;
-        // var zip1 = addressObj1.locZip;
-
-        // Testing TomTom with Address 1
-        var streetNumber1 = "1421";
-        var streetName1 = "Lexington Drive";
+        // Extracting info from address object 1
+        var streetNumber1 = addressObj1.startNum;
+        var streetName1 = addressObj1.startName;
         // var crossStreet1 = addressObj1.locCrossStreet;
-        var city1 = "San Jose";
-        var state1 = "CA";
-        var zip1 = "95117";
+        var city1 = addressObj1.startCity;
+        var state1 = addressObj1.startState;
+        var zip1 = addressObj1.startZip;
+
+        // // Testing TomTom with Address 1
+        // var streetNumber1 = "1421";
+        // var streetName1 = "Lexington Drive";
+        // // var crossStreet1 = addressObj1.locCrossStreet;
+        // var city1 = "San Jose";
+        // var state1 = "CA";
+        // var zip1 = "95117";
 
         // local variables to use in openRoute
         var cordA = '';
@@ -512,21 +518,22 @@ function screen_switcher(id) {
             //  Geo-Cordinates from first TomTom call
             cordA = responseOne.results[0].position.lon + "," + responseOne.results[0].position.lat;
 
-            // // Extracting info from address object 2
-            // var streetNumber2 = addressObj2.locStreetNumber;
-            // var streetName2 = addressObj2.locStreetName;
-            // // var crossStreet1 = addressObj1.locCrossStreet;
-            // var city2 = addressObj2.locCity;
-            // var state2 = addressObj2.locState;
-            // var zip2 = addressObj2.locZip;
-
-            // Testing TomTom with Address 2
-            var streetNumber2 = "10100";
-            var streetName2 = "Finch Ave";
+            // Extracting info from address object 2
+            var streetNumber2 = addressObj2.endNum;
+            var streetName2 = addressObj2.endName;
             // var crossStreet1 = addressObj1.locCrossStreet;
-            var city2 = "Cupertino";
-            var state2 = "CA";
-            var zip2 = "95014";
+            var city2 = addressObj2.endCity;
+            var state2 = addressObj2.endState;
+            var zip2 = addressObj2.endZip;
+
+            // // Testing TomTom with Address 2
+            // var streetNumber2 = "10100";
+            // var streetName2 = "Finch Ave";
+            // // var crossStreet1 = addressObj1.locCrossStreet;
+            // var city2 = "Cupertino";
+            // var state2 = "CA";
+            // var zip2 = "95014";
+
             // Second TomTom call - from Secondary Location
             // COMMENT - Only works if Secondary Location is located as the second object in locationsArr
             $.ajax({
@@ -598,7 +605,10 @@ function screen_switcher(id) {
                         // Makes number spit out two decimal places 
                         var finalDistance = distanceMiles.toFixed(2);
                         // Outputs miles
-                        // To do list: 1) Append a p tag with info 
+                       
+                        
+                        var totalTime = ((responseB.features[0].properties.summary.duration) / 60).toFixed();
+                        console.log("This should take you " + totalTime + " minutes");
 
                         console.log("Miles traveled: " + finalDistance);
 
@@ -615,7 +625,6 @@ function screen_switcher(id) {
         })
     };
         console.log("check1");
-        doubleAddressRoute();
         // Points per mile - Score function
         function scoreGenerator(totalDistance) {
             if (selectedMoveMode === "walk") {
