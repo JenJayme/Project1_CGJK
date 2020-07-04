@@ -490,6 +490,8 @@ function find_restaurants(address_object) {
         });
     console.log("check1");
     doubleAddressRoute();
+
+
     // Points per mile - Score function
     function scoreGenerator(totalDistance) {
         if (selectedMoveMode === "walk") {
@@ -520,10 +522,11 @@ function find_restaurants(address_object) {
     function confirmationPage(finalDistance, totalScore) {
         // $('#confirmMessage').text() ... below. 
         console.log("Awesome! If you " + selectedMoveMode + " " + finalDistance + " miles, you will earn " + totalScore + " points!");
-        currentHighScore = parseInt(score) + parseInt(totalScore);
+        currentHighScore = getScore() + parseInt(totalScore);
         // $('#displayHighScore').text() ... below. 
         console.log("Since starting project Miles, you have earned " + currentHighScore + " points!");
         // localStorage.setItem('user score', )
+        //  CALL update_score with the new points they earned 
     }
 
     // Return home function
