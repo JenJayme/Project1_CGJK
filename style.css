@@ -41,7 +41,7 @@ h4 {
 }
 
 .hidden {
-    display: block;
+    display: none;
 }
 
 .heroes-row {
