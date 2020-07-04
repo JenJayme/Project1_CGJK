@@ -1,9 +1,88 @@
-
-#new-user {
-    text-align:center;
+body {
+    background-color: black;
 }
 
 h4 {
+    font-size: 20px;
     padding-top: 10px;
     padding-bottom: 5px;
+    color:white;
+}
+
+.badges {
+    display: inline-block;
+    margin: 20px 10px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.big-space {
+    background-image: url("Assets/images/backimg-logo-blueuniverse.jpg");
+    opacity: 0.5; 
+}
+
+.card {
+    cursor: pointer;
+}
+
+.card:hover {
+    box-shadow: 0px 0px 6px 6px cadetblue;
+}
+
+.card-image {
+    height:  130px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.container {
+    background-color: #302b2b;
+}
+
+.hidden {
+    display: none;
+}
+
+.heroes-row {
+    display: flex;
+    align-items: center;
+}
+
+.input {
+    color: whitesmoke;
+}
+
+.input-label {
+    font-size: 12px;
+    color: whitesmoke;
+}
+
+.nav {
+    background-color: #353030;
+}
+
+#new-user {
+    text-align: center;
+}
+
+#profile-img {
+    horizontal-align: middle;
+    width: 200px;
+    margin: 20px 20px;
+    border-radius: 50%;
+}
+
+#profile-greeting {
+    margin: 10px 40px;
+    color: lightblue;
+    text-align: center;
+    font-size: 18px;
+    font-style: italic;
+}
+
+#profile-details {
+    color: white;
+    font-size: 12px;
+    text-align: center;
 }
