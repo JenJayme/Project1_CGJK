@@ -13,7 +13,7 @@
 <body>
 
     <div class="container">
-        <main id='new-user' class="center" style="display:none">
+        <main id='new-user' class="center" style="display:block">
             <h1 class="center">Welcome!</h1>
             <h2 class="center">Choose a character before you start making healthier choices</h2>
             <!-- Question from Jen: How do I access the chosen superhero name so on my section it can greet them with "Hello Iron Man, what would you like to do to earn some points?" After the ajax query do we get an object back with the superhero's info, from which I can grab the hero name? LMK -->
@@ -181,14 +181,13 @@
                     </form>
                 </main>
                 <!-- TODO: add an click event listener to submit button the click event handler must read in the form values -->
-
+                <main id='confirmation' style="display:block">
+                    <h2 id='confirmMessage'></h2>
+                    <h4 id='displayHighScore'></h4>
+                    <button id='btn-home'>Restart</button>
+                </main>
             </div>
         </div>
-
-
-        <main id='confirmation' style="display:block">
-           
-        </main>
     </div>
     <!-- Section 2 (Jen): This This div for use when user wants to go somewhere, will space to prompt user for mode of transport, start address & destination via form. 
 
