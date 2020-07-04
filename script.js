@@ -239,6 +239,19 @@ function getStartValues() {
     return startPointObj;
 } // end of getStartValues function
 
+function getScore() {
+    return parseInt(localStorage.getItem('userScore'));
+}
+
+function setScore(current_score) {
+    localStorage.setItem("userScore", current_score)
+}
+
+function updateScore(new_points) {
+    var current_score = getScore();
+    current_score += new_points;
+    setScore(current_score)
+}
 //we probably don't need this stuff:
 // function startingPointSaver () {
 //     const LS_KEY = "journey";
@@ -253,7 +266,7 @@ function getEndValues() {
     endLocName = $('#endLocName').val();
     endAddress = $('#endAddress').val();
     endCity = $('#endCity').val();
-    endState: $('#endState').val();
+    endState = $('#endState').val();
     endZip = $('#endZip').val();
 
     endPointObj = {
@@ -341,6 +354,29 @@ $('#meal-submit').on("click", function(event) {
     find_restaurants(address)
 })
 
+function scoreCalculator(distance) {
+    var totalScore;
+
+    if (selectedMoveMode === "walk") {
+        totalScore = (distance * 10).toFixed();
+    }
+    else if (selectedMoveMode === "walk-jog") {
+        totalScore = (distance * 20).toFixed();
+    }
+    else if (selectedMoveMode === "run") {
+        totalScore = (distance * 30).toFixed();
+    }
+    else if (selectedMoveMode === "skateboard") {
+        totalScore = (distance * 15).toFixed();
+    }
+    else if (selectedMoveMode === "bike") {
+        totalScore = (distance * 25).toFixed();
+    }
+
+    return totalScore
+    
+}
+
 function find_restaurants(address_object) {
     var street_num = address_object.locStreetNumber;
     var street_name = address_object.locStreetName;
@@ -358,20 +394,55 @@ function find_restaurants(address_object) {
         var current_lat = response.results[0].position.lat;
         var current_lon = response.results[0].position.lon;
 
-        let zomato_url = 'https://developers.zomato.com/api/v2.1/search?q=Healthy&lat=' + current_lat + '&lon=' + current_lon + '&radius=8050'
+        let zomato_url = 'https://developers.zomato.com/api/v2.1/search?q=Healthy&lat=' + current_lat + '&lon=' + current_lon + '&radius=8050&count=10'
 
         $.ajax({
-            url: 'https://developers.zomato.com/api/v2.1/search?q=Mexican&q=Healthy&count=4',
+            url: zomato_url,
             method: 'GET',
             headers: {
                 'X-Zomato-API-Key': '1dc29c917607ec14f7f9f5309c721b3c'
             }
         }).then(function (response) {
-            console.log(response)
+            var tableData = []
+            var i = 0 
+            for (const place of response.restaurants) {
+                console.log(place)
+                i++
+                var distance_to;
+                var score;
+                var rest_name = place.restaurant.name;
+                var rest_address = place.restaurant.location.address;
+                var restaurant_lat = place.restaurant.location.latitude;
+                var restaurant_lon = place.restaurant.location.longitude;
+                var openroute_url = 'https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=' + current_lon + ',' + current_lat + '&end=' + restaurant_lon + ',' + restaurant_lat
+
+                $.ajax({
+                    url: openroute_url,
+                    method: 'GET'
+                }).then(function(response) {
+                    console.log(response)
+                    distance_to = response.features[0].properties.summary.distance/1609;
+                    console.log(distance_to)
+                    score = scoreCalculator(distance_to)
+                    tableData.push({id: String(i), Name: rest_name, Address: rest_address, Score: score})
+                    
+                })
+            };
+            console.log(tableData)
+            var table = new Tabulator("#eat-div", {
+                data: tableData,
+                columns : [
+                    {title: "Name", field: "Name"},
+                    {title: "Address", field: "Address"},
+                    {title: "Score", field: "score", sorter: "number"}
+                ]
+            })
         })
 })
 
-}
+};
+
+
 
 // 1. An AJAX call will be made to find some number of related restaurants in the area matching the keys within a certain radius.
 // 2. The address of each restaurant will be converted to geocoordinates using the TomTom API
