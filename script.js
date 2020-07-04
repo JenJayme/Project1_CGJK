@@ -1,7 +1,7 @@
 // All the variables and jQuery DOM pointers can be assigned here
 var superheroName;
 var superhero_src;
-var score;
+var score = 10;
 
 // The following array will be used for a drop-down to select mode of transportation.  The move the user selects will be returned to the selectedMoveMode var, to be used in Colin's distance/points calculation function.
 var moveModesArr = ["walk", "bike", "run", "skateboard", "walk-jog"];
@@ -69,21 +69,14 @@ console.log(locationsObj);
 // TUTORNOTE: New screen switcher function from Fred. His suggestion to fix bugs:
 function screen_switcher(id) {
     var main_divs = $('main');
-    var mainDiv;
 
-    for (var i=0; i < main_divs.length; i++) {
-        mainDiv = $(main_divs[i]);
-    
-        // TODO: delete console.log()
-        console.log(mainDiv);
-    
-        if (mainDiv.attr('id') === id) {
-            mainDiv.show();
+    console.log(main_divs)
+    for (i = 0; i < main_divs.length; i++) {
+        if (main_divs[i].getAttribute('id') === id_name) {
+            main_divs[i].setAttribute('style', 'display:block');
         } else {
-            mainDiv.hide();
-        }
-    }
-}
+            main_divs[i].setAttribute('style', 'display:none')
+        };
 
 // GABE'S SCREEN SWITCHER: The screen switcher function will toggle between which screen is displayed.
 // function screen_switcher(id_name) {
@@ -105,7 +98,9 @@ function screen_switcher(id) {
 
 // This initialiation sequence will assess whether or not the user is new or returning
 
+
 function display_UI() {
+
     $('#user-interface').show();
     // $('#user-interface').attr('style', "display:block")
     //TUTORNOTE: Use show function and .hidden class instead of inline styling and add attribute
@@ -220,7 +215,9 @@ function buildHeroCards() {
 
 // TO DO: The following function will create start and end point objects for use by Colin's function, and also push those to the locations array.  Needs to be finished and adjusted to sync up var names
 
+
 //need an event listener on this: screen_switcher("address-input");
+
 var submitBtn = $('#submitBtn');
 
 function getStartValues() {
@@ -240,9 +237,7 @@ function getStartValues() {
     }; // end of startPointObj
 
     return startPointObj;
-
 } // end of getStartValues function
-
 
 //we probably don't need this stuff:
 // function startingPointSaver () {
@@ -273,8 +268,7 @@ function getEndValues() {
 
 function storeLocations(startPointObj, endPointObj) {
 
-
-  // localStorage.saveItem(LS_KEY, JSON.stringify(startPointobj));
+    // localStorage.saveItem(LS_KEY, JSON.stringify(startPointobj));
     locationsArr.push(startPointObj);
     locationsArr.push(endPointObj);
 }; //end of storeLocations function
@@ -325,37 +319,59 @@ function storeLocations(startPointObj, endPointObj) {
 
 // Gabe's Workstation
 
-function find_restaurant(initial_lat, initial_lon, trans_mode) {
-    // Note to Gabe: I hope you don't mind, I fixed a typo on restaurant here.  It was spelled incorrectly as restaurant. OK? -Jen 7.3.20
-    var queryURL = 'https://developers.zomato.com/api/v2.1/search?' +
+
+$('#btn-eat').on("click", function() {
+    screen_switcher('eat-div');
+})
+
+$('#meal-submit').on("click", function(event) {
+    event.preventDefault();
+    let street_num = $('#startNumber2').val();
+    let street_name = $('#startStreet2').val();
+    let city = $('#startCity2').val();
+    let state = $('#startState2').val();
+    let zip = $('#startZip2').val();
+
+    let address = {locStreetNumber: street_num,
+            locStreetName: street_name,
+            locCity: city,
+            locState: state,
+            locZip: zip}
+    
+    find_restaurants(address)
+})
+
+function find_restaurants(address_object) {
+    var street_num = address_object.locStreetNumber;
+    var street_name = address_object.locStreetName;
+    var city = address_object.locCity;
+    var state = address_object.locState
+    var zip_code = address_object.locZip;
+
+    var current_loc_url = 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=' + street_num + '&streetName=' + street_name + '&municipality=' + city + '&countrySubdivision=' + state + '&postalCode=' + zip_code
+    $.ajax({
+        url: current_loc_url,
+        method: 'GET'
+    }).then(function(response) {
+
+        console.log(response)
+        var current_lat = response.results[0].position.lat;
+        var current_lon = response.results[0].position.lon;
+
+        let zomato_url = 'https://developers.zomato.com/api/v2.1/search?q=Healthy&lat=' + current_lat + '&lon=' + current_lon + '&radius=8050'
 
         $.ajax({
-            url: zomato_url,
+            url: 'https://developers.zomato.com/api/v2.1/search?q=Mexican&q=Healthy&count=4',
             method: 'GET',
             headers: {
                 'X-Zomato-API-Key': '1dc29c917607ec14f7f9f5309c721b3c'
-            }   
+            }
         }).then(function (response) {
             console.log(response)
-            for (const place of response.restaurants) {
-                let restaurant_name = place.restaurant.name;
-                let restaurant_lat = place.restaurant.location.latitude;
-                let restaurant_lon = place.restaurant.location.longitude;
-                openRoute_url = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + current_lon + ',' + current_lat + "&end=" + restaurant_lon + ',' + restaurant_lat;
-                $.ajax({
-                    url: openRoute_url,
-                    method: 'GET'
-                }).then(function(response){
-                    console.log(restaurant_name)
-                    console.log(response)
-                })
-            }
         })
-    })
-        
-}
+})
 
-find_restaurants(locationsArr[1])
+}
 
 // 1. An AJAX call will be made to find some number of related restaurants in the area matching the keys within a certain radius.
 // 2. The address of each restaurant will be converted to geocoordinates using the TomTom API
@@ -452,7 +468,6 @@ function doubleAddressRoute(addressObj1, addressObj2) {
             //  Geo-Cordinates from first TomTom call
             cordB = responseTwo.results[0].position.lon + "," + responseTwo.results[0].position.lat;
 
-
             console.log("This is cordA: " + cordA);
             console.log("This is cordB: " + cordB);
 
@@ -474,7 +489,7 @@ function doubleAddressRoute(addressObj1, addressObj2) {
                 // var cordA = "-87.68021,41.95303";
                 // var cordB = "-87.63451,41.90145";
 
-                selectedMoveMode = "walk";
+                selectedMoveMode = "skateboard";
 
                 if (((selectedMoveMode === "walk") || (selectedMoveMode === "run") || (selectedMoveMode === "walk-jog"))) {
                     var queryUrl = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
@@ -492,7 +507,7 @@ function doubleAddressRoute(addressObj1, addressObj2) {
                     // console checks
                     console.log("Colin's Obj:");
                     console.log(responseB);
-                    console.log("Total distance traveled " + responseB.features[0].properties.summary.distance);
+                    // console.log("Total distance traveled " + responseB.features[0].properties.summary.distance);
                     // console.log("Total time travelled " + responseB.features[0].properties.summary.duration);
 
 
@@ -500,7 +515,6 @@ function doubleAddressRoute(addressObj1, addressObj2) {
                     var distanceMeters = responseB.features[0].properties.summary.distance;
                     var distanceMiles = distanceMeters / 1609;
                     // Makes number spit out two decimal places 
-
                     var finalDistance = distanceMiles.toFixed(2);
                     // Outputs miles
                     // To do list: 1) Append a p tag with info 
@@ -508,33 +522,57 @@ function doubleAddressRoute(addressObj1, addressObj2) {
                     console.log("Miles traveled: " + finalDistance);
 
                     $('#confirmation').text("Total distance walked " + finalDistance + " miles");
+                    scoreGenerator(finalDistance);
+                    // score = finalDistance;
 
-                    score = finalDistance;
-                
                     // Create generate score function here?
                     // Test 1
 
-                // Points per mile
-                // Walking : 
-
-                // if (selectedMoveMode === "walk") {
-                //     totalScore = twoDecimals * 10;
-                //     console.log(totalScore);
-                // } 
-
-                    // Upload Gabe's master
-                
-
-                });
-            };
+                })
+            }
         })
     })
 };
 
+// Points per mile - Score function
+function scoreGenerator(totalDistance) {
+    if (selectedMoveMode === "walk") {
+        totalScore = (totalDistance * 10).toFixed();
+        console.log(totalScore);
+    }
+    if (selectedMoveMode === "walk-jog") {
+        totalScore = (totalDistance * 20).toFixed();
+        console.log(totalScore);
+    }
+    if (selectedMoveMode === "run") {
+        totalScore = (totalDistance * 30).toFixed();
+        console.log(totalScore);
+    }
+    if (selectedMoveMode === "skateboard") {
+        totalScore = (totalDistance * 15).toFixed();
+        console.log(totalScore);
+    }
+    if (selectedMoveMode === "bike") {
+        totalScore = (totalDistance * 25).toFixed();
+        console.log(totalScore);
+    }
+
+    confirmationPage (totalDistance, totalScore);
+}
+
+// Confirm page 
+function confirmationPage(finalDistance, totalScore) {
+// $('#confirmation').text() ... below. 
+console.log("Awesome! If you " + selectedMoveMode + " " + finalDistance + " miles, you will earn " + totalScore + " points!");
+currentHighScore = parseInt(score) + parseInt(totalScore);
+console.log("Since starting project Miles, you have earned " + currentHighScore + " points!");
+// localStorage.setItem('user score', )
+}
+
 
 // Create generate score function here?
 // Test 1
-doubleAddressRoute();
+// doubleAddressRoute();
 
 // API key for OR:
 // 5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3
@@ -547,3 +585,4 @@ $(document).ready(function() {
     setUp();
 
 });
+
