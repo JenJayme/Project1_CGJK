@@ -67,6 +67,7 @@ var locationsArr = [{
 function screen_switcher(id_name) {
 
     var main_divs = $('main');
+    console.log(main_divs)
     for (i = 0; i < main_divs.length; i++) {
         if (main_divs[i].getAttribute('id') === id_name) {
             main_divs[i].setAttribute('style', 'display:block');
@@ -81,6 +82,7 @@ function screen_switcher(id_name) {
 
 // This initialiation sequence will assess whether or not the user is new or returning
 
+
 function display_UI() {
     $('#user-interface').attr('style', "display:block")
 }
@@ -90,10 +92,8 @@ if (localStorage.getItem('user character') === null) {
     $('.card').on("click", function () {
         localStorage.setItem('user character', $(this).attr('id'));
         localStorage.setItem('user score', 0);
-
         $('#user-interface').attr('style', "display:block")
         screen_switcher('initial-prompt');
-
     })
 } else {
 
@@ -279,7 +279,10 @@ submitBtn.on('click', function (event) {
 // SEGMENT 3: RESTAURANT SEARCH
 
 // Gabe's Workstation
-screen_switcher('eat-div')
+
+$('#btn-eat').on("click", function() {
+    screen_switcher('eat-div');
+})
 
 $('#meal-submit').on("click", function(event) {
     event.preventDefault();
