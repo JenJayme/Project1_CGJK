@@ -498,9 +498,5 @@ doubleAddressRoute();
 
 $(document).ready(function () {
 
-
-
-
-
     // buildHeroCards()
 });
