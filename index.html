@@ -159,9 +159,28 @@
                     </form>
                 </main>
 
-
+                <main id="eat-div" class="row" style="display:none">
+                    <h2 id="meal-header">Enter your current location</h2>
+                    <form method="post" class="input-field" id="meal-location">
+                        <div class="row">
+                            <div class="col s4 m4 l4">
+                                Location Name <input type="text" id="startLocName2" name="startLocName" />
+                                Street Number <input type="text" id="startNumber2" name="startAddress" />
+                                Street Name <input type="text" id="startStreet2" name="startAddress" />
+                                City <input type="text" id="startCity2" name="startCity" />
+                                State <input type="text" id="startState2" name="startState" />
+                                Zip <input type="text" id="startZip2" name="startZip" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s4 m4 l4">
+                                <input type="submit" id="meal-submit" class="submit-button" style="align-items: center">
+                                <!-- TODO: add an click event listener to submit button the click event handler must read in the form values -->
+                            </div>
+                        </div>
+                    </form>
+                </main>
                 <!-- TODO: add an click event listener to submit button the click event handler must read in the form values -->
-
 
             </div>
         </div>
@@ -192,20 +211,6 @@
             </form> -->
 
 
-    <div id="eat-div" class="row" style="display:none">
-
-        <!-- 
-            Section 2 (Jen): This div for use when user wants to have a meal, will hold prompts for mode of transport, start address & destination via form.  
-
-            <form method="post" id="addressForm" name="addressForm">
-            Mode of transport: 
-              // Each is a radio button]
-              () Walk  // <input type="radio" name="transportMode" value="walk" />
-              () Bike
-              () Skateboard
-              () Wog
-            -->
-    </div>
 
 
 
