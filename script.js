@@ -184,7 +184,9 @@ function getStartValues() {
     }; // end of startPointObj
 
     return startPointObj;
-}// end of getStartValues function
+
+} // end of getStartValues function
+
 
 //we probably don't need this stuff:
 // function startingPointSaver () {
@@ -213,7 +215,9 @@ function getEndValues() {
     return endPointObj;
 }; // end of getEndValues function
 
-function storeLocations(startPointObj,endPointObj) {
+
+function storeLocations(startPointObj, endPointObj) {
+
     // localStorage.saveItem(LS_KEY, JSON.stringify(startPointobj));
     locationsArr.push(startPointObj);
     locationsArr.push(endPointObj);
@@ -221,12 +225,14 @@ function storeLocations(startPointObj,endPointObj) {
 // };//end of endPointSaver function
 
 
-submitBtn.on('click', function(event) {
+
+submitBtn.on('click', function (event) {
+
     event.preventDefault();
     var startPointObj = getStartValues();
     var endPointObj = getEndValues();
     storeLocations(startPointObj, endPointObj);
-    console.log("PointA :"+ JSON.stringify(startPointObj) + "PointB :" + JSON.stringify(endPointObj))
+
 });
 
 // }
@@ -310,6 +316,7 @@ function find_restaurants(address_object) {
         var current_lon = response.results[0].position.lon;
 
         let zomato_url = 'https://developers.zomato.com/api/v2.1/search?q=Healthy&lat=' + current_lat + '&lon=' + current_lon + '&radius=8050'
+
         $.ajax({
             url: zomato_url,
             method: 'GET',
@@ -431,8 +438,9 @@ function doubleAddressRoute(addressObj1, addressObj2) {
             //  Geo-Cordinates from first TomTom call
             cordB = responseTwo.results[0].position.lon + "," + responseTwo.results[0].position.lat;
 
-            console.log("This is cordA: " +cordA);
-            console.log("This is cordB: " +cordB);
+
+            console.log("This is cordA: " + cordA);
+            console.log("This is cordB: " + cordB);
 
             // Calling openRoute API
             openRouteNF();
@@ -478,23 +486,37 @@ function doubleAddressRoute(addressObj1, addressObj2) {
                     var distanceMeters = responseB.features[0].properties.summary.distance;
                     var distanceMiles = distanceMeters / 1609;
                     // Makes number spit out two decimal places 
-                    var twoDecimals = distanceMiles.toFixed(2);
+
+                    var finalDistance = distanceMiles.toFixed(2);
                     // Outputs miles
                     // To do list: 1) Append a p tag with info 
 
-                    console.log("Miles traveled: " + twoDecimals);
+                    console.log("Miles traveled: " + finalDistance);
 
-                    $('#confirmation').text("Total distance walked " + twoDecimals + " miles");
-                    console.log("==========================");
+                    $('#confirmation').text("Total distance walked " + finalDistance + " miles");
 
-
+                    score = finalDistance;
+                
                     // Create generate score function here?
                     // Test 1
+
+                // Points per mile
+                // Walking : 
+
+                // if (selectedMoveMode === "walk") {
+                //     totalScore = twoDecimals * 10;
+                //     console.log(totalScore);
+                // } 
+
+                    // Upload Gabe's master
+                
+
                 });
             };
         })
     })
 };
+
 
 // Create generate score function here?
 // Test 1
