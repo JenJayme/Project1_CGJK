@@ -2,8 +2,9 @@
 <html>
 
 <head>
-    <title>What Are We Doing?</title>
+    <title>project Miles</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="style.css">
@@ -13,17 +14,16 @@
 <body>
 
     <div class="container">
-        <main id='new-user' class="center" style="display:none">
+        <main id='new-user' class="center hidden">
             <h1 class="center">Welcome!</h1>
             <h2 class="center">Choose a character before you start making healthier choices</h2>
-            <!-- Question from Jen: How do I access the chosen superhero name so on my section it can greet them with "Hello Iron Man, what would you like to do to earn some points?" After the ajax query do we get an object back with the superhero's info, from which I can grab the hero name? LMK -->
 
-            <!-- new div set up to append from heroes array in script.js. Jen's tutor recommends doing it this way. -->
-            <!-- <div class="row heroes-row">
-            </div> -->
+            <!-- Fred's hero card setup -->
+            <div class="row heroes-row"></div>
+
 
             <!-- Gabe's hero card setup -->
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col s2 m2 l2">
                 </div>
                 <div class="col s2 m2 l2">
@@ -70,24 +70,42 @@
                 </div>
                 <div class="col s2 m2 l2">
                 </div>
+=======
             </div>
 
         </main>
 
-        <div id="user-interface" class="row" style="display:none">
+        <div id="user-interface" class="row hidden">
 
-            <div class="col s3 grey">
+            <div class="col s3 nav">
                 <!-- Grey navigation panel -->
-                <img id="profile-img" src="" class="responsive-img">
+                <!-- <svg width="500" height="350">
+                    <defs>
+                       <clipPath id="myCircle">
+                          <circle cx="250" cy="145" r="125" fill="#FFFFFF" />
+                       </clipPath>
+                    </defs>
+                    <image width="500" height="350" xlink:href="https://i.pinimg.com/originals/64/16/a9/6416a9d467b9d4d8149586c51171eb55.jpg" clip-path="url(#myCircle)" />
+                 </svg> -->
+
+                <img id="profile-img" class="responsive-img"
+                    src="https://i.pinimg.com/originals/64/16/a9/6416a9d467b9d4d8149586c51171eb55.jpg">
+                <p id="profile-greeting">Nice to see you, Black Widow!</p>
+                <p id="profile-details">POINTS: 500</p>
+                <div id="badge-line">
+                    <img class="badges" src="Assets/images/Badge-SkateClub-01.png">
+                    <img class="badges" src="Assets/images/Badge-LiftClub-01.png">
+                    <img class="badges" src="Assets/images/Badge-FitClub-01.png">
+                </div>
             </div>
 
-            <div class="col s9">
+            <div class="col s9 big-space">
                 <!-- Teal page content  -->
 
-                <main id='my-profile' style="display:none">
+                <main id='my-profile' class="hidden">
 
                 </main>
-                <main id='initial-prompt' style="display:block">
+                <main id='initial-prompt' class="hidden">
                     <!-- Screen asking if they are looking for a meal or going to do an activity -->
                     <div id="userPromptDiv">
                         <h1 id="greeting"></h1>
@@ -99,7 +117,7 @@
 
                 <!-- Section 2 (Jen): Following div is for when user wants to go somewhere. This space holds a form with input prompts for mode of transport, start address & destination.-->
 
-                <main id="activity" style="display:block">
+                <main id="activity" class="hidden">
                     <h2>How do you plan to travel?</h2>
                     <form action="#">
                         <p>
@@ -130,39 +148,51 @@
                 </main>
 
                 <!-- Section 2 (Jen): Next div is for when user wants to have a meal.  This space holds a form with prompts to choose mode of transport and enter start address.  Submit button will launch Zomato function. -->
-                <main id="address-input" style="display:none">
+                <main id="address-input" class="hidden">
                     <form method="post" class="input-field">
                         <div class="row">
-                            <div class="col s4 m4 l4">
+                            <div class="col s6 m6 l6">
                                 <h4>Starting Location</h4>
-                                Location Name <input type="text" id="startLocName" name="startLocName" />
-                                Address <input type="text" id="startAddress" name="startAddress" />
-                                City <input type="text" id="startCity" name="startCity" />
-                                State <input type="text" id="startState" name="startState" />
-                                Zip <input type="text" id="startZip" name="startZip" />
+                                <label class="input-label">Location Name</label> <input class="input" type="text"
+                                    id="startLocName" name="startLocName" />
+                                <label class="input-label">Address</label> <input class="input" type="text"
+                                    id="startAddress" name="startAddress" />
+                                <label class="input-label">City</label> <input class="input" type="text" id="startCity"
+                                    name="startCity" />
+                                <label class="input-label">State</label> <input class="input" type="text"
+                                    id="startState" name="startState" />
+                                <label class="input-label">Zip</label> <input class="input" type="text" id="startZip"
+                                    name="startZip" />
                             </div>
-                            <div class="col s4 m4 l4">
+                            <div class="col s6 m6 l6">
                                 <h4>Destination</h4>
-                                Location Name <input type="text" id="endLocName" name="endLocName" />
-                                Address <input type="text" id="endAddress" name="endAddress" />
-                                City <input type="text" id="endCity" name="endCity" />
-                                State <input type="text" id="endState" name="endState" />
-                                Zip <input type="text" id="endZip" name="endZip" />
+                                <label class="input-label">Location Name</label> <input type="text" id="endLocName"
+                                    name="endLocName" />
+                                <label class="input-label">Address</label> <input type="text" id="endAddress"
+                                    name="endAddress" />
+                                <label class="input-label">City</label> <input type="text" id="endCity"
+                                    name="endCity" />
+                                <label class="input-label">State</label> <input type="text" id="endState"
+                                    name="endState" />
+                                <label class="input-label">Zip</label> <input type="text" id="endZip" name="endZip" />
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col s4 m4 l4">
-                                <input type="submit" id="submitBtn" class="submit-button" style="align-items: center;">
+                            <div class="col s12 m12 l12">
+                                <!-- <input type="submit" id="submitBtn" class="submit-button" style="align-items: center;"> -->
+                                <button id="submitBtn" class="btn blue darken-8 waves-effect waves-light" type="submit"
+                                    name="action" style="float:right">Submit
+                                    <i class="material-icons right">send</i>
+                                </button>
                                 <!-- TODO: add an click event listener to submit button the click event handler must read in the form values -->
                             </div>
                         </div>
                     </form>
                 </main>
 
-
-                <!-- TODO: add an click event listener to submit button the click event handler must read in the form values -->
-
-
+                <main id='meal' class="hidden">
+                    <!-- What are you in the mood for? -->  
+                </main>
             </div>
         </div>
 
