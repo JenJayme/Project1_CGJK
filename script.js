@@ -324,7 +324,7 @@ function find_restaurants(address_object) {
         }).then(function (response) {
             console.log(response)
         })
-}
+},
 
 // 1. An AJAX call will be made to find some number of related restaurants in the area matching the keys within a certain radius.
 // 2. The address of each restaurant will be converted to geocoordinates using the TomTom API
@@ -341,7 +341,7 @@ function find_restaurants(address_object) {
 // 4. This distance is fed to the segment 2 algorithm to add a certain number of points to the user score.
 
 // Taking address info from Jen and creating geo-cords from it
-function doubleAddressRoute(addressObj1, addressObj2) {
+function doubleAddressRoute (addressObj1, addressObj2) {
 
     // // Extracting info from address object 1
     // var streetNumber1 = addressObj1.locStreetNumber;
@@ -485,8 +485,9 @@ function doubleAddressRoute(addressObj1, addressObj2) {
             }
         })
     })
-};
-
+});
+console.log("check1");
+doubleAddressRoute();
 // Points per mile - Score function
 function scoreGenerator(totalDistance) {
     if (selectedMoveMode === "walk") {
@@ -525,12 +526,12 @@ console.log("Since starting project Miles, you have earned " + currentHighScore 
 
 // Create generate score function here?
 // Test 1
-// doubleAddressRoute();
+
 
 // API key for OR: 
 // 5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3
 
 $(document).ready(function () {
 
-    // buildHeroCards()
-});
+}// buildHeroCards()
+)}
