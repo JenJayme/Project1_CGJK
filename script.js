@@ -436,188 +436,56 @@ function screen_switcher(id) {
                     }
                 }).then(function (response) {
                     var tableData = []
-                    var i = 0
-                    for (const place of response.restaurants) {
-                        console.log(place)
-                        i++
-                        var distance_to;
-                        var score;
-                        var rest_name = place.restaurant.name;
-                        var rest_address = place.restaurant.location.address;
-                        var restaurant_lat = place.restaurant.location.latitude;
-                        var restaurant_lon = place.restaurant.location.longitude;
-                        var openroute_url = 'https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=' + current_lon + ',' + current_lat + '&end=' + restaurant_lon + ',' + restaurant_lat
+            var ex_data = [
+                { name: 'yes', address: 'yes', score: 'yes' }
+            ]
+            var index = 1;
+            for (const place of response.restaurants) {
 
-                        $.ajax({
-                            url: openroute_url,
-                            method: 'GET'
-                        }).then(function (response) {
-                            console.log(response)
-                            distance_to = response.features[0].properties.summary.distance / 1609;
-                            console.log(distance_to)
-                            score = scoreCalculator(distance_to)
-                            tableData.push({ id: String(i), Name: rest_name, Address: rest_address, Score: score })
+                var restaurant_lat = place.restaurant.location.latitude;
+                var restaurant_lon = place.restaurant.location.longitude;
+                var openroute_url = 'https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=' + current_lon + ',' + current_lat + '&end=' + restaurant_lon + ',' + restaurant_lat
 
-                        })
-                    };
-                    console.log(tableData)
-                    var table = new Tabulator("#eat-div", {
-                        data: tableData,
-                        columns: [
-                            { title: "Name", field: "Name" },
-                            { title: "Address", field: "Address" },
-                            { title: "Score", field: "score", sorter: "number" }
-                        ]
-                    })
+                $.ajax({
+                    url: openroute_url,
+                    method: 'GET'
+                }).then(function (response) {
+                    var distance_to = response.features[0].properties.summary.distance / 1609;
+                    var points = scoreCalculator(distance_to)
+                    tableData.push({ id: index, name: place.restaurant.name, address: place.restaurant.location.address, score: points })
+                    index += 1
+
+                    if (index === 10) {
+                        screen_switcher('food-choices')
+                        var header = $('<h4>');
+                        header.attr("style", "text-align: center")
+                        header.text('Choose a restaurant to ' + selectedMoveMode + ' to and earn points!')
+
+                        ;
+
+                        var table = new Tabulator("#food-choices", {
+                            data: tableData,
+                            layout: "fitColumns",
+                            columns: [
+                                { title: "Name", field: "name" },
+                                { title: "Address", field: "address" },
+                                { title: "Score", field: "score", sorter: "number" },
+                            ],
+                            rowClick:function(e, row){
+                                let points = row.getData().score;
+                                let name = row.getData().name;
+                                confirm_choice(name, points)
+                                },
+                        });
+
+                        $('#food-choices').prepend(header)
+                    }
                 })
-            })
-
-        };
-
-
-
-    // 1. An AJAX call will be made to find some number of related restaurants in the area matching the keys within a certain radius.
-    // 2. The address of each restaurant will be converted to geocoordinates using the TomTom API
-    // 3. The current address is fed to the TomTom API to get geocoordinates.
-    // 4. These pairs of coordinates are fed to the Open Route API to calculate the distance of travel to each restaurant.
-    // 5. The segment 2 algorithm is used to calculate a score for this restaurant. This score will be appended next to the restaurant choice in the segment 2 DOM table.
-
-
-
-
-    // ------------------------------------------------------------------------------------------------
-    // SEGMENT 4: GENERAL MOVEMENT SEARCH
-    // Process Overview
-    // 1. The starting and ending addresses are give from segment 2 in the form of the object.
-    // 2. The TomTom API converts these to geocoordinates.
-    // 3. These geocoordinates are used by the Open Route API to find a distance.
-    // 4. This distance is fed to the segment 2 algorithm to add a certain number of points to the user score.
-
-    // Taking address info from Jen and creating geo-cords from it
-    function doubleAddressRoute(addressObj1, addressObj2) {
-
-        // Extracting info from address object 1
-        var streetNumber1 = addressObj1.startNum;
-        var streetName1 = addressObj1.startName;
-        // var crossStreet1 = addressObj1.locCrossStreet;
-        var city1 = addressObj1.startCity;
-        var state1 = addressObj1.startState;
-        var zip1 = addressObj1.startZip;
-
-        // local variables to use in openRoute
-        var cordA = '';
-        var cordB = '';
-
-        // First TomTom call - from HOME
-        $.ajax({
-            // &countrySubdivision=Illinoiso&postalCode=60618 example of state and zip 
-            // might need states to be spelled fully. 
-            url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=' + streetNumber1 + '&streetName=' + streetName1 + '&municipality=' + city1 + '&countrySubdivision=' + state1 + '&postalCode=' + zip1,
-            method: 'GET'
-        }).then(function (responseOne) {
-
-            // console log clarity 
-            console.log("First cordinate:");
-            console.log(responseOne);
-            console.log("======================")
-
-            // Testing Geo-Cordinates from first TomTom call
-            console.log("First lat: " + responseOne.results[0].position.lat);
-            console.log("First lon: " + responseOne.results[0].position.lon);
-
-            //  Geo-Cordinates from first TomTom call
-            cordA = responseOne.results[0].position.lon + "," + responseOne.results[0].position.lat;
-
-            // Extracting info from address object 2
-            var streetNumber2 = addressObj2.endNum;
-            var streetName2 = addressObj2.endName;
-            // var crossStreet1 = addressObj1.locCrossStreet;
-            var city2 = addressObj2.endCity;
-            var state2 = addressObj2.endState;
-            var zip2 = addressObj2.endZip;
-
-            // Second TomTom call - from Secondary Location
-            // COMMENT - Only works if Secondary Location is located as the second object in locationsArr
-            $.ajax({
-                // &countrySubdivision=Illinoiso&postalCode=60618 example of state and zip 
-                // might need states to be spelled fully. 
-                url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=' + streetNumber2 + '&streetName=' + streetName2 + '&municipality=' + city2 + '&countrySubdivision=' + state2 + '&postalCode=' + zip2,
-                method: 'GET'
-
-            }).then(function (responseTwo) {
-
-                // console log clarity 
-                console.log("Second cordinate");
-                console.log(responseTwo);
-                console.log("======================")
-
-                // Testing Geo-Cordinates from first TomTom call
-                console.log("Second lat: " + responseTwo.results[0].position.lat);
-                console.log("Second lon: " + responseTwo.results[0].position.lon);
-
-                //  Geo-Cordinates from first TomTom call
-                cordB = responseTwo.results[0].position.lon + "," + responseTwo.results[0].position.lat;
-
-                console.log("This is cordA: " + cordA);
-                console.log("This is cordB: " + cordB);
-
-                // Calling openRoute API
-                openRouteNF();
-
-                // Taking mode of travel response from user & Jen
-                function openRouteNF() {
-
-                    // Console log tests for cords
-                    console.log("cordA =" + cordA);
-                    console.log("cordB =" + cordB);
-                    console.log("================");
-
-                   // determining which route to take
-                    if (((selectedMoveMode === "walk") || (selectedMoveMode === "run") || (selectedMoveMode === "walk-jog"))) {
-                        var queryUrl = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
-
-                    } else {
-                        var queryUrl = "https://api.openrouteservice.org/v2/directions/cycling-regular?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
-
-                    };
-                    $.ajax({
-                        // Longitude comes first, then latitude, in each query url
-                        url: queryUrl,
-                        method: 'GET'
-                    }).then(function (responseB) {
-
-                        // console checks
-                        console.log("Colin's Obj:");
-                        console.log(responseB);
-                        // console.log("Total distance traveled " + responseB.features[0].properties.summary.distance);
-                        // console.log("Total time travelled " + responseB.features[0].properties.summary.duration);
-
-
-                        // Takes distance in meters and converts it to miles
-                        var distanceMeters = responseB.features[0].properties.summary.distance;
-                        var distanceMiles = distanceMeters / 1609;
-                        // Makes number spit out two decimal places 
-                        var finalDistance = distanceMiles.toFixed(2);
-                        // Outputs miles
-                       
-                        // Tracks how long it will take ( - might not be super accurate though -)
-                        var totalTime = ((responseB.features[0].properties.summary.duration) / 60).toFixed();
-                        console.log("This should take you " + totalTime + " minutes");
-
-                        console.log("Miles traveled: " + finalDistance);
-
-                        $('#confirmation').text("Total distance walked " + finalDistance + " miles");
-                        scoreGenerator(finalDistance);
-                        // score = finalDistance;
-
-                        // Create generate score function here?
-                        // Test 1
-
-                    })
-                }
-            })
+            };
         })
-    };
+    })
+};
+
         console.log("check1");
         // Points per mile - Score function
         function scoreGenerator(totalDistance) {
