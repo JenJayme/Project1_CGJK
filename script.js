@@ -1,7 +1,6 @@
 // All the variables and jQuery DOM pointers can be assigned here
 var superheroName;
 var superhero_src;
-var score = 10;
 var firstLocName = [];
 var secondLocName = [];
 
@@ -102,8 +101,9 @@ function screen_switcher(id) {
         function display_user_info() {
             $("#greeting").text("Hello " + localStorage.getItem("userCharacter"));
             $("#profile-greeting").text(localStorage.getItem("userCharacter"));
-            $("#profile-details").text("Points: " + localStorage.getItem("userScore"));
+            $("#profile-details").text("Points: " + getScore());
             $("#profile-img").attr('src', heroesObj[localStorage.getItem('userCharacter')])
+            console.log('ran_')
             // var profileImg = $('#profile-img');
             // profileImg = $('<div></div>').addClass('profile-image');
             // profileImg.attr('style','background-image: url(("_____")')
@@ -127,6 +127,7 @@ function screen_switcher(id) {
                     // Replace this: $('#user-interface').attr('style', "display:block") ...with:
                     $('#user-interface').show();
                     screen_switcher('initial-prompt');
+                    display_user_info();
 
                 })
 
@@ -273,9 +274,10 @@ function screen_switcher(id) {
         }
 
         function updateScore(new_points) {
-            var current_score = getScore();
-            current_score += new_points;
-            setScore(current_score)
+            var current_score = parseInt(getScore());
+            current_score += parseInt(new_points);
+            setScore(current_score);
+            display_user_info()
         }
         //we probably don't need this stuff:
         // function startingPointSaver () {
@@ -649,8 +651,8 @@ function screen_switcher(id) {
             $('#totalDistance').text("Total Distance: ") + finalDistance;
             $('#pointsEarned').text("Total points available: " + totalScore);
             $('#confirmMessage1').text("Awesome! If you " + selectedMoveMode + " " + finalDistance + " miles, you will earn " + totalScore + " points!");
-            currentHighScore = parseInt(score) + parseInt(totalScore);
-            $('#confirmMessage2').text("Since starting project Miles, you have earned " + currentHighScore + " points!");
+            updateScore(totalScore);
+            $('#confirmMessage2').text("Since starting project Miles, you have earned " + getScore() + " points!");
             // localStorage.setItem('user score', )
             screen_switcher('confirmationPage');
         }
