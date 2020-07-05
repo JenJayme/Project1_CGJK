@@ -635,7 +635,7 @@ function confirmationPage(finalDistance, totalScore) {
     $('#startingLoc').text("Starting location: " + firstLocName);
     $('#endingLoc').text("Ending location: " + secondLocName);
     $('#totalDistance').text("Total Distance: " + finalDistance);
-    $('#pointsEarned').text("Total points available: " + totalScore);
+    $('#pointsEarned').text("Total points from this route: " + totalScore);
     // $('#confirmMessage1').text("Awesome! If you " + selectedMoveMode + " " + finalDistance + " miles, you will earn " + totalScore + " points!");
     updateScore(totalScore);
     $('#confirmMessage2').text("Since starting project Miles, you have earned " + getScore() + " points!");
