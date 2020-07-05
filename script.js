@@ -2,6 +2,8 @@
 var superheroName;
 var superhero_src;
 var score = 10;
+var firstLocName = [];
+var secondLocName = [];
 
 // The following array will be used for a drop-down to select mode of transportation.  The move the user selects will be returned to the selectedMoveMode var, to be used in Colin's distance/points calculation function.
 var moveModesArr = ["walk", "bike", "run", "skateboard", "walk-jog"];
@@ -160,7 +162,19 @@ function screen_switcher(id) {
                 var endPointObj = getEndValues();
                 // storeLocations(startPointObj, endPointObj);
                 console.log("PointA :" + JSON.stringify(startPointObj) + "PointB :" + JSON.stringify(endPointObj))
+                
+                // push this to global variables
+                var firstLoc = startPointObj.startLocName;
+                console.log(firstLoc);
+                var secondLoc = endPointObj.endLocName;
+
+                firstLocName.push(firstLoc);
+                secondLocName.push(secondLoc);
+                console.log("firstLocName = " + firstLocName);
+                console.log("secondLocName = " + secondLocName);
                 doubleAddressRoute(startPointObj, endPointObj);
+                // takeLocNames(startPointObj, endPointObj);
+              
             });
         }
 
@@ -229,7 +243,7 @@ function screen_switcher(id) {
         function getStartValues() {
             // Retrieves the form values and assigns them to startPointObj
             var startPointObj;
-            var startLocName = $('#startLocName').val();
+            // var startLocName = $('#startLocName').val();
             // var startAddress = $('#startAddress').val();
             startLocName = $('#startLocName').val()
             startLocNum = $('#startNum').val();
@@ -239,6 +253,7 @@ function screen_switcher(id) {
             startZip = $('#startZip').val();
 
             startPointObj = {
+                startLocName: startLocName,
                 startNum: startLocNum,
                 startName: startName,
                 startCity: startCity,
@@ -486,14 +501,6 @@ function screen_switcher(id) {
         var state1 = addressObj1.startState;
         var zip1 = addressObj1.startZip;
 
-        // // Testing TomTom with Address 1
-        // var streetNumber1 = "1421";
-        // var streetName1 = "Lexington Drive";
-        // // var crossStreet1 = addressObj1.locCrossStreet;
-        // var city1 = "San Jose";
-        // var state1 = "CA";
-        // var zip1 = "95117";
-
         // local variables to use in openRoute
         var cordA = '';
         var cordB = '';
@@ -526,14 +533,6 @@ function screen_switcher(id) {
             var state2 = addressObj2.endState;
             var zip2 = addressObj2.endZip;
 
-            // // Testing TomTom with Address 2
-            // var streetNumber2 = "10100";
-            // var streetName2 = "Finch Ave";
-            // // var crossStreet1 = addressObj1.locCrossStreet;
-            // var city2 = "Cupertino";
-            // var state2 = "CA";
-            // var zip2 = "95014";
-
             // Second TomTom call - from Secondary Location
             // COMMENT - Only works if Secondary Location is located as the second object in locationsArr
             $.ajax({
@@ -563,9 +562,6 @@ function screen_switcher(id) {
                 openRouteNF();
 
                 // Taking mode of travel response from user & Jen
-                // Test variable
-                // selectedMoveMode = "bike";
-
                 function openRouteNF() {
 
                     // Console log tests for cords
@@ -573,12 +569,7 @@ function screen_switcher(id) {
                     console.log("cordB =" + cordB);
                     console.log("================");
 
-                    // Test cordinate values from TomTom
-                    // var cordA = "-87.68021,41.95303";
-                    // var cordB = "-87.63451,41.90145";
-
-                    // selectedMoveMode = "skateboard";
-
+                   // determining which route to take
                     if (((selectedMoveMode === "walk") || (selectedMoveMode === "run") || (selectedMoveMode === "walk-jog"))) {
                         var queryUrl = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
 
@@ -606,7 +597,7 @@ function screen_switcher(id) {
                         var finalDistance = distanceMiles.toFixed(2);
                         // Outputs miles
                        
-                        
+                        // Tracks how long it will take ( - might not be super accurate though -)
                         var totalTime = ((responseB.features[0].properties.summary.duration) / 60).toFixed();
                         console.log("This should take you " + totalTime + " minutes");
 
@@ -647,25 +638,28 @@ function screen_switcher(id) {
                 totalScore = (totalDistance * 25).toFixed();
                 console.log(totalScore);
             }
-
             confirmationPage(totalDistance, totalScore);
         }
 
         // Confirm page 
         function confirmationPage(finalDistance, totalScore) {
-            // $('#confirmMessage').text() ... below. 
-            console.log("Awesome! If you " + selectedMoveMode + " " + finalDistance + " miles, you will earn " + totalScore + " points!");
+
+            $('#startingLoc').text("Starting location: " + firstLocName);
+            $('#endingLoc').text("Ending location: " + secondLocName);
+            $('#totalDistance').text("Total Distance: " + finalDistance);
+            $('#pointsEarned').text("Total points available: " + totalScore);
+            // $('#confirmMessage1').text("Awesome! If you " + selectedMoveMode + " " + finalDistance + " miles, you will earn " + totalScore + " points!");
             currentHighScore = parseInt(score) + parseInt(totalScore);
-            // $('#displayHighScore').text() ... below. 
-            console.log("Since starting project Miles, you have earned " + currentHighScore + " points!");
+            $('#confirmMessage2').text("Since starting project Miles, you have earned " + currentHighScore + " points!");
             // localStorage.setItem('user score', )
+            screen_switcher('confirmationPage');
         }
 
         // Return home function
         // This is on the last div; however, we could make this a button that persists throughout
         $('#btn-home').on("click", function () {
             // May need to rename this main id 
-            screen_switcher('new-user');
+            screen_switcher('initial-prompt');
         })
 
         // Function to move back one page

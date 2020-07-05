@@ -210,7 +210,6 @@
                                 State <input type="text" id="startState2" name="startState" />
                                 Zip <input type="text" id="startZip2" name="startZip" />
                             </div>
-
                         </div>
                         <div class="row">
                             <div class="col s4 m4 l4">
@@ -221,9 +220,16 @@
                     </form>
                 </main>
                 <!-- TODO: add an click event listener to submit button the click event handler must read in the form values -->
-                <main id='confirmation' class="hidden">
-                    <h2 id='confirmMessage'></h2>
-                    <h4 id='displayHighScore'></h4>
+                <main id='confirmationPage' class="hidden">
+                    <h3>Confirm:</h3>
+                    <h5 id='startingLoc'></h5>
+                    <h5 id='endingLoc'></h5>
+                    <h5 id='totalDistance'></h5>
+                    <h5 id='pointsEarned'></h5>
+                    <h5 id='confirmMessage1'></h2>
+                    <h5 id='confirmMessage2'></h2>
+                    <h5 id='displayHighScore'></h4>
+
                     <button id='btn-home'>Restart</button>
                 </main>
             </div>
