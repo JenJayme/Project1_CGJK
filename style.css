@@ -152,9 +152,8 @@ input .address-input .input-field {
 }
 
 #profile-img {
-    horizontal-align: middle;
-    width: 200px;
-    margin: 20px 20px;
+    width: 80%;
+    margin: 10% 20px;
     border-radius: 50%;
 }
 
