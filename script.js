@@ -130,7 +130,7 @@ function setUp() {
         var startPointObj = getStartValues();
         var endPointObj = getEndValues();
 
-        if (startPointObj.startNum && startPointObj.startName && startPointObj.startCity && endPointObj.startNum && endPointObj.startName && endPointObj.startCity) {
+        if (startPointObj.startNum && startPointObj.startName && startPointObj.startCity && endPointObj.endNum && endPointObj.endName && endPointObj.endCity) {
 
         // storeLocations(startPointObj, endPointObj);
         console.log("PointA :" + JSON.stringify(startPointObj) + "PointB :" + JSON.stringify(endPointObj))
