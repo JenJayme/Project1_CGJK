@@ -38,6 +38,10 @@ p {
     border-radius: 50%;
 }
 
+.badges:hover {
+    box-shadow: 0px 0px 6px 6px cadetblue;
+}
+
 .big-space {
     background-image: url("Assets/images/backimg-logo-blueuniverse.jpg");
 }
@@ -111,6 +115,8 @@ p {
 }
 
 .input .address-input .input-field {
+    -webkit-appearance: none;
+    appearance: none;
     color: whitesmoke;
 }
 
