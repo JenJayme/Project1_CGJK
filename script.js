@@ -398,9 +398,6 @@ function find_restaurants(address_object) {
             }
         }).then(function (response) {
             var tableData = []
-            var ex_data = [
-                { name: 'yes', address: 'yes', score: 'yes' }
-            ]
             var index = 1;
             for (const place of response.restaurants) {
 
@@ -439,7 +436,7 @@ function find_restaurants(address_object) {
                                 confirm_choice(name, points)
                                 },
                         });
-
+                        table.redraw(true)
                         $('#food-choices').prepend(header)
                     }
                 })

@@ -44,21 +44,18 @@
 
     <!-- Initialization -->
 
-    <div class="container">
+    <div class="container big-space">
         <main id='new-user' class="welcome hidden">
             <div class="row">
                 <img class="welcome" src="Assets/images/Welcome.png">
                 <h5 class="welcome">First time here? Let's choose an avatar. Who would you like to be?</h5>
             </div>
-            <!-- Fred's hero card setup -->
-            <!-- <div class="row heroes-row"></div> -->
-
 
             <!-- Gabe's hero card setup -->
-            <div class="row">
-                <div class="col s1 m1 l1">
+            <div class="row welcome">
+                <div class="col s12 m2 l1">
                 </div>
-                <div class="col s2 m2 l2">
+                <div class="col s6 m4 l2">
                     <div class="card" id="Miles Morales">
                         <div class="card-image">
                             <img src="Assets/images/av-img-miles-morales.jpg">
@@ -68,7 +65,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col s2 m2 l2">
+                <div class="col s6 m4 l2">
                     <div class="card" id="Black Panther">
                         <div class="card-image">
                             <img src="Assets/images/av-img-black-panther.jpg">
@@ -78,7 +75,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col s2 m2 l2">
+                <div class="col s6 m4 l2">
                     <div class="card" id="Iron Man">
                         <div class="card-image">
                             <img src="Assets/images/av-img-iron-man.jpg">
@@ -88,7 +85,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col s2 m2 l2">
+                <div class="col s6 m4 l2">
                     <div class="card" id="Black Widow">
                         <div class="card-image">
                             <img src="Assets/images/av-img-black-widow-cropped.jpg">
@@ -98,26 +95,23 @@
                         </div>
                     </div>
                 </div>
-                <div class="col s2 m2 l2">
+                <div class="col s6 m4 l2">
                     <div class="card" id="Ms. Marvel">
                         <div class="card-image">
                             <img src="Assets/images/av-img-msmarvel.jpg">
                         </div>
                         <div class="card-content">
-                            <p>Ms Marvel</p>
+                            <p>Ms. Marvel</p>
                         </div>
                     </div>
-                </div>
-                <div class="col s2 m2 l2">
-                </div>
 
-            </div>
+                </div>
 
         </main>
 
-        <div id="user-interface" class="row hidden">
+        <div id="user-interface" class="row hidden" style="height:100%">
 
-            <div class="col s3 nav">
+            <div class="col s3 nav" style="background-color: gray; height:100%">
                 <!-- <svg width="500" height="350">
                     <defs>
                        <clipPath id="myCircle">
@@ -126,7 +120,6 @@
                     </defs>
                     <image width="500" height="350" xlink:href="https://i.pinimg.com/originals/64/16/a9/6416a9d467b9d4d8149586c51171eb55.jpg" clip-path="url(#myCircle)" />
                  </svg>  -->
-
                 <img id="profile-img" class="responsive-img" src="">
                 <p id="profile-greeting"></p>
                 <p id="profile-details"></p>
@@ -138,7 +131,7 @@
                 </div>
             </div>
 
-            <div class="col s9 big-space">
+            <div class="col s9">
                 <!-- Teal page content  -->
 
                 <main id='my-profile' class="hidden">
@@ -147,24 +140,26 @@
                 <main id='initial-prompt' class="hidden">
                     <!-- Screen asking if they are looking for a meal or going to do an activity -->
                     <div id="userPromptDiv">
-                        <h3 id="greeting"></h3>
-                        <h4 id="promptEatOrDo">What would you like to do to earn some points?</h4>
+                        <h3 id="greeting" class="center-align"></h3>
+                        <h4 id="promptEatOrDo" class="center-align">What would you like to do to earn some points?</h4>
                     </div>
-                    <!-- OLD UGLY BUTTONS THAT WORKED -->
-                    <!-- <button id="btn-eat">Grab A Bite</button> -->
-                    <!-- <button id="btn-go">Go Somewhere</button> -->
-                    <!-- NEW PRETTY BUTTONS THAT MAY NOT WORK -->
-                    <div class="col s4">
-                        <button id="btn-eat" class="btn blue darken-8 waves-effect waves-light" name="action">Grab a
+
+                    <div class="col s2 m2 l2">
+                    </div>
+
+                    <div class="col s4 m4 l4">
+                        <button id="btn-eat" class="btn blue darken-8 waves-effect waves-light center-align"
+                            name="action">Grab a
                             Meal
-                            <i class="material-icons right">trending flat</i>
-                    </div>
-                    <div class="col s4">
-                        <button id="btn-go" class="btn blue darken-8 waves-effect waves-light" name="action">Go
-                            Somewhere
-                            <i class="material-icons right">trending flat</i>
                         </button>
                     </div>
+                    <div class="col s4 m4 l4">
+                        <button id="btn-go" class="btn blue darken-8 waves-effect waves-light center-align"
+                            name="action">Go
+                            Somewhere
+                        </button>
+                    </div>
+
                 </main>
 
                 <!-- USER WANTS TO GO SOMEWHERE: Form with input prompts for mode of transport, start address & destination.-->
@@ -177,25 +172,25 @@
                             <p>
                                 <label>
                                     <input class="transpo" id="walk" name="group1" type="radio" />
-                                    <span>Walk (10 points per mile)</span>
+                                    <span class="mode">Walk (10 points per mile)</span>
                                 </label>
                             </p>
                             <p>
                                 <label>
                                     <input class="transpo" id="run" name="group1" type="radio" />
-                                    <span>Run (30 points per mile)</span>
+                                    <span class="mode">Run (30 points per mile)</span>
                                 </label>
                             </p>
                             <p>
                                 <label>
                                     <input class="transpo" id="bike" class="with-gap" name="group1" type="radio" />
-                                    <span>Bike (25 points per mile)</span>
+                                    <span class="mode">Bike (25 points per mile)</span>
                                 </label>
                             </p>
                             <p>
                                 <label>
                                     <input class="transpo" id="skateboard" name="group1" type="radio" />
-                                    <span>Skateboard (25 points per mile)</span>
+                                    <span class="mode">Skateboard (25 points per mile)</span>
                                 </label>
                             </p>
                         </form>
@@ -213,7 +208,8 @@
                     <div class="row">
                         <form method="post" class="input-field">
                             <div class="row">
-                                <p id="address-invalid" class="hidden" style="font-weight: bolder">Please fill in all your address information!</p>
+                                <p id="address-invalid" class="hidden" style="font-weight: bolder">Please fill in all
+                                    your address information!</p>
                                 <div class="col s6 m6 l6">
                                     <h4>Starting Location</h4>
                                     <label for="startLocName" class="input-label">Location Name</label> <input
@@ -251,57 +247,65 @@
                     </div>
                 </main>
                 <main id="activity2" class="hidden">
-                    <h2>How do you plan to travel?</h2>
-                    <p id="activity2-invalid" class="hidden" style="font-weight: bolder">Please select one!</p>
-                    <form action="#">
+                    <h4 class="center-align">How do you plan to travel?</h4>
+                    <p id="activity2-invalid" class="hidden center-align" style="font-weight: bolder">Please select one!
+                    </p>
+                    <form action="#" class="center-align">
                         <p>
                             <label>
                                 <input class="transpo2" id="walk" name="group1" type="radio" />
-                                <span>Walk (10 points per mile)</span>
+                                <span class="mode">Walk (10 points per mile)</span>
                             </label>
                         </p>
                         <p>
                             <label>
                                 <input class="transpo2" id="run" name="group1" type="radio" />
-                                <span>Run (30 points per mile)</span>
+                                <span class="mode">Run (30 points per mile)</span>
                             </label>
                         </p>
                         <p>
                             <label>
                                 <input class="transpo2" id="bike" class="with-gap" name="group1" type="radio" />
-                                <span>Bike (25 points per mile)</span>
+                                <span class="mode">Bike (25 points per mile)</span>
                             </label>
                         </p>
                         <p>
                             <label>
                                 <input class="transpo2" id="skateboard" name="group1" type="radio" />
-                                <span>Skateboard (15 points per mile)</span>
+                                <span class="mode">Skateboard (15 points per mile)</span>
                             </label>
                         </p>
                     </form>
+                    <br>
                     <button id="transpo-submitBtn2" class="btn blue darken-8 waves-effect waves-light" type="submit"
-                        name="action" style="float:right">Submit
-                        <i class="material-icons right">send</i>
+                        name="action" style="float:right">NEXT
                     </button>
                 </main>
 
 
                 <main id="eat-div" class="row hidden">
-                    <h4 id="meal-header">Enter your current location</h4>
-                    <p id="meal-invalid" class="hidden" style="font-weight: bolder">Please fill in all of your address information!</p>
-                    <form method="post" class="input-field" id="meal-location">
+                    <h4 id="meal-header" class="center-align">Enter your current location</h4>
+                    <p id="meal-invalid" class="hidden center-align" style="font-weight: bolder">Please fill in all of
+                        your address
+                        information!</p>
+                    <form method="post" class="input-field center-align" id="meal-location">
                         <div class="row">
                             <div class="col s4 m4 l4">
-                                Street Number <input type="text" id="startNumber2" name="startAddress"/>
-                                Street Name <input type="text" id="startStreet2" name="startAddress" />
-                                City <input type="text" id="startCity2" name="startCity" />
+
+                            </div>
+                            <div class="col s4 m4 l4">
+                                Street Number <input type="text" id="startNumber2" name="startAddress"
+                                    class="center-align" />
+                                Street Name <input type="text" id="startStreet2" name="startAddress"
+                                    class="center-align" />
+                                City <input type="text" id="startCity2" name="startCity" class="center-align" />
                             </div>
                         </div>
+                        <br>
                         <div class="row">
-                                <button id="meal-submit" class="btn blue darken-8 waves-effect waves-light" type="submit"
-                                    name="action" style="float:right">Next
-                                    <i class="material-icons right">trending flat</i>
-                                </button>
+                            <button id="meal-submit" class="btn blue darken-8 waves-effect waves-light" type="submit"
+                                name="action" style="float:right">Next
+                            </button>
                         </div>
                     </form>
                 </main>
@@ -311,11 +315,12 @@
                 </main>
 
                 <main id="food-choice-confirm" class="hidden">
-                    <h3 id="restaurant-confirm"></h3>
-                    <button id='home-from-food' class="btn blue darken-8 waves-effect waves-light">Home</button>
+                    <h4 id="restaurant-confirm" class="center">
+                        </h3>
+                        <button id='home-from-food' class="btn blue darken-8 waves-effect waves-light">Home</button>
                 </main>
 
-            
+
                 <main id='confirmationPage' class="hidden">
                     <h3>Confirm:</h3>
                     <h5 id='startingLoc'></h5>
@@ -339,7 +344,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="script.js"></script>
 
-   
+
 </body>
 
 </html>
