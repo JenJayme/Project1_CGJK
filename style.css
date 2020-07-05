@@ -176,6 +176,13 @@ input .address-input .input-field {
     color: whitesmoke;
 }
 
+.card-content {
+    z-index:2;
+}
+
+.card-img {
+    z-index: 1;
+}
 .welcome {
     /* color: white; */
     font-family: 'Quicksand', sans-serif;
