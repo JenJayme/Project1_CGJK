@@ -149,27 +149,27 @@ function setUp() {
         doubleAddressRoute(startPointObj, endPointObj);
     });
 
-            submitBtn.on('click', function (event) {
-                event.preventDefault();
-                var startPointObj = getStartValues();
-                var endPointObj = getEndValues();
-                // storeLocations(startPointObj, endPointObj);
-                console.log("PointA :" + JSON.stringify(startPointObj) + "PointB :" + JSON.stringify(endPointObj))
-                
-                // push this to global variables
-                var firstLoc = startPointObj.startLocName;
-                console.log(firstLoc);
-                var secondLoc = endPointObj.endLocName;
+    submitBtn.on('click', function (event) {
+        event.preventDefault();
+        var startPointObj = getStartValues();
+        var endPointObj = getEndValues();
+        // storeLocations(startPointObj, endPointObj);
+        console.log("PointA :" + JSON.stringify(startPointObj) + "PointB :" + JSON.stringify(endPointObj))
 
-                firstLocName.push(firstLoc);
-                secondLocName.push(secondLoc);
-                console.log("firstLocName = " + firstLocName);
-                console.log("secondLocName = " + secondLocName);
-                doubleAddressRoute(startPointObj, endPointObj);
-                // takeLocNames(startPointObj, endPointObj);
-              
-            });
-        }
+        // push this to global variables
+        var firstLoc = startPointObj.startLocName;
+        console.log(firstLoc);
+        var secondLoc = endPointObj.endLocName;
+
+        firstLocName.push(firstLoc);
+        secondLocName.push(secondLoc);
+        console.log("firstLocName = " + firstLocName);
+        console.log("secondLocName = " + secondLocName);
+        doubleAddressRoute(startPointObj, endPointObj);
+        // takeLocNames(startPointObj, endPointObj);
+
+    });
+}
 
 
 function buildHeroCards() {
@@ -232,16 +232,9 @@ function buildHeroCards() {
 
 var submitBtn = $('#submitBtn');
 
-function getStartValues() {
-    // Retrieves the form values and assigns them to startPointObj
-    var startPointObj;
-    var startLocName = $('#startLocName').val();
-    var startAddress = $('#startAddress').val();
-    startCity = $('#startCity').val();
-    startState = $('#startState').val();
-    startZip = $('#startZip').val();
 
- function getStartValues() {
+
+function getStartValues() {
     // Retrieves the form values and assigns them to startPointObj
     var startPointObj;
     // var startLocName = $('#startLocName').val();
@@ -262,7 +255,7 @@ function getStartValues() {
         startZip: startZip
     }; // end of startPointObj
     return startPointObj;
-  } // end of getStartValues function
+} // end of getStartValues function
 
 
 function getScore() {
@@ -288,33 +281,26 @@ function updateScore(new_points) {
 //     var submitBtn = $('#submitBtn');
 //     const LS_KEY = "journey";
 
+
 function getEndValues() {
     var endPointObj, endLocName, endAddress, endCity, endState, endZip;
     endLocName = $('#endLocName').val();
-    endAddress = $('#endAddress').val();
+    endNum = $('#endNum').val();
+    endName = $('#endName').val();
     endCity = $('#endCity').val();
     endState = $('#endState').val();
     endZip = $('#endZip').val();
 
-        function getEndValues() {
-            var endPointObj, endLocName, endAddress, endCity, endState, endZip;
-            endLocName = $('#endLocName').val();
-            endNum = $('#endNum').val();
-            endName = $('#endName').val();
-            endCity = $('#endCity').val();
-            endState = $('#endState').val();
-            endZip = $('#endZip').val();
-
-            endPointObj = {
-                endLocName: endLocName,
-                endNum: endNum, 
-                endName: endName,
-                endCity: endCity,
-                endState: endState,
-                endZip: endZip
-            } // end of endPointObj
-            return endPointObj;
-        }; // end of getEndValues function
+    endPointObj = {
+        endLocName: endLocName,
+        endNum: endNum,
+        endName: endName,
+        endCity: endCity,
+        endState: endState,
+        endZip: endZip
+    } // end of endPointObj
+    return endPointObj;
+}; // end of getEndValues function
 
 
 //     // localStorage.saveItem(LS_KEY, JSON.stringify(startPointobj));
@@ -373,7 +359,7 @@ $('#btn-eat').on("click", function () {
     screen_switcher('activity2');
 })
 
-$('#home-from-food').on("click", function() {
+$('#home-from-food').on("click", function () {
     screen_switcher('initial-prompt')
 })
 
@@ -486,7 +472,7 @@ function find_restaurants(address_object) {
                         header.attr("style", "text-align: center")
                         header.text('Choose a restaurant to ' + selectedMoveMode + ' to and earn points!')
 
-                        ;
+                            ;
 
                         var table = new Tabulator("#food-choices", {
                             data: tableData,
@@ -496,11 +482,11 @@ function find_restaurants(address_object) {
                                 { title: "Address", field: "address" },
                                 { title: "Score", field: "score", sorter: "number" },
                             ],
-                            rowClick:function(e, row){
+                            rowClick: function (e, row) {
                                 let points = row.getData().score;
                                 let name = row.getData().name;
                                 confirm_choice(name, points)
-                                },
+                            },
                         });
 
                         $('#food-choices').prepend(header)
@@ -542,13 +528,13 @@ function doubleAddressRoute(addressObj1, addressObj2) {
     // var zip1 = addressObj1.locZip;
 
 
-        // Extracting info from address object 1
-        var streetNumber1 = addressObj1.startNum;
-        var streetName1 = addressObj1.startName;
-        // var crossStreet1 = addressObj1.locCrossStreet;
-        var city1 = addressObj1.startCity;
-        var state1 = addressObj1.startState;
-        var zip1 = addressObj1.startZip;
+    // Extracting info from address object 1
+    var streetNumber1 = addressObj1.startNum;
+    var streetName1 = addressObj1.startName;
+    // var crossStreet1 = addressObj1.locCrossStreet;
+    var city1 = addressObj1.startCity;
+    var state1 = addressObj1.startState;
+    var zip1 = addressObj1.startZip;
 
     // local variables to use in openRoute
     var cordA = '';
@@ -610,116 +596,116 @@ function doubleAddressRoute(addressObj1, addressObj2) {
             console.log("Second lon: " + responseTwo.results[0].position.lon);
 
             //  Geo-Cordinates from first TomTom call
-                cordB = responseTwo.results[0].position.lon + "," + responseTwo.results[0].position.lat;
+            cordB = responseTwo.results[0].position.lon + "," + responseTwo.results[0].position.lat;
 
-                console.log("This is cordA: " + cordA);
-                console.log("This is cordB: " + cordB);
+            console.log("This is cordA: " + cordA);
+            console.log("This is cordB: " + cordB);
 
-                // Calling openRoute API
-                openRouteNF();
+            // Calling openRoute API
+            openRouteNF();
 
-                // Taking mode of travel response from user & Jen
-                function openRouteNF() {
+            // Taking mode of travel response from user & Jen
+            function openRouteNF() {
 
-                    // Console log tests for cords
-                    console.log("cordA =" + cordA);
-                    console.log("cordB =" + cordB);
-                    console.log("================");
+                // Console log tests for cords
+                console.log("cordA =" + cordA);
+                console.log("cordB =" + cordB);
+                console.log("================");
 
-                   // determining which route to take
-                    if (((selectedMoveMode === "walk") || (selectedMoveMode === "run") || (selectedMoveMode === "walk-jog"))) {
-                        var queryUrl = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
+                // determining which route to take
+                if (((selectedMoveMode === "walk") || (selectedMoveMode === "run") || (selectedMoveMode === "walk-jog"))) {
+                    var queryUrl = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
 
-                    } else {
-                        var queryUrl = "https://api.openrouteservice.org/v2/directions/cycling-regular?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
+                } else {
+                    var queryUrl = "https://api.openrouteservice.org/v2/directions/cycling-regular?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=" + cordA + "&end=" + cordB;
 
-                    };
-                    $.ajax({
-                        // Longitude comes first, then latitude, in each query url
-                        url: queryUrl,
-                        method: 'GET'
-                    }).then(function (responseB) {
+                };
+                $.ajax({
+                    // Longitude comes first, then latitude, in each query url
+                    url: queryUrl,
+                    method: 'GET'
+                }).then(function (responseB) {
 
-                        // console checks
-                        console.log("Colin's Obj:");
-                        console.log(responseB);
-                        // console.log("Total distance traveled " + responseB.features[0].properties.summary.distance);
-                        // console.log("Total time travelled " + responseB.features[0].properties.summary.duration);
+                    // console checks
+                    console.log("Colin's Obj:");
+                    console.log(responseB);
+                    // console.log("Total distance traveled " + responseB.features[0].properties.summary.distance);
+                    // console.log("Total time travelled " + responseB.features[0].properties.summary.duration);
 
 
-                        // Takes distance in meters and converts it to miles
-                        var distanceMeters = responseB.features[0].properties.summary.distance;
-                        var distanceMiles = distanceMeters / 1609;
-                        // Makes number spit out two decimal places 
-                        var finalDistance = distanceMiles.toFixed(2);
-                        // Outputs miles
-                       
-                        // Tracks how long it will take ( - might not be super accurate though -)
-                        var totalTime = ((responseB.features[0].properties.summary.duration) / 60).toFixed();
-                        console.log("This should take you " + totalTime + " minutes");
+                    // Takes distance in meters and converts it to miles
+                    var distanceMeters = responseB.features[0].properties.summary.distance;
+                    var distanceMiles = distanceMeters / 1609;
+                    // Makes number spit out two decimal places 
+                    var finalDistance = distanceMiles.toFixed(2);
+                    // Outputs miles
 
-                        console.log("Miles traveled: " + finalDistance);
+                    // Tracks how long it will take ( - might not be super accurate though -)
+                    var totalTime = ((responseB.features[0].properties.summary.duration) / 60).toFixed();
+                    console.log("This should take you " + totalTime + " minutes");
 
-                        $('#confirmation').text("Total distance walked " + finalDistance + " miles");
-                        scoreGenerator(finalDistance);
-                        // score = finalDistance;
+                    console.log("Miles traveled: " + finalDistance);
 
-                        // Create generate score function here?
-                        // Test 1
+                    $('#confirmation').text("Total distance walked " + finalDistance + " miles");
+                    scoreGenerator(finalDistance);
+                    // score = finalDistance;
 
-                    })
-                }
-            })
+                    // Create generate score function here?
+                    // Test 1
+
+                })
+            }
         })
-    };
-        console.log("check1");
-        // Points per mile - Score function
-        function scoreGenerator(totalDistance) {
-            if (selectedMoveMode === "walk") {
-                totalScore = (totalDistance * 10).toFixed();
-                console.log(totalScore);
-            }
-            if (selectedMoveMode === "walk-jog") {
-                totalScore = (totalDistance * 20).toFixed();
-                console.log(totalScore);
-            }
-            if (selectedMoveMode === "run") {
-                totalScore = (totalDistance * 30).toFixed();
-                console.log(totalScore);
-            }
-            if (selectedMoveMode === "skateboard") {
-                totalScore = (totalDistance * 15).toFixed();
-                console.log(totalScore);
-            }
-            if (selectedMoveMode === "bike") {
-                totalScore = (totalDistance * 25).toFixed();
-                console.log(totalScore);
-            }
-            confirmationPage(totalDistance, totalScore);
-        }
+    })
+};
+console.log("check1");
+// Points per mile - Score function
+function scoreGenerator(totalDistance) {
+    if (selectedMoveMode === "walk") {
+        var totalScore = (totalDistance * 10).toFixed();
+        console.log(totalScore);
+    }
+    if (selectedMoveMode === "walk-jog") {
+        var totalScore = (totalDistance * 20).toFixed();
+        console.log(totalScore);
+    }
+    if (selectedMoveMode === "run") {
+        var totalScore = (totalDistance * 30).toFixed();
+        console.log(totalScore);
+    }
+    if (selectedMoveMode === "skateboard") {
+        var totalScore = (totalDistance * 15).toFixed();
+        console.log(totalScore);
+    }
+    if (selectedMoveMode === "bike") {
+        var totalScore = (totalDistance * 25).toFixed();
+        console.log(totalScore);
+    }
+    confirmationPage(totalDistance, totalScore);
+}
 
-        // Confirm page 
-        function confirmationPage(finalDistance, totalScore) {
+// Confirm page 
+function confirmationPage(finalDistance, totalScore) {
 
-            $('#startingLoc').text("Starting location: " + firstLocName);
-            $('#endingLoc').text("Ending location: " + secondLocName);
-            $('#totalDistance').text("Total Distance: " + finalDistance);
-            $('#pointsEarned').text("Total points available: " + totalScore);
-            // $('#confirmMessage1').text("Awesome! If you " + selectedMoveMode + " " + finalDistance + " miles, you will earn " + totalScore + " points!");
-            currentHighScore = parseInt(score) + parseInt(totalScore);
-            $('#confirmMessage2').text("Since starting project Miles, you have earned " + currentHighScore + " points!");
-            // localStorage.setItem('user score', )
-            screen_switcher('confirmationPage');
-        }
+    $('#startingLoc').text("Starting location: " + firstLocName);
+    $('#endingLoc').text("Ending location: " + secondLocName);
+    $('#totalDistance').text("Total Distance: " + finalDistance);
+    $('#pointsEarned').text("Total points available: " + totalScore);
+    // $('#confirmMessage1').text("Awesome! If you " + selectedMoveMode + " " + finalDistance + " miles, you will earn " + totalScore + " points!");
+    updateScore(totalScore);
+    $('#confirmMessage2').text("Since starting project Miles, you have earned " + getScore() + " points!");
+    // localStorage.setItem('user score', )
+    screen_switcher('confirmationPage');
+};
 
-        // Return home function
-        // This is on the last div; however, we could make this a button that persists throughout
-        $('#btn-home').on("click", function () {
-            // May need to rename this main id 
-            screen_switcher('initial-prompt');
-        })
-
+// Return home function
+// This is on the last div; however, we could make this a button that persists throughout
+$('#btn-home').on("click", function () {
+    // May need to rename this main id 
+    screen_switcher('initial-prompt');
 })
+
+
 
 // Function to move back one page
 $('#btn-previous').on("click", function () {
