@@ -12,19 +12,19 @@ var heroesArr = [
     {
         heroID: 1,
         heroName: "Black Widow",
-        heroImgURL: "https://i.pinimg.com/originals/64/16/a9/6416a9d467b9d4d8149586c51171eb55.jpg"
+        heroImgURL: "Assets\images\av-img-black-widow-cropped.jpg"
     },{
         heroID: 2,
         heroName: "Iron Man",
-        heroImgURL: "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg"
+        heroImgURL: "Assets\images\av-img-iron-man.png"
     },{
         heroID: 3,
         heroName: "Miles Morales",
-        heroImgURL: "https://66.media.tumblr.com/1660aaf63f281fc31564d42c8b3ed887/tumblr_pku5xlUfU11rda9da_540.jpg"
+        heroImgURL: "Assets/images/av-img-iron-man.png"
     },{
         heroID: 4,
         heroName: "Ms. Marvel",
-        heroImgURL: "https://ca-times.brightspotcdn.com/dims4/default/4c8db25/2147483647/strip/true/crop/1988x1118+0+0/resize/840x472!/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F0d%2F8a%2Fd79cac66abbd1b9731dcee088d54%2Fla-trabrown-1478289681-snap-photo"
+        heroImgURL: "Assets\images\av-img-msmarvel.jpg"
     }
 ];
 

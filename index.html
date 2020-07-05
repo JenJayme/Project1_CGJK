@@ -5,6 +5,9 @@
     <title>project Miles</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cabin&family=Inconsolata&family=Nunito&family=Nunito+Sans&family=Pacifico&family=Quicksand&family=Rubik&family=VT323&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://unpkg.com/tabulator-tables@4.0.5/dist/css/tabulator.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.0.5/dist/js/tabulator.min.js"></script>
@@ -15,10 +18,36 @@
 
 <body>
 
+    <!--JEN INSERTED NAVBAR AND MOBILE SLIDE OUT CODING HERE 7.4-->
+
+    <nav> <img src="Assets/images/ProjectMilesLogoNEW.png" class="brand-logo" href="#"> </nav>
+
+    <ul id="slide-out" class="sidenav">
+        <li>
+            <div class="user-view">
+                <div class="background">
+                    <img src="Assets/images/nav-bkg-top.png">
+                </div>
+            </div>
+        </li>
+        <li><a href="#!"><i class="material-icons nav">cloud</i>My Profile</a></li>
+        <li><a href="#!">Grab A Bite</a></li>
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li><a class="subheader">Subheader in case we need it</a></li>
+        <li><a class="waves-effect" href="#!">Go Somewhere</a></li>
+    </ul>
+    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
+    <!--END OF NAVBAR AND MOBILE SLIDE OUT CODING-->
+
+    <!-- Initialization -->
+
     <div class="container">
-        <main id='new-user' class="center hidden">
-            <h1 class="center">Welcome!</h1>
-            <h2 class="center">Choose a character before you start making healthier choices</h2>
+        <main id='new-user' class="welcome hidden">
+            <img class="welcome" src="Assets/images/Welcome.png">
+            <h5 class="welcome">First time here? Let's choose an avatar. Who would you like to be?</h5>
 
             <!-- Fred's hero card setup -->
             <!-- <div class="row heroes-row"></div> -->
@@ -29,44 +58,52 @@
                 <div class="col s2 m2 l2">
                 </div>
                 <div class="col s2 m2 l2">
-                    <div class="card" id="Miles Morales">
+                    <div class="card" id="Miles-Morales">
                         <div class="card-image">
-                            <img
-                                src="https://66.media.tumblr.com/1660aaf63f281fc31564d42c8b3ed887/tumblr_pku5xlUfU11rda9da_540.jpg">
+                            <img src="Assets/images/av-img-miles-morales.jpg">
                         </div>
                         <div class="card-content">
-                            <p>Hero Name</p>
+                            <p>Miles Morales</p>
                         </div>
                     </div>
                 </div>
                 <div class="col s2 m2 l2">
-                    <div class="card" id="Iron Man">
+                    <div class="card" id="Black-Panther">
                         <div class="card-image">
-                            <img src="https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg">
+                            <img src="Assets/images/av-img-black-panther.jpg">
                         </div>
                         <div class="card-content">
-                            <p>Hero Name</p>
+                            <p>Black Panther</p>
                         </div>
                     </div>
                 </div>
                 <div class="col s2 m2 l2">
-                    <div class="card" id="Black Widow">
+                    <div class="card" id="Iron-Man">
                         <div class="card-image">
-                            <img src="https://i.pinimg.com/originals/64/16/a9/6416a9d467b9d4d8149586c51171eb55.jpg">
+                            <img src="Assets/images/av-img-iron-man.jpg">
                         </div>
                         <div class="card-content">
-                            <p>Hero Name</p>
+                            <p>Iron Man</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s2 m2 l2">
+                    <div class="card" id="Black-Widow">
+                        <div class="card-image">
+                            <img src="Assets/images/av-img-black-widow-cropped.jpg">
+                        </div>
+                        <div class="card-content">
+                            <p>Black Widow</p>
                         </div>
                     </div>
                 </div>
                 <div class="col s2 m2 l2">
                     <div class="card" id="Ms Marvel">
                         <div class="card-image">
-                            <img
-                                src="https://ca-times.brightspotcdn.com/dims4/default/4c8db25/2147483647/strip/true/crop/1988x1118+0+0/resize/840x472!/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F0d%2F8a%2Fd79cac66abbd1b9731dcee088d54%2Fla-trabrown-1478289681-snap-photo">
+                            <img src="Assets/images/av-img-msmarvel.jpg">
                         </div>
                         <div class="card-content">
-                            <p>Hero Name</p>
+                            <p>Ms Marvel</p>
                         </div>
                     </div>
                 </div>
@@ -89,8 +126,7 @@
                     <image width="500" height="350" xlink:href="https://i.pinimg.com/originals/64/16/a9/6416a9d467b9d4d8149586c51171eb55.jpg" clip-path="url(#myCircle)" />
                  </svg>  -->
 
-                <img id="profile-img" class="responsive-img"
-                    src="https://i.pinimg.com/originals/64/16/a9/6416a9d467b9d4d8149586c51171eb55.jpg">
+                <img id="profile-img" class="responsive-img" src="Assets/images/av-img-black-widow.jpg">
                 <p id="profile-greeting">Nice to see you, Black Widow!</p>
                 <p id="profile-details">POINTS: 500</p>
                 <div id="badge-line">
@@ -110,111 +146,137 @@
                     <!-- Screen asking if they are looking for a meal or going to do an activity -->
                     <div id="userPromptDiv">
                         <h1 id="greeting"></h1>
-                        <h2 id="promptEatOrDo">What would you like to do to earn some points?</h2>
+                        <h4 id="promptEatOrDo">What would you like to do to earn some points?</h4>
                     </div>
-                    <button id="btn-eat">Grab A Bite</button>
-                    <button id="btn-go">Go Somewhere</button>
+                    <!-- OLD UGLY BUTTONS THAT WORKED -->
+                    <!-- <button id="btn-eat">Grab A Bite</button> -->
+                    <!-- <button id="btn-go">Go Somewhere</button> -->
+                    <!-- NEW PRETTY BUTTONS THAT MAY NOT WORK -->
+                    <div class="col s4">
+                        <button id="btn-go" class="btn blue darken-8 waves-effect waves-light" name="action">Grab a Meal
+                            <i class="material-icons right">send</i>
+                    </div>
+                    <div class="col s4">
+                        <button id="btn-go" class="btn blue darken-8 waves-effect waves-light" name="action">Go
+                            Somewhere
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
                 </main>
 
-                <!-- Section 2 (Jen): Following div is for when user wants to go somewhere. This space holds a form with input prompts for mode of transport, start address & destination.-->
+                <!-- USER WANTS TO GO SOMEWHERE: Form with input prompts for mode of transport, start address & destination.-->
 
-                <main id="activity" class="hidden">
-                    <h2>How do you plan to travel?</h2>
-                    <form action="#">
-                        <p>
-                            <label>
-                                <input class="transpo" id="walk" name="group1" type="radio" />
-                                <span>Walk (50 points per mile)</span>
-                            </label>
-                        </p>
-                        <p>
-                            <label>
-                                <input class="transpo" id="run" name="group1" type="radio" />
-                                <span>Run (100 points per mile)</span>
-                            </label>
-                        </p>
-                        <p>
-                            <label>
-                                <input class="transpo" id="bike" class="with-gap" name="group1" type="radio" />
-                                <span>Bike (80 points per mile)</span>
-                            </label>
-                        </p>
-                        <p>
-                            <label>
-                                <input class="transpo" id="skateboard" name="group1" type="radio" />
-                                <span>Skateboard (80 points per mile)</span>
-                            </label>
-                        </p>
-                    </form>
-                    <button id="transpo-submitBtn" class="btn blue darken-8 waves-effect waves-light" type="submit"
-                        name="action" style="float:right">Submit
-                        <i class="material-icons right">send</i>
-                    </button>
+                <main id="activity" class="hidden" style="display: none">
+                    <div class="row">
+                        <h4>How do you plan to travel?</h4>
+                        <form action="#">
+                            <p>
+                                <label>
+                                    <input class="transpo" id="walk" name="group1" type="radio" />
+                                    <span>Walk (50 points per mile)</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input class="transpo" id="run" name="group1" type="radio" />
+                                    <span>Run (100 points per mile)</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input class="transpo" id="bike" class="with-gap" name="group1" type="radio" />
+                                    <span>Bike (80 points per mile)</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input class="transpo" id="skateboard" name="group1" type="radio" />
+                                    <span>Skateboard (80 points per mile)</span>
+                                </label>
+                            </p>
+                        </form>
+                        <div class="row">
+                            <button id="transpo-submitBtn" class="btn blue darken-8 waves-effect waves-light"
+                                type="submit" name="action" style="float:right">Submit
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </div>
                 </main>
 
-                <!-- Section 2 (Jen): Next div is for when user wants to have a meal.  This space holds a form with prompts to choose mode of transport and enter start address.  Submit button will launch Zomato function. -->
+                <!-- USER MEAL SECTION -Choose mode of transport and enter start address. Submit button will launch Zomato function. -->
                 <main id="address-input" class="hidden">
-                    <form method="post" class="input-field">
-                        <div class="row">
-                            <div class="col s6 m6 l6">
-                                <h4>Starting Location</h4>
-                                <label class="input-label">Location Name</label> <input class="input" type="text"
-                                    id="startLocName" name="startLocName" />
-                                <label class="input-label">Address</label> <input class="input" type="text"
-                                    id="startAddress" name="startAddress" />
-                                <label class="input-label">City</label> <input class="input" type="text" id="startCity"
-                                    name="startCity" />
-                                <label class="input-label">State</label> <input class="input" type="text"
-                                    id="startState" name="startState" />
-                                <label class="input-label">Zip</label> <input class="input" type="text" id="startZip"
-                                    name="startZip" />
+                    <div class="row">
+                        <form method="post" class="input-field">
+                            <div class="row">
+                                <div class="col s6 m6 l6">
+                                    <h4>Starting Location</h4>
+                                    <label for="startLocName" class="input-label">Location Name</label> <input class="input" type="text"
+                                        id="startLocName" name="startLocName" />
+                                    <label for="startAddress" class="input-label">Address</label> <input class="input" type="text"
+                                        id="startAddress" name="startAddress" />
+                                    <label for="startCity" class="input-label">City</label> <input class="input" type="text"
+                                        id="startCity" name="startCity" />
+                                    <label for="startState" class="input-label">State</label> <input class="input" type="text"
+                                        id="startState" name="startState" />
+                                    <label for="startZip" class="input-label">Zip</label> <input class="input" type="text"
+                                        id="startZip" name="startZip" />
+                                </div>
+                                <div class="col s6 m6 l6">
+                                    <h4>Destination</h4>
+                                    <label for="endLocName" class="input-label">Location Name</label> <input type="text" id="endLocName"
+                                        name="endLocName" />
+                                    <label for="endAddress" class="input-label">Address</label> <input type="text" id="endAddress"
+                                        name="endAddress" />
+                                    <label for="endCity" class="input-label">City</label> <input type="text" id="endCity"
+                                        name="endCity" />
+                                    <label for="endState" class="input-label">State</label> <input type="text" id="endState"
+                                        name="endState" />
+                                    <label for="endZip" class="input-label">Zip</label> <input type="text" id="endZip"
+                                        name="endZip" />
+                                </div>
                             </div>
-                            <div class="col s6 m6 l6">
-                                <h4>Destination</h4>
-                                <label class="input-label">Location Name</label> <input type="text" id="endLocName"
-                                    name="endLocName" />
-                                <label class="input-label">Address</label> <input type="text" id="endAddress"
-                                    name="endAddress" />
-                                <label class="input-label">City</label> <input type="text" id="endCity"
-                                    name="endCity" />
-                                <label class="input-label">State</label> <input type="text" id="endState"
-                                    name="endState" />
-                                <label class="input-label">Zip</label> <input type="text" id="endZip" name="endZip" />
-                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m12 l12">
+                            <!-- <input type="submit" id="submitBtn" class="submit-button" style="align-items: center;"> -->
+                            <button id="submitBtn" class="btn blue darken-8 waves-effect waves-light" type="submit"
+                                name="action" style="float:right">Submit
+                                <i class="material-icons right">send</i>
+                            </button>
+                            <!-- TODO: add an click event listener to submit button the click event handler must read in the form values -->
                         </div>
-                        <div class="row">
-                            <div class="col s12 m12 l12">
-                                <!-- <input type="submit" id="submitBtn" class="submit-button" style="align-items: center;"> -->
-                                <button id="submitBtn" class="btn blue darken-8 waves-effect waves-light" type="submit"
-                                    name="action" style="float:right">Submit
-                                    <i class="material-icons right">send</i>
-                                </button>
-                                <!-- TODO: add an click event listener to submit button the click event handler must read in the form values -->
-                            </div>
-                        </div>
+                    </div>
                     </form>
                 </main>
 
                 <main id="eat-div" class="row hidden">
-                    <h2 id="meal-header">Enter your current location</h2>
-                    <form method="post" class="input-field" id="meal-location">
-                        <div class="row">
-                            <div class="col s4 m4 l4">
-                                Location Name <input type="text" id="startLocName2" name="startLocName" />
-                                Street Number <input type="text" id="startNumber2" name="startAddress" />
-                                Street Name <input type="text" id="startStreet2" name="startAddress" />
-                                City <input type="text" id="startCity2" name="startCity" />
-                                State <input type="text" id="startState2" name="startState" />
-                                Zip <input type="text" id="startZip2" name="startZip" />
+                    <div class="row">
+                        <h4 id="meal-header">Enter your current location</h4>
+                        <form method="post" class="input-field" id="meal-location">
+                            <div class="row">
+                                <div class="col s4 m4 l4">
+                                    Location Name <input type="text" id="startLocName2" name="startLocName" />
+                                    Street Number <input type="text" id="startNumber2" name="startAddress" />
+                                    Street Name <input type="text" id="startStreet2" name="startAddress" />
+                                    City <input type="text" id="startCity2" name="startCity" />
+                                    State <input type="text" id="startState2" name="startState" />
+                                    Zip <input type="text" id="startZip2" name="startZip" />
+                                </div>
                             </div>
-
+                    </div>
+                    <div class="row">
+                        <div class="col s4 m4 l4">
+                            <!-- NEW FANCY BUTTON STYLE -->
+                            <button id="submitBtn" class="btn blue darken-8 waves-effect waves-light" type="submit"
+                            name="action" style="float:right">Submit
+                            <i class="material-icons right">send</i>
+                        </button>
+                        <!-- OLD BUTTON STYLE -->
+                            <!-- <input type="submit" id="meal-submit" class="submit-button" style="align-items: center"> -->
+                            <!-- TODO: add an click event listener to submit button the click event handler must read in the form values -->
                         </div>
-                        <div class="row">
-                            <div class="col s4 m4 l4">
-                                <input type="submit" id="meal-submit" class="submit-button" style="align-items: center">
-                                <!-- TODO: add an click event listener to submit button the click event handler must read in the form values -->
-                            </div>
-                        </div>
+                    </div>
                     </form>
                 </main>
                 <!-- TODO: add an click event listener to submit button the click event handler must read in the form values -->
@@ -226,39 +288,12 @@
             </div>
         </div>
     </div>
-    <!-- Section 2 (Jen): This This div for use when user wants to go somewhere, will space to prompt user for mode of transport, start address & destination via form. 
-
-            <form method="post" id="addressForm" name="addressForm">
-            Mode of transport: 
-              // Each is a radio button]
-              () Walk  // <input type="radio" name="transportMode" value="walk" />
-              () Bike
-              () Skateboard
-              () Wog
-            start location: 
-              Address: <input type="text" id="startAddress" name="streetAddress" />
-              City: <input type="text" id="startCity" name="city" />
-              State: <input type="text" id="startState" name="state" />
-              Zip: <input type="text" id="startZip" name="zip" />
-            Destination:
-              Address: [input tag]
-              City: [input tag]
-              State: [input tag]
-              Zip: [input]
-            <input type="submit" id="submitBtn" class="submit-button" >
-              // TODO: add an click event listener to submit button
-              // the click event handler must read in the form values
-            </form> -->
-
-
-
-
+    
     <script type="text/javascript" src="dist/js/tabulator.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="script.js"></script>
 
-    <!-- // Zomato API
-
+         <!-- // Zomato API
         // $.ajax({
         //     url: 'https://developers.zomato.com/api/v2.1/search?q=Mexican&q=Healthy&count=4',
         //     method: 'GET',
@@ -297,8 +332,7 @@
         // $.ajax({
         //     url: 'https://gateway.marvel.com:443/v1/public/characters?&apikey=e4b2fe04b3afe81bc5f373b59655f738',
         //     method: 'GET'
-        // }) -->
-    <!-- Test 2 branch -->
+        // })     Test 2 branch -->
 
 
     <!-- Zomato API key: 1dc29c917607ec14f7f9f5309c721b3c -->
