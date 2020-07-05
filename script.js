@@ -439,7 +439,7 @@ function find_restaurants(address_object) {
                                 confirm_choice(name, points)
                                 },
                         });
-
+                        table.redraw(true)
                         $('#food-choices').prepend(header)
                     }
                 })

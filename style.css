@@ -52,6 +52,7 @@ p {
     min-height: 40px;
 }
 
+
 .card-content {
     font-weight: bold;
     background-color: #93a6c9;
@@ -137,10 +138,66 @@ input .address-input .input-field {
     color: whitesmoke;
 }
 
+#activity2 form {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.transpo2 {
+    color: white;
+}
+
 .input-label {
     font-size: 16px;
     color: lightblue;
 }
+
+/* Gabe's additions */
+
+#initial-prompt {
+    margin-top: 100px;
+}
+
+#activity2 {
+    margin-top: 100px;
+}
+
+#eat-div {
+    margin-top: 100px;
+}
+
+#meal-submit {
+    width: 25%;
+}
+
+#btn-eat {
+    width: 80%;
+    width: 80%;
+}
+
+#btn-go {
+    width: 90%;
+    width: 90%;
+}
+
+#home-from-food {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#food-choices {
+    margin-top: 50px;
+}
+#food-choice-confirm {
+    margin-top: 200px;
+    text-align: center;
+}
+
+
+
+
+/* End Gabe's additions */
+
 
 .sidenav {
     background-color: #353030;
@@ -150,6 +207,7 @@ input .address-input .input-field {
 #new-user {
     text-align: center;
 }
+
 
 #profile-img {
     width: 80%;
@@ -175,19 +233,13 @@ input .address-input .input-field {
     color: whitesmoke;
 }
 
-.card-content {
-    z-index:2;
-}
-
-.card-img {
-    z-index: 1;
-}
 .welcome {
     /* color: white; */
     font-family: 'Quicksand', sans-serif;
     background-color:transparent;
     text-shadow:white;
 }
+
 
 /* font-family: 'Cabin', sans-serif;
 font-family: 'Inconsolata', monospace;
