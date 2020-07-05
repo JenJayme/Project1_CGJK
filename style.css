@@ -154,6 +154,15 @@ input .address-input .input-field {
 
 /* Gabe's additions */
 
+.tabulator-row{
+    color: blue
+}
+
+.tabulator-col-content{
+    color:white;
+    background-color: darkblue;
+    font-weight: bolder;
+}
 #initial-prompt {
     margin-top: 100px;
 }
@@ -173,11 +182,13 @@ input .address-input .input-field {
 #btn-eat {
     width: 80%;
     width: 80%;
+    font-size: 1vw;
 }
 
 #btn-go {
     width: 90%;
     width: 90%;
+    font-size: 1vw;
 }
 
 #home-from-food {
@@ -187,6 +198,8 @@ input .address-input .input-field {
 
 #food-choices {
     margin-top: 50px;
+    background-color: transparent;
+    border:none;
 }
 #food-choice-confirm {
     margin-top: 200px;
