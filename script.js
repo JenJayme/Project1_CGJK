@@ -59,9 +59,6 @@ function screen_switcher(id) {
     for (var i = 0; i < main_divs.length; i++) {
         mainDiv = $(main_divs[i]);
 
-        // TODO: delete console.log()
-        console.log(mainDiv);
-
         if (mainDiv.attr('id') === id) {
             mainDiv.show();
         } else {
@@ -69,21 +66,7 @@ function screen_switcher(id) {
         }
     }
 }
-// GABE'S SCREEN SWITCHER: The screen switcher function will toggle between which screen is displayed.
-// function screen_switcher(id_name) {
 
-//     var main_divs = $('main');
-//     for (i = 0; i < main_divs.length; i++) {
-//         console.log(main_divs[i])
-//         if (main_divs[i].getAttribute('id') === id_name) {
-//             main_divs[i].setAttribute('style', 'display:block');
-//         } else {
-//             main_divs[i].setAttribute('style', 'display:none')
-//         };
-//         console.log(main_divs[i])
-
-//     };
-// };
 
 // SEGMENT 1: USER INITIALIZATION
 
@@ -160,7 +143,6 @@ function setUp() {
         event.preventDefault();
         var startPointObj = getStartValues();
         var endPointObj = getEndValues();
-        // storeLocations(startPointObj, endPointObj);
         console.log("PointA :" + JSON.stringify(startPointObj) + "PointB :" + JSON.stringify(endPointObj))
         doubleAddressRoute(startPointObj, endPointObj);
     });
@@ -257,7 +239,7 @@ function setScore(current_score) {
 
 function updateScore(new_points) {
     var current_score = getScore();
-    current_score += new_points;
+    current_score += parseFloat(new_points);
     setScore(current_score)
     $('#profile-details').text('Points: ' + current_score)
 }
@@ -346,6 +328,10 @@ $('#btn-eat').on("click", function () {
     screen_switcher('activity2');
 })
 
+$('#home-from-food').on("click", function() {
+    screen_switcher('initial-prompt')
+})
+
 var transpoSubmit2 = $('#transpo-submitBtn2')
 transpoSubmit2.on("click", function (event) {
     for (const mode of $('.transpo2')) {
@@ -356,6 +342,12 @@ transpoSubmit2.on("click", function (event) {
     screen_switcher('eat-div');
 
 })
+
+function confirm_choice(name, points) {
+    screen_switcher('food-choice-confirm');
+    $('#restaurant-confirm').text('For your choice to ' + selectedMoveMode + ' to ' + name + ', here are ' + points + ' points!');
+    updateScore(points);
+}
 
 $('#meal-submit').on("click", function (event) {
     event.preventDefault();
@@ -411,8 +403,6 @@ function find_restaurants(address_object) {
         url: current_loc_url,
         method: 'GET'
     }).then(function (response) {
-
-        console.log(response)
         var current_lat = response.results[0].position.lat;
         var current_lon = response.results[0].position.lon;
 
@@ -426,14 +416,12 @@ function find_restaurants(address_object) {
             }
         }).then(function (response) {
             var tableData = []
-            var i = 0
+            var ex_data = [
+                { name: 'yes', address: 'yes', score: 'yes' }
+            ]
+            var index = 1;
             for (const place of response.restaurants) {
-                console.log(place)
-                i++
-                var distance_to;
-                var score;
-                var rest_name = place.restaurant.name;
-                var rest_address = place.restaurant.location.address;
+
                 var restaurant_lat = place.restaurant.location.latitude;
                 var restaurant_lon = place.restaurant.location.longitude;
                 var openroute_url = 'https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=' + current_lon + ',' + current_lat + '&end=' + restaurant_lon + ',' + restaurant_lat
@@ -442,26 +430,40 @@ function find_restaurants(address_object) {
                     url: openroute_url,
                     method: 'GET'
                 }).then(function (response) {
-                    console.log(response)
-                    distance_to = response.features[0].properties.summary.distance / 1609;
-                    console.log(distance_to)
-                    score = scoreCalculator(distance_to)
-                    tableData.push({ id: String(i), Name: rest_name, Address: rest_address, Score: score })
+                    var distance_to = response.features[0].properties.summary.distance / 1609;
+                    var points = scoreCalculator(distance_to)
+                    tableData.push({ id: index, name: place.restaurant.name, address: place.restaurant.location.address, score: points })
+                    index += 1
 
+                    if (index === 10) {
+                        screen_switcher('food-choices')
+                        var header = $('<h4>');
+                        header.attr("style", "text-align: center")
+                        header.text('Choose a restaurant to ' + selectedMoveMode + ' to and earn points!')
+
+                        ;
+
+                        var table = new Tabulator("#food-choices", {
+                            data: tableData,
+                            layout: "fitColumns",
+                            columns: [
+                                { title: "Name", field: "name" },
+                                { title: "Address", field: "address" },
+                                { title: "Score", field: "score", sorter: "number" },
+                            ],
+                            rowClick:function(e, row){
+                                let points = row.getData().score;
+                                let name = row.getData().name;
+                                confirm_choice(name, points)
+                                },
+                        });
+
+                        $('#food-choices').prepend(header)
+                    }
                 })
             };
-            console.log(tableData)
-            var table = new Tabulator("#eat-div", {
-                data: tableData,
-                columns: [
-                    { title: "Name", field: "Name" },
-                    { title: "Address", field: "Address" },
-                    { title: "Score", field: "score", sorter: "number" }
-                ]
-            })
         })
     })
-
 };
 
 

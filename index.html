@@ -7,10 +7,9 @@
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://unpkg.com/tabulator-tables@4.0.5/dist/css/tabulator.min.css" rel="stylesheet">
-    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.0.5/dist/js/tabulator.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="style.css">
-
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.0.5/dist/js/tabulator.min.js"></script>
 </head>
 
 <body>
@@ -250,6 +249,15 @@
                             </div>
                         </div>
                     </form>
+                </main>
+
+                <main id="food-choices" class="hidden">
+                    
+                </main>
+
+                <main id="food-choice-confirm" class="hidden">
+                    <h3 id="restaurant-confirm"></h3>
+                    <button id="home-from-food">Home</button>
                 </main>
                 <!-- TODO: add an click event listener to submit button the click event handler must read in the form values -->
                 <main id='confirmation' class="hidden">
