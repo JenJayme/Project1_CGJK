@@ -145,14 +145,6 @@ function setUp() {
         event.preventDefault();
         var startPointObj = getStartValues();
         var endPointObj = getEndValues();
-        console.log("PointA :" + JSON.stringify(startPointObj) + "PointB :" + JSON.stringify(endPointObj))
-        doubleAddressRoute(startPointObj, endPointObj);
-    });
-
-    submitBtn.on('click', function (event) {
-        event.preventDefault();
-        var startPointObj = getStartValues();
-        var endPointObj = getEndValues();
         // storeLocations(startPointObj, endPointObj);
         console.log("PointA :" + JSON.stringify(startPointObj) + "PointB :" + JSON.stringify(endPointObj))
 
