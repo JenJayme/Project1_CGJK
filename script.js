@@ -12,11 +12,13 @@ var selectedMoveMode = "";
 // The following array will be replaced by an api function "get superheroes" from Gabe that returns an array of superhero objects.  This is just mock data for us to use in page layout.
 
 var heroesObj = {
-    "Black Widow": "https://i.pinimg.com/originals/64/16/a9/6416a9d467b9d4d8149586c51171eb55.jpg",
-    "Iron Man": "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
-    "Miles Morales": "https://66.media.tumblr.com/1660aaf63f281fc31564d42c8b3ed887/tumblr_pku5xlUfU11rda9da_540.jpg",
-    "Ms. Marvel": "https://ca-times.brightspotcdn.com/dims4/default/4c8db25/2147483647/strip/true/crop/1988x1118+0+0/resize/840x472!/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F0d%2F8a%2Fd79cac66abbd1b9731dcee088d54%2Fla-trabrown-1478289681-snap-photo"
+    "Black Widow": "Assets\images\av-img-black-widow-cropped.jpg",
+    "Iron Man": "Assets\images\av-img-iron-man.jpg",
+    "Miles Morales": "Assets/images/av-img-miles-morales.jpg",
+    "Ms. Marvel": "Assets\images\av-img-msmarvel.jpg"
 }
+
+console.log(heroesArr);
 
 // The following "locations" array of objects is designed to be used in a drop-down for saved start points and destinations, and can be appended when user enters new locations.  I've entered some mock data for testing. -Jen
 
@@ -28,23 +30,23 @@ var locationsObj = {
         locCity: "Novato",
         locState: "CA",
         locZip: "94949"
-    },
-    "School": {
+     },
+     "School": {
         locStreetNumber: "64",
         locStreetName: "399 Alameda De La Loma",
         locCrossStreet: "Via Escondida",
         locCity: "Novato",
         locState: "CA",
         locZip: "94949"
-    },
-    "Library": {
+     },
+     "Library": {
         locStreetNumber: "64",
         locStreetName: "931 C Street",
         locCrossStreet: "Main Gate Road",
         locCity: "Novato",
         locState: "CA",
         locZip: "94949"
-    }
+     }
 };
 
 console.log(locationsObj);
@@ -61,14 +63,13 @@ function screen_switcher(id) {
     for (var i = 0; i < main_divs.length; i++) {
         mainDiv = $(main_divs[i]);
 
-        if (mainDiv.attr('id') === id) {
+      if (mainDiv.attr('id') === id) {
             mainDiv.show();
         } else {
             mainDiv.hide();
         }
     }
 }
-
 
 // SEGMENT 1: USER INITIALIZATION
 
@@ -212,19 +213,15 @@ function buildHeroCards() {
 
 // ---------------------------------------------------------------------------------------------
 
+
 // SEGMENT 2: USER ACTIVITY PROMPTING - OBJECTIVES:
 // 1. The user is asked if they are going to eat or do an activity. Their responses will be used in an if-else sequence to determine the application flow.
 // As of 7.3, the question "What would you like to do" is inserted into a div in the index.html, with buttons for Grab A Bite and Go Somewhere.
 //TO DO: Need to write event listeners on those buttons to call functions to screen switch to activity or meal divs.
-
-// TO DO: The following function will create start and end point objects for use by Colin's function, and also push those to the locations array.  Needs to be finished and adjusted to sync up var names
-
-
+//TO DO: The following function will create start and end point objects for use by Colin's function, and also push those to the locations array.  Needs to be finished and adjusted to sync up var names
 //need an event listener on this: screen_switcher("address-input");
 
 var submitBtn = $('#submitBtn');
-
-
 
 function getStartValues() {
     // Retrieves the form values and assigns them to startPointObj
@@ -249,7 +246,6 @@ function getStartValues() {
     return startPointObj;
 } // end of getStartValues function
 
-
 function getScore() {
     return parseInt(localStorage.getItem('userScore'));
 }
@@ -264,7 +260,8 @@ function updateScore(new_points) {
     setScore(current_score)
     $('#profile-details').text('Points: ' + current_score)
 }
-//we probably don't need this stuff:
+
+//we probably don't need this stuff - GUYS, CAN WE DELETE THIS? I'M AFRAID. -Jen
 // function startingPointSaver () {
 //     const LS_KEY = "journey";
 // }; end of startingPointSaver function
@@ -272,7 +269,6 @@ function updateScore(new_points) {
 //     // Retrieves the form values and assigns them to endPointObj
 //     var submitBtn = $('#submitBtn');
 //     const LS_KEY = "journey";
-
 
 function getEndValues() {
     var endPointObj, endLocName, endAddress, endCity, endState, endZip;
@@ -299,6 +295,8 @@ function getEndValues() {
 //     locationsArr.push(startPointObj);
 //     locationsArr.push(endPointObj);
 // }; //end of storeLocations function
+
+
 // };//end of endPointSaver function
 
 // }
@@ -345,7 +343,6 @@ function getEndValues() {
 // SEGMENT 3: RESTAURANT SEARCH
 
 // Gabe's Workstation
-
 
 $('#btn-eat').on("click", function () {
     screen_switcher('activity2');
@@ -489,7 +486,9 @@ function find_restaurants(address_object) {
     })
 };
 
-
+            // Testing Geo-Cordinates from first TomTom call
+            console.log("Second lat: " + responseTwo.results[0].position.lat);
+            console.log("Second lon: " + responseTwo.results[0].position.lon);
 
 // 1. An AJAX call will be made to find some number of related restaurants in the area matching the keys within a certain radius.
 // 2. The address of each restaurant will be converted to geocoordinates using the TomTom API
@@ -498,7 +497,11 @@ function find_restaurants(address_object) {
 // 5. The segment 2 algorithm is used to calculate a score for this restaurant. This score will be appended next to the restaurant choice in the segment 2 DOM table.
 
 
+            console.log("This is cordA: " + cordA);
+            console.log("This is cordB: " + cordB);
 
+            // Calling openRoute API
+            openRouteNF();
 
 // ------------------------------------------------------------------------------------------------
 // SEGMENT 4: GENERAL MOVEMENT SEARCH
@@ -731,6 +734,9 @@ function screen_switcher_previous(id_name) {
 
 //TUTORNOTE: All functions called should be inside document.ready, including if then else statement, and all initialize activities should be in an initialize function
 
+// API key for OR:
+// 5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3
+
 
 $(document).ready(function () {
     // buildHeroCards();
@@ -738,4 +744,8 @@ $(document).ready(function () {
 
 });
 
+$(document).ready(function() {
+    buildHeroCards();
+    setUp();
 
+});
