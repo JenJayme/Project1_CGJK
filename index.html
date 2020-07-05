@@ -10,10 +10,8 @@
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://unpkg.com/tabulator-tables@4.0.5/dist/css/tabulator.min.css" rel="stylesheet">
-    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.0.5/dist/js/tabulator.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
@@ -100,7 +98,7 @@
                     </div>
                 </div>
                 <div class="col s2 m2 l2">
-                    <div class="card" id="Ms Marvel">
+                    <div class="card" id="Ms. Marvel">
                         <div class="card-image">
                             <img src="Assets/images/av-img-msmarvel.jpg">
                         </div>
@@ -128,10 +126,11 @@
                     <image width="500" height="350" xlink:href="https://i.pinimg.com/originals/64/16/a9/6416a9d467b9d4d8149586c51171eb55.jpg" clip-path="url(#myCircle)" />
                  </svg>  -->
 
-                <img id="profile-img" class="responsive-img" src="Assets/images/av-img-black-widow.jpg">
-                <p id="profile-greeting">Nice to see you, Black Widow!</p>
-                <p id="profile-details">POINTS: 500</p>
-                <div id="badge-line">
+                <img id="profile-img" class="responsive-img" src="">
+                <p id="profile-greeting"></p>
+                <p id="profile-details"></p>
+
+              <div id="badge-line">
                     <img class="badges" src="Assets/images/button-blue-01.png">
                     <img class="badges" src="Assets/images/button-blue-01.png">
                     <img class="badges" src="Assets/images/button-blue-01.png">
@@ -168,32 +167,32 @@
 
                 <!-- USER WANTS TO GO SOMEWHERE: Form with input prompts for mode of transport, start address & destination.-->
 
-                <main id="activity" class="hidden" style="display: none">
+                <main id="activity" class="hidden">
                     <div class="row">
                         <h4>How do you plan to travel?</h4>
                         <form action="#">
                             <p>
                                 <label>
                                     <input class="transpo" id="walk" name="group1" type="radio" />
-                                    <span>Walk (50 points per mile)</span>
+                                    <span>Walk (10 points per mile)</span>
                                 </label>
                             </p>
                             <p>
                                 <label>
                                     <input class="transpo" id="run" name="group1" type="radio" />
-                                    <span>Run (100 points per mile)</span>
+                                    <span>Run (30 points per mile)</span>
                                 </label>
                             </p>
                             <p>
                                 <label>
                                     <input class="transpo" id="bike" class="with-gap" name="group1" type="radio" />
-                                    <span>Bike (80 points per mile)</span>
+                                    <span>Bike (25 points per mile)</span>
                                 </label>
                             </p>
                             <p>
                                 <label>
                                     <input class="transpo" id="skateboard" name="group1" type="radio" />
-                                    <span>Skateboard (80 points per mile)</span>
+                                    <span>Skateboard (25 points per mile)</span>
                                 </label>
                             </p>
                         </form>
@@ -238,8 +237,42 @@
                                     <label for="endZip" class="input-label">Zip</label> <input type="text" id="endZip"
                                         name="endZip" />
                                 </div>
-                            </div>
-                    </div>
+
+                <main id="activity2" class="hidden">
+                    <h2>How do you plan to travel?</h2>
+                    <form action="#">
+                        <p>
+                            <label>
+                                <input class="transpo2" id="walk" name="group1" type="radio" />
+                                <span>Walk (10 points per mile)</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <input class="transpo2" id="run" name="group1" type="radio" />
+                                <span>Run (30 points per mile)</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <input class="transpo2" id="bike" class="with-gap" name="group1" type="radio" />
+                                <span>Bike (25 points per mile)</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <input class="transpo2" id="skateboard" name="group1" type="radio" />
+                                <span>Skateboard (15 points per mile)</span>
+                            </label>
+                        </p>
+                    </form>
+                    <button id="transpo-submitBtn2" class="btn blue darken-8 waves-effect waves-light" type="submit"
+                        name="action" style="float:right">Submit
+                        <i class="material-icons right">send</i>
+                    </button>
+                </main>
+<!--ARE THE FOLLOWING TWO DIVS STILL NEEDED? FROM MERGE CONFLICT - THESE WEREN'T HIGHLIGHTED BUT MAY BE ORPHANS AFTER RESOLVING.-->
+
                     <div class="row">
                         <div class="col s12 m12 l12">
                             <!-- <input type="submit" id="submitBtn" class="submit-button" style="align-items: center;"> -->
@@ -254,18 +287,22 @@
                 </main>
 
                 <main id="eat-div" class="row hidden">
-                    <div class="row">
-                        <h4 id="meal-header">Enter your current location</h4>
-                        <form method="post" class="input-field" id="meal-location">
-                            <div class="row">
-                                <div class="col s4 m4 l4">
-                                    Location Name <input type="text" id="startLocName2" name="startLocName" />
-                                    Street Number <input type="text" id="startNumber2" name="startAddress" />
-                                    Street Name <input type="text" id="startStreet2" name="startAddress" />
-                                    City <input type="text" id="startCity2" name="startCity" />
-                                    State <input type="text" id="startState2" name="startState" />
-                                    Zip <input type="text" id="startZip2" name="startZip" />
-                                </div>
+                    <h4 id="meal-header">Enter your current location</h4>
+                    <form method="post" class="input-field" id="meal-location">
+                        <div class="row">
+                            <div class="col s4 m4 l4">
+                                Location Name <input type="text" id="startLocName2" name="startLocName" />
+                                Street Number <input type="text" id="startNumber2" name="startAddress" />
+                                Street Name <input type="text" id="startStreet2" name="startAddress" />
+                                City <input type="text" id="startCity2" name="startCity" />
+                                State <input type="text" id="startState2" name="startState" />
+                                Zip <input type="text" id="startZip2" name="startZip" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s4 m4 l4">
+                                <input type="submit" id="meal-submit" class="submit-button" style="align-items: center">
+                                <!-- TODO: add an click event listener to submit button the click event handler must read in the form values -->
                             </div>
                     </div>
                     <div class="row">
@@ -282,17 +319,34 @@
                     </div>
                     </form>
                 </main>
+
+                <main id="food-choices" class="hidden">
+                    
+                </main>
+
+                <main id="food-choice-confirm" class="hidden">
+                    <h3 id="restaurant-confirm"></h3>
+                    <button id="home-from-food">Restart</button>
+                </main>
                 <!-- TODO: add an click event listener to submit button the click event handler must read in the form values -->
-                <main id='confirmation' class="hidden">
-                    <h2 id='confirmMessage'></h2>
-                    <h4 id='displayHighScore'></h4>
-                    <button id='btn-home'>Restart</button>
+                <main id='confirmationPage' class="hidden">
+                    <h3>Confirm:</h3>
+                    <h5 id='startingLoc'></h5>
+                    <h5 id='endingLoc'></h5>
+                    <h5 id='totalDistance'></h5>
+                    <h5 id='pointsEarned'></h5>
+                    <h5 id='confirmMessage1'></h2>
+                    <h5 id='confirmMessage2'></h2>
+                    <h5 id='displayHighScore'></h4>
+
+                    <button id='btn-home' class="btn blue darken-8 waves-effect waves-light">Restart</button>
                 </main>
             </div>
         </div>
     </div>
-    
-    <script type="text/javascript" src="dist/js/tabulator.min.js"></script>
+
+    //<!--  <script type="text/javascript" src="dist/js/tabulator.min.js"></script> <!--FROM MERGE CONFLICT, CAN THIS BE DELETED? IT'S ABOVE-->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="script.js"></script>
 
