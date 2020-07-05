@@ -9,7 +9,8 @@
         href="https://fonts.googleapis.com/css2?family=Cabin&family=Inconsolata&family=Nunito&family=Nunito+Sans&family=Pacifico&family=Quicksand&family=Rubik&family=VT323&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://unpkg.com/tabulator-tables@4.0.5/dist/css/tabulator.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/tabulator-tables@4.7.1/dist/css/tabulator.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.7.1/dist/js/tabulator.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -46,8 +47,8 @@
     <div class="container">
         <main id='new-user' class="welcome hidden">
             <div class="row">
-            <img class="welcome" src="Assets/images/Welcome.png">
-            <h5 class="welcome">First time here? Let's choose an avatar. Who would you like to be?</h5>
+                <img class="welcome" src="Assets/images/Welcome.png">
+                <h5 class="welcome">First time here? Let's choose an avatar. Who would you like to be?</h5>
             </div>
             <!-- Fred's hero card setup -->
             <!-- <div class="row heroes-row"></div> -->
@@ -55,10 +56,10 @@
 
             <!-- Gabe's hero card setup -->
             <div class="row">
-                <div class="col s2 m2 l2">
+                <div class="col s1 m1 l1">
                 </div>
                 <div class="col s2 m2 l2">
-                    <div class="card" id="Miles-Morales">
+                    <div class="card" id="Miles Morales">
                         <div class="card-image">
                             <img src="Assets/images/av-img-miles-morales.jpg">
                         </div>
@@ -68,7 +69,7 @@
                     </div>
                 </div>
                 <div class="col s2 m2 l2">
-                    <div class="card" id="Black-Panther">
+                    <div class="card" id="Black Panther">
                         <div class="card-image">
                             <img src="Assets/images/av-img-black-panther.jpg">
                         </div>
@@ -78,7 +79,7 @@
                     </div>
                 </div>
                 <div class="col s2 m2 l2">
-                    <div class="card" id="Iron-Man">
+                    <div class="card" id="Iron Man">
                         <div class="card-image">
                             <img src="Assets/images/av-img-iron-man.jpg">
                         </div>
@@ -88,7 +89,7 @@
                     </div>
                 </div>
                 <div class="col s2 m2 l2">
-                    <div class="card" id="Black-Widow">
+                    <div class="card" id="Black Widow">
                         <div class="card-image">
                             <img src="Assets/images/av-img-black-widow-cropped.jpg">
                         </div>
@@ -130,7 +131,7 @@
                 <p id="profile-greeting"></p>
                 <p id="profile-details"></p>
 
-              <div id="badge-line">
+                <div id="badge-line">
                     <img class="badges" src="Assets/images/button-blue-01.png">
                     <img class="badges" src="Assets/images/button-blue-01.png">
                     <img class="badges" src="Assets/images/button-blue-01.png">
@@ -154,13 +155,14 @@
                     <!-- <button id="btn-go">Go Somewhere</button> -->
                     <!-- NEW PRETTY BUTTONS THAT MAY NOT WORK -->
                     <div class="col s4">
-                        <button id="btn-eat" class="btn blue darken-8 waves-effect waves-light" name="action">Grab a Meal
-                            <i class="material-icons right">send</i>
+                        <button id="btn-eat" class="btn blue darken-8 waves-effect waves-light" name="action">Grab a
+                            Meal
+                            <i class="material-icons right">trending flat</i>
                     </div>
                     <div class="col s4">
                         <button id="btn-go" class="btn blue darken-8 waves-effect waves-light" name="action">Go
                             Somewhere
-                            <i class="material-icons right">send</i>
+                            <i class="material-icons right">trending flat</i>
                         </button>
                     </div>
                 </main>
@@ -170,6 +172,7 @@
                 <main id="activity" class="hidden">
                     <div class="row">
                         <h4>How do you plan to travel?</h4>
+                        <p id="activity-invalid" class="hidden" style="font-weight: bolder">Please select one!</p>
                         <form action="#">
                             <p>
                                 <label>
@@ -198,7 +201,7 @@
                         </form>
                         <div class="row">
                             <button id="transpo-submitBtn" class="btn blue darken-8 waves-effect waves-light"
-                                type="submit" name="action" style="float:right">Submit
+                                type="submit" name="action" style="float:right">Next
                                 <i class="material-icons right">send</i>
                             </button>
                         </div>
@@ -210,36 +213,46 @@
                     <div class="row">
                         <form method="post" class="input-field">
                             <div class="row">
+                                <p id="address-invalid" class="hidden" style="font-weight: bolder">Please fill in all your address information!</p>
                                 <div class="col s6 m6 l6">
                                     <h4>Starting Location</h4>
-                                    <label for="startLocName" 
-                                    class="input-label">Location Name</label> <input class="input" type="text"
-                                        id="startLocName" name="startLocName" />
-                                    <label for="startAddress" class="input-label">Address</label> <input class="input" type="text"
-                                        id="startAddress" name="startAddress" />
-                                    <label for="startCity" class="input-label">City</label> <input class="input" type="text"
-                                        id="startCity" name="startCity" />
-                                    <label for="startState" class="input-label">State</label> <input class="input" type="text"
-                                        id="startState" name="startState" />
-                                    <label for="startZip" class="input-label">Zip</label> <input class="input" type="text"
-                                        id="startZip" name="startZip" />
+                                    <label for="startLocName" class="input-label">Location Name</label> <input
+                                        class="input" type="text" id="startLocName" name="startLocName" />
+                                    <label for="startAddress" class="input-label">Street Number</label> <input
+                                        class="input" type="text" id="startNum" name="startAddress" />
+                                    <label for="startAddress" class="input-label">Street Name</label> <input
+                                        class="input" type="text" id="startName" name="startAddress" />
+                                    <label for="startCity" class="input-label">City</label> <input class="input"
+                                        type="text" id="startCity" name="startCity" />
                                 </div>
                                 <div class="col s6 m6 l6">
                                     <h4>Destination</h4>
-                                    <label for="endLocName" class="input-label">Location Name</label> <input type="text" id="endLocName"
-                                        name="endLocName" />
-                                    <label for="endAddress" class="input-label">Address</label> <input type="text" id="endAddress"
-                                        name="endAddress" />
-                                    <label for="endCity" class="input-label">City</label> <input type="text" id="endCity"
-                                        name="endCity" />
-                                    <label for="endState" class="input-label">State</label> <input type="text" id="endState"
-                                        name="endState" />
-                                    <label for="endZip" class="input-label">Zip</label> <input type="text" id="endZip"
-                                        name="endZip" />
+                                    <label for="endLocName" class="input-label">Location Name</label> <input type="text"
+                                        id="endLocName" name="endLocName" />
+                                    <label for="endAddress" class="input-label">Street Number</label> <input type="text"
+                                        id="endNum" name="endAddress" />
+                                    <label for="endAddress" class="input-label">Street Name</label> <input type="text"
+                                        id="endName" name="endAddress" />
+                                    <label for="endCity" class="input-label">City</label> <input type="text"
+                                        id="endCity" name="endCity" />
                                 </div>
-
+                            </div>
+                            <div class="row">
+                                <div class="col s12 m12 l12">
+                                    <!-- <input type="submit" id="submitBtn" class="submit-button" style="align-items: center;"> -->
+                                    <button id="submitBtn" class="btn blue darken-8 waves-effect waves-light"
+                                        type="submit" name="action" style="float:right">Next
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                    <!-- TODO: add an click event listener to submit button the click event handler must read in the form values -->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </main>
                 <main id="activity2" class="hidden">
                     <h2>How do you plan to travel?</h2>
+                    <p id="activity2-invalid" class="hidden" style="font-weight: bolder">Please select one!</p>
                     <form action="#">
                         <p>
                             <label>
@@ -271,132 +284,62 @@
                         <i class="material-icons right">send</i>
                     </button>
                 </main>
-<!--ARE THE FOLLOWING TWO DIVS STILL NEEDED? FROM MERGE CONFLICT - THESE WEREN'T HIGHLIGHTED BUT MAY BE ORPHANS AFTER RESOLVING.-->
-</div>
-</div>
-                    <div class="row">
-                        <div class="col s12 m12 l12">
-                            <!-- <input type="submit" id="submitBtn" class="submit-button" style="align-items: center;"> -->
-                            <button id="submitBtn" class="btn blue darken-8 waves-effect waves-light" type="submit"
-                                name="action" style="float:right">Submit
-                                <i class="material-icons right">send</i>
-                            </button>
-                            <!-- TODO: add an click event listener to submit button the click event handler must read in the form values -->
-                        </div>
-                    </div>
-                    </form>
-                </main>
+
 
                 <main id="eat-div" class="row hidden">
                     <h4 id="meal-header">Enter your current location</h4>
+                    <p id="meal-invalid" class="hidden" style="font-weight: bolder">Please fill in all of your address information!</p>
                     <form method="post" class="input-field" id="meal-location">
                         <div class="row">
                             <div class="col s4 m4 l4">
-                                Location Name <input type="text" id="startLocName2" name="startLocName" />
-                                Street Number <input type="text" id="startNumber2" name="startAddress" />
+                                Street Number <input type="text" id="startNumber2" name="startAddress"/>
                                 Street Name <input type="text" id="startStreet2" name="startAddress" />
                                 City <input type="text" id="startCity2" name="startCity" />
-                                State <input type="text" id="startState2" name="startState" />
-                                Zip <input type="text" id="startZip2" name="startZip" />
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col s4 m4 l4">
-                                <input type="submit" id="meal-submit" class="submit-button" style="align-items: center">
-                                <!-- TODO: add an click event listener to submit button the click event handler must read in the form values -->
-                            </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s4 m4 l4">
-                            <!-- NEW FANCY BUTTON STYLE -->
-                            <button id="submitBtn" class="btn blue darken-8 waves-effect waves-light" type="submit"
-                            name="action" style="float:right">Submit
-                            <i class="material-icons right">send</i>
-                        </button>
-                        <!-- OLD BUTTON STYLE -->
-                            <!-- <input type="submit" id="meal-submit" class="submit-button" style="align-items: center"> -->
-                            <!-- TODO: add an click event listener to submit button the click event handler must read in the form values -->
+                                <button id="meal-submit" class="btn blue darken-8 waves-effect waves-light" type="submit"
+                                    name="action" style="float:right">Next
+                                    <i class="material-icons right">trending flat</i>
+                                </button>
                         </div>
-                    </div>
                     </form>
                 </main>
 
                 <main id="food-choices" class="hidden">
-                    
+
                 </main>
 
                 <main id="food-choice-confirm" class="hidden">
                     <h3 id="restaurant-confirm"></h3>
-                    <button id="home-from-food">Restart</button>
+                    <button id='home-from-food' class="btn blue darken-8 waves-effect waves-light">Home</button>
                 </main>
-                <!-- TODO: add an click event listener to submit button the click event handler must read in the form values -->
+
+            
                 <main id='confirmationPage' class="hidden">
                     <h3>Confirm:</h3>
                     <h5 id='startingLoc'></h5>
                     <h5 id='endingLoc'></h5>
                     <h5 id='totalDistance'></h5>
                     <h5 id='pointsEarned'></h5>
-                    <h5 id='confirmMessage1'></h2>
-                    <h5 id='confirmMessage2'></h2>
-                    <h5 id='displayHighScore'></h4>
+                    <h5 id='confirmMessage1'>
+                    </h5>
+                    <h5 id='confirmMessage2'>
+                    </h5>
+                    <h5 id='displayHighScore'>
+                    </h5>
 
-                    <button id='btn-home' class="btn blue darken-8 waves-effect waves-light">Restart</button>
+                    <button id='btn-home' class="btn blue darken-8 waves-effect waves-light">Home</button>
                 </main>
             </div>
         </div>
     </div>
 
-    //<!--  <script type="text/javascript" src="dist/js/tabulator.min.js"></script> <!--FROM MERGE CONFLICT, CAN THIS BE DELETED? IT'S ABOVE-->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="script.js"></script>
 
-         <!-- // Zomato API
-        // $.ajax({
-        //     url: 'https://developers.zomato.com/api/v2.1/search?q=Mexican&q=Healthy&count=4',
-        //     method: 'GET',
-        //     headers: { 'X-Zomato-API-Key': '1dc29c917607ec14f7f9f5309c721b3c' }
-        // }).then(function (response) {
-        //     console.log(response)
-        // })
-
-        // // TomTom API
-
-        // $.ajax({
-        //     url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=3920&streetName=Seeley&municipality=Chicago&countrySubdivision=Il&postalCode=60618',
-        //     method: 'GET'
-        // }).then(function (response) {
-        //     console.log(response)
-        // })
-
-        // $.ajax({
-        //     url: 'https://api.tomtom.com/search/2/structuredGeocode.JSON?key=L7UIPFqhhWosaSn7oAMjfGZGsRJ9EnPU&countryCode=US&streetNumber=1034&streetName=Wells&municipality=Chicago&countrySubdivision=Illinois&postalCode=60610',
-        //     method: 'GET'
-        // }).then(function (response) {
-
-        // })
-
-        // // Open Route API
-
-        // $.ajax({
-        //     // Longitude comes first, then latitude, in each query url
-        //     url: 'https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3&start=-87.68021,41.95303&end=-87.63451,41.90145',
-        //     method: 'GET'
-        // }).then(function (response) {
-        //     console.log(response)
-        // })
-
-        // // To get a photo, see https://developer.marvel.com/documentation/images
-        // $.ajax({
-        //     url: 'https://gateway.marvel.com:443/v1/public/characters?&apikey=e4b2fe04b3afe81bc5f373b59655f738',
-        //     method: 'GET'
-        // })     Test 2 branch -->
-
-
-    <!-- Zomato API key: 1dc29c917607ec14f7f9f5309c721b3c -->
-    <!-- Geocoder API key:  AIzaSyB-nfaiC7qS-317U3UHDjGo4JVc0gW8m_A-->
-    <!-- Route distance calculator API key: 5b3ce3597851110001cf6248664ece6aa70a4c7dbf8aa68951f471c3 -->
-    <!-- Marvel, Public key: e4b2fe04b3afe81bc5f373b59655f738 -->
+   
 </body>
 
 </html>

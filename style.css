@@ -111,6 +111,15 @@ p {
     /* text-align: center; */
 }
 
+form {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 105;
+}
+
+input {
+    color: white;
+}
 .hidden {
     display: none;
 }
