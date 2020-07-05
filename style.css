@@ -260,6 +260,20 @@ input .address-input .input-field {
     text-shadow:white;
 }
 
+/* Colin's work station */
+
+
+#activity {
+    margin-top: 100px;
+}
+
+#transpo-submitBtn {
+    margin-right: 5%;
+} 
+
+#submitBtn {
+    margin-right: 5%;
+}
 
 /* font-family: 'Cabin', sans-serif;
 font-family: 'Inconsolata', monospace;
