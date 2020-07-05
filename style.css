@@ -44,6 +44,7 @@ p {
 
 .big-space {
     background-image: url("Assets/images/backimg-logo-blueuniverse.jpg");
+    height: 80vh;
 }
 
 .brand-logo {
@@ -111,15 +112,16 @@ p {
     /* text-align: center; */
 }
 
+input {
+    color: white;
+}
+
 form {
     width: 80%;
     margin-left: 10%;
     margin-right: 105;
 }
 
-input {
-    color: white;
-}
 .hidden {
     display: none;
 }
@@ -129,7 +131,7 @@ input {
     align-items: center;
 }
 
-.input .address-input .input-field {
+input .address-input .input-field {
     -webkit-appearance: none;
     appearance: none;
     color: whitesmoke;
@@ -177,8 +179,8 @@ input {
 .welcome {
     /* color: white; */
     font-family: 'Quicksand', sans-serif;
-    background-color: #302b2b;
-    text-shadow: cadetblue;
+    background-color:transparent;
+    text-shadow:white;
 }
 
 /* font-family: 'Cabin', sans-serif;
