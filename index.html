@@ -164,7 +164,7 @@
 
                 <!-- USER WANTS TO GO SOMEWHERE: Form with input prompts for mode of transport, start address & destination.-->
 
-                <main id="activity" class=" center-align hidden">
+                <main id="activity" class="center-align hidden">
                     <div class="row">
                         <h4>How do you plan to travel?</h4>
                         <p id="activity-invalid" class="hidden" style="font-weight: bolder">Please select one!</p>
@@ -207,8 +207,6 @@
                     <div class="row">
                         <form method="post" class="input-field">
                             <div class="row">
-                                <p id="address-invalid" class="hidden" style="font-weight: bolder">Please fill in all
-                                    your address information!</p>
                                 <div class="col s6 m6 l6">
                                     <h4>Starting Location</h4>
                                     <label for="startLocName" class="input-label">Location Name</label> <input
@@ -221,7 +219,7 @@
                                         type="text" id="startCity" name="startCity" />
                                 </div>
                                 <div class="col s6 m6 l6">
-                                    <h4>Destination</h4>
+                                    <h4>End Destination</h4>
                                     <label for="endLocName" class="input-label">Location Name</label> <input type="text"
                                         id="endLocName" name="endLocName" />
                                     <label for="endAddress" class="input-label">Street Number</label> <input type="text"
@@ -232,6 +230,8 @@
                                         id="endCity" name="endCity" />
                                 </div>
                             </div>
+                            <p id="address-invalid" class="hidden" style="font-weight: bolder">Please fill in all
+                                your address information!</p>
                             <div class="row">
                                 <div class="col s12 m12 l12">
                                     <!-- <input type="submit" id="submitBtn" class="submit-button" style="align-items: center;"> -->
@@ -319,7 +319,7 @@
                 </main>
 
 
-                <main id='confirmationPage' class="hidden">
+                <main id='confirmationPage' class="center-align hidden">
                     <h3>Confirm:</h3>
                     <h5 id='startingLoc'></h5>
                     <h5 id='endingLoc'></h5>

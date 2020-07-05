@@ -261,9 +261,11 @@ input .address-input .input-field {
 }
 
 /* Colin's work station */
-
-
 #activity {
+    margin-top: 100px;
+}
+
+#address-input {
     margin-top: 100px;
 }
 
