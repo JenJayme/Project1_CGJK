@@ -40,8 +40,14 @@ h4 {
     background-color: #302b2b;
 }
 
+#confirmationPage {
+    color: white;
+    font-size: 12px;
+    /* text-align: center; */
+}
+
 .hidden {
-    display: block;
+    display: none;
 }
 
 .heroes-row {

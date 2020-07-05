@@ -7,10 +7,9 @@
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://unpkg.com/tabulator-tables@4.0.5/dist/css/tabulator.min.css" rel="stylesheet">
-    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.0.5/dist/js/tabulator.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="style.css">
-
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.0.5/dist/js/tabulator.min.js"></script>
 </head>
 
 <body>
@@ -60,7 +59,7 @@
                     </div>
                 </div>
                 <div class="col s2 m2 l2">
-                    <div class="card" id="Ms Marvel">
+                    <div class="card" id="Ms. Marvel">
                         <div class="card-image">
                             <img
                                 src="https://ca-times.brightspotcdn.com/dims4/default/4c8db25/2147483647/strip/true/crop/1988x1118+0+0/resize/840x472!/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F0d%2F8a%2Fd79cac66abbd1b9731dcee088d54%2Fla-trabrown-1478289681-snap-photo">
@@ -89,10 +88,9 @@
                     <image width="500" height="350" xlink:href="https://i.pinimg.com/originals/64/16/a9/6416a9d467b9d4d8149586c51171eb55.jpg" clip-path="url(#myCircle)" />
                  </svg>  -->
 
-                <img id="profile-img" class="responsive-img"
-                    src="https://i.pinimg.com/originals/64/16/a9/6416a9d467b9d4d8149586c51171eb55.jpg">
-                <p id="profile-greeting">Nice to see you, Black Widow!</p>
-                <p id="profile-details">POINTS: 500</p>
+                <img id="profile-img" class="responsive-img" src="">
+                <p id="profile-greeting"></p>
+                <p id="profile-details"></p>
                 <div id="badge-line">
                     <img class="badges" src="Assets/images/Badge-SkateClub-01.png">
                     <img class="badges" src="Assets/images/Badge-LiftClub-01.png">
@@ -124,29 +122,63 @@
                         <p>
                             <label>
                                 <input class="transpo" id="walk" name="group1" type="radio" />
-                                <span>Walk (50 points per mile)</span>
+                                <span>Walk (10 points per mile)</span>
                             </label>
                         </p>
                         <p>
                             <label>
                                 <input class="transpo" id="run" name="group1" type="radio" />
-                                <span>Run (100 points per mile)</span>
+                                <span>Run (30 points per mile)</span>
                             </label>
                         </p>
                         <p>
                             <label>
                                 <input class="transpo" id="bike" class="with-gap" name="group1" type="radio" />
-                                <span>Bike (80 points per mile)</span>
+                                <span>Bike (25 points per mile)</span>
                             </label>
                         </p>
                         <p>
                             <label>
                                 <input class="transpo" id="skateboard" name="group1" type="radio" />
-                                <span>Skateboard (80 points per mile)</span>
+                                <span>Skateboard (25 points per mile)</span>
                             </label>
                         </p>
                     </form>
                     <button id="transpo-submitBtn" class="btn blue darken-8 waves-effect waves-light" type="submit"
+                        name="action" style="float:right">Submit
+                        <i class="material-icons right">send</i>
+                    </button>
+                </main>
+
+                <main id="activity2" class="hidden">
+                    <h2>How do you plan to travel?</h2>
+                    <form action="#">
+                        <p>
+                            <label>
+                                <input class="transpo2" id="walk" name="group1" type="radio" />
+                                <span>Walk (10 points per mile)</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <input class="transpo2" id="run" name="group1" type="radio" />
+                                <span>Run (30 points per mile)</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <input class="transpo2" id="bike" class="with-gap" name="group1" type="radio" />
+                                <span>Bike (25 points per mile)</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <input class="transpo2" id="skateboard" name="group1" type="radio" />
+                                <span>Skateboard (15 points per mile)</span>
+                            </label>
+                        </p>
+                    </form>
+                    <button id="transpo-submitBtn2" class="btn blue darken-8 waves-effect waves-light" type="submit"
                         name="action" style="float:right">Submit
                         <i class="material-icons right">send</i>
                     </button>
@@ -160,8 +192,10 @@
                                 <h4>Starting Location</h4>
                                 <label class="input-label">Location Name</label> <input class="input" type="text"
                                     id="startLocName" name="startLocName" />
-                                <label class="input-label">Address</label> <input class="input" type="text"
-                                    id="startAddress" name="startAddress" />
+                                <label class="input-label">Street Number</label> <input class="input" type="text"
+                                    id="startNum" name="startNum" />
+                                <label class="input-label">Street Name</label> <input class="input" type="text"
+                                    id="startName" name="startName" />
                                 <label class="input-label">City</label> <input class="input" type="text" id="startCity"
                                     name="startCity" />
                                 <label class="input-label">State</label> <input class="input" type="text"
@@ -173,7 +207,9 @@
                                 <h4>Destination</h4>
                                 <label class="input-label">Location Name</label> <input type="text" id="endLocName"
                                     name="endLocName" />
-                                <label class="input-label">Address</label> <input type="text" id="endAddress"
+                                <label class="input-label">Street Number</label> <input type="text" id="endNum"
+                                    name="endAddress" />
+                                <label class="input-label">Street Name</label> <input type="text" id="endName"
                                     name="endAddress" />
                                 <label class="input-label">City</label> <input type="text" id="endCity"
                                     name="endCity" />
@@ -207,7 +243,6 @@
                                 State <input type="text" id="startState2" name="startState" />
                                 Zip <input type="text" id="startZip2" name="startZip" />
                             </div>
-
                         </div>
                         <div class="row">
                             <div class="col s4 m4 l4">
@@ -217,11 +252,27 @@
                         </div>
                     </form>
                 </main>
+
+                <main id="food-choices" class="hidden">
+                    
+                </main>
+
+                <main id="food-choice-confirm" class="hidden">
+                    <h3 id="restaurant-confirm"></h3>
+                    <button id="home-from-food">Restart</button>
+                </main>
                 <!-- TODO: add an click event listener to submit button the click event handler must read in the form values -->
-                <main id='confirmation' class="hidden">
-                    <h2 id='confirmMessage'></h2>
-                    <h4 id='displayHighScore'></h4>
-                    <button id='btn-home'>Restart</button>
+                <main id='confirmationPage' class="hidden">
+                    <h3>Confirm:</h3>
+                    <h5 id='startingLoc'></h5>
+                    <h5 id='endingLoc'></h5>
+                    <h5 id='totalDistance'></h5>
+                    <h5 id='pointsEarned'></h5>
+                    <h5 id='confirmMessage1'></h2>
+                    <h5 id='confirmMessage2'></h2>
+                    <h5 id='displayHighScore'></h4>
+
+                    <button id='btn-home' class="btn blue darken-8 waves-effect waves-light">Restart</button>
                 </main>
             </div>
         </div>
@@ -253,7 +304,6 @@
 
 
 
-    <script type="text/javascript" src="dist/js/tabulator.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="script.js"></script>
 
