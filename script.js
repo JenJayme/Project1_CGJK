@@ -11,10 +11,11 @@ var selectedMoveMode = "";
 // The following array will be replaced by an api function "get superheroes" from Gabe that returns an array of superhero objects.  This is just mock data for us to use in page layout.
 
 var heroesObj = {
-    "Black Widow": "https://i.pinimg.com/originals/64/16/a9/6416a9d467b9d4d8149586c51171eb55.jpg",
-    "Iron Man": "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
-    "Miles Morales": "https://66.media.tumblr.com/1660aaf63f281fc31564d42c8b3ed887/tumblr_pku5xlUfU11rda9da_540.jpg",
-    "Ms. Marvel":  "https://ca-times.brightspotcdn.com/dims4/default/4c8db25/2147483647/strip/true/crop/1988x1118+0+0/resize/840x472!/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F0d%2F8a%2Fd79cac66abbd1b9731dcee088d54%2Fla-trabrown-1478289681-snap-photo"
+
+    "Black Widow": "Assets\images\av-img-black-widow-cropped.jpg",
+    "Iron Man": "Assets\images\av-img-iron-man.jpg",
+    "Miles Morales": "Assets\images\av-img-miles-morales.jpg",
+    "Ms. Marvel": "Assets\images\av-img-msmarvel.jpg"
 }
 
 // The following "locations" array of objects is designed to be used in a drop-down for saved start points and destinations, and can be appended when user enters new locations.  I've entered some mock data for testing. -Jen
@@ -701,6 +702,6 @@ function screen_switcher(id) {
             // buildHeroCards();
             setUp();
 
-        });
 
+});
 
