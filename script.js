@@ -348,11 +348,13 @@ function find_restaurants(address_object) {
                             layout: "fitColumns",
                             columns: [{
                                 title: "Name",
-                                field: "name"
+                                field: "name",
+                                headerSort: false
                             },
                             {
                                 title: "Address",
-                                field: "address"
+                                field: "address",
+                                headerSort: false
                             },
                             {
                                 title: "Score",
