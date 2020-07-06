@@ -170,6 +170,13 @@ function setUp() {
         window.open('Links.html');
 
     })
+
+    $('.badges').mouseover(function () {
+        $('#hover').text($(this).attr("data-link"));
+        $('#hover').show();
+    })
+
+    $('.badges').mouseout(function () {$('#hover').hide()});
 }
 
 // OTHER OBJECTIVES:
