@@ -17,33 +17,7 @@
 
 <body>
 
-    <!--JEN INSERTED NAVBAR AND MOBILE SLIDE OUT CODING HERE 7.4-->
-
-    <nav> <img src="Assets/images/ProjectMilesLogoNEW.png" class="brand-logo" href="#"> </nav>
-
-    <ul id="slide-out" class="sidenav">
-        <li>
-            <div class="user-view">
-                <div class="background">
-                    <img src="Assets/images/nav-bkg-top.png">
-                </div>
-            </div>
-        </li>
-        <li><a href="#!"><i class="material-icons nav">cloud</i>My Profile</a></li>
-        <li><a href="About.html">About</a></li>
-        <li><a href="#!">Grab A Bite</a></li>
-        <li>
-            <div class="divider"></div>
-        </li>
-        <li><a class="subheader">Subheader in case we need it</a></li>
-        <li><a class="waves-effect" href="#!">Go Somewhere</a></li>
-    </ul>
-    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-
-    <!--END OF NAVBAR AND MOBILE SLIDE OUT CODING-->
-
     <!-- Initialization -->
-
     <div class="container big-space">
         <main id='new-user' class="welcome hidden">
             <div class="row">
@@ -109,10 +83,10 @@
 
         </main>
 
-        <div id="user-interface" class="row hidden" style="height:100%">
-
-            <div class="col s3 nav" style="background-color: gray; height:100%">
-                <!-- <svg width="500" height="350">
+        <div id="user-interface" class="hidden" style="height:100%">
+            <div class="row wrapper">
+                <div id="sideBar" class="col s12 m3 nav" style="background-color: gray; height:100%">
+                    <!-- <svg width="500" height="350">
                     <defs>
                        <clipPath id="myCircle">
                           <circle cx="250" cy="145" r="125" fill="#FFFFFF" />
@@ -120,222 +94,231 @@
                     </defs>
                     <image width="500" height="350" xlink:href="https://i.pinimg.com/originals/64/16/a9/6416a9d467b9d4d8149586c51171eb55.jpg" clip-path="url(#myCircle)" />
                  </svg>  -->
-                <img id="profile-img" class="responsive-img" src="">
-                <p id="profile-greeting"></p>
-                <p id="profile-details"></p>
+                    <img id="profile-img" class="responsive-img" src="">
+                    <p id="profile-greeting"></p>
+                    <p id="profile-details"></p>
 
-                <div id="badge-line">
-                    <img class="badges" src="Assets/images/button-blue-01.png">
-                    <img class="badges" src="Assets/images/button-blue-01.png">
-                    <img class="badges" src="Assets/images/button-blue-01.png">
+                    <div id="badge-line" class="row">
+                        <div class="col s4">
+                            <img id="badgeOne" data-link="About" class="badges" src="Assets/images/button-blue-01.png">
+
+                        </div>
+                        <div class="col s4">
+                            <img id="badgeTwo" data-link="Home" class="badges" src="Assets/images/button-blue-01.png">
+
+                        </div>
+                        <div class="col s4">
+                            <img id="badgeThree" data-link="Related Links" class="badges"
+                                src="Assets/images/button-blue-01.png">
+                        </div>
+                        <div class="col s3">
+                            <p id="hover" class="align-center hidden"></p>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="col s9">
-                <!-- Teal page content  -->
+                <div class="col s12 m9">
+                    <!-- Teal page content  -->
 
-                <main id='my-profile' class="hidden">
+                    <main id='my-profile' class="hidden">
 
-                </main>
-                <main id='initial-prompt' class="hidden">
-                    <!-- Screen asking if they are looking for a meal or going to do an activity -->
-                    <div id="userPromptDiv">
-                        <h3 id="greeting" class="center-align"></h3>
-                        <h4 id="promptEatOrDo" class="center-align">What would you like to do to earn some points?</h4>
-                    </div>
+                    </main>
+                    <main id='initial-prompt' class="hidden">
+                        <!-- Screen asking if they are looking for a meal or going to do an activity -->
+                        <div id="userPromptDiv">
+                            <h3 id="greeting" class="center-align"></h3>
+                            <h4 id="promptEatOrDo" class="center-align">What would you like to do to earn some points?
+                            </h4>
+                        </div>
 
-                    <div class="col s2 m2 l2">
-                    </div>
+                        <div class="row">
+                            <div class="col offset-s2 offset-m1 offset-l2 s8 m5 l4">
+                                <button id="btn-eat" class="btn blue darken-8 waves-effect waves-light center-align"
+                                    name="action">Grab a
+                                    Meal
+                                </button>
+                            </div>
+                            <div class="col offset-s2 s8 m5 l4">
+                                <button id="btn-go" class="btn blue darken-8 waves-effect waves-light center-align"
+                                    name="action">
+                                    Go Somewhere
+                                </button>
+                            </div>
+                        </div>
+                    </main>
 
-                    <div class="col s4 m4 l4">
-                        <button id="btn-eat" class="btn blue darken-8 waves-effect waves-light center-align"
-                            name="action">Grab a
-                            Meal
-                        </button>
-                    </div>
-                    <div class="col s4 m4 l4">
-                        <button id="btn-go" class="btn blue darken-8 waves-effect waves-light center-align"
-                            name="action">Go
-                            Somewhere
-                        </button>
-                    </div>
+                    <!-- USER WANTS TO GO SOMEWHERE: Form with input prompts for mode of transport, start address & destination.-->
 
-                </main>
+                    <main id="activity" class="center-align hidden">
+                        <div class="row">
+                            <h4>How do you plan to travel?</h4>
+                            <p id="activity-invalid" class="hidden" style="font-weight: bolder">Please select one!</p>
+                            <form action="#">
+                                <p>
+                                    <label>
+                                        <input class="transpo" id="walk" name="group1" type="radio" />
+                                        <span class="mode">Walk (10 points per mile)</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input class="transpo" id="run" name="group1" type="radio" />
+                                        <span class="mode">Run (30 points per mile)</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input class="transpo" id="bike" class="with-gap" name="group1" type="radio" />
+                                        <span class="mode">Bike (25 points per mile)</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input class="transpo" id="skateboard" name="group1" type="radio" />
+                                        <span class="mode">Skateboard (25 points per mile)</span>
+                                    </label>
+                                </p>
+                            </form>
+                            <div class="row">
+                                <button id="transpo-submitBtn" class="btn blue darken-8 waves-effect waves-light"
+                                    type="submit" name="action" style="float:right">NEXT
+                                </button>
+                            </div>
+                        </div>
+                    </main>
 
-                <!-- USER WANTS TO GO SOMEWHERE: Form with input prompts for mode of transport, start address & destination.-->
-
-                <main id="activity" class="hidden">
-                    <div class="row">
-                        <h4>How do you plan to travel?</h4>
-                        <p id="activity-invalid" class="hidden" style="font-weight: bolder">Please select one!</p>
-                        <form action="#">
+                    <!-- USER MEAL SECTION -Choose mode of transport and enter start address. Submit button will launch Zomato function. -->
+                    <main id="address-input" class="hidden">
+                        <div class="row">
+                            <form method="post" class="input-field">
+                                <div class="row">
+                                    <div class="col s12 m6 l6">
+                                        <h4>Starting Location</h4>
+                                        <label for="startLocName" class="input-label">Location Name</label> <input
+                                            class="input" type="text" id="startLocName" name="startLocName" />
+                                        <label for="startAddress" class="input-label">Street Number</label> <input
+                                            class="input" type="text" id="startNum" name="startAddress" />
+                                        <label for="startAddress" class="input-label">Street Name</label> <input
+                                            class="input" type="text" id="startName" name="startAddress" />
+                                        <label for="startCity" class="input-label">City</label> <input class="input"
+                                            type="text" id="startCity" name="startCity" />
+                                    </div>
+                                    <div class="col s12 m6 l6">
+                                        <h4>End Destination</h4>
+                                        <label for="endLocName" class="input-label">Location Name</label> <input
+                                            type="text" id="endLocName" name="endLocName" />
+                                        <label for="endAddress" class="input-label">Street Number</label> <input
+                                            type="text" id="endNum" name="endAddress" />
+                                        <label for="endAddress" class="input-label">Street Name</label> <input
+                                            type="text" id="endName" name="endAddress" />
+                                        <label for="endCity" class="input-label">City</label> <input type="text"
+                                            id="endCity" name="endCity" />
+                                    </div>
+                                </div>
+                                <p id="address-invalid" class="hidden" style="font-weight: bolder">Please fill in all
+                                    your address information!</p>
+                                <div class="row">
+                                    <div class="col s12 m12 l12">
+                                        <!-- <input type="submit" id="submitBtn" class="submit-button" style="align-items: center;"> -->
+                                        <button id="submitBtn" class="btn blue darken-8 waves-effect waves-light"
+                                            type="submit" name="action" style="float:right">NEXT
+                                        </button>
+                                        <!-- TODO: add an click event listener to submit button the click event handler must read in the form values -->
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </main>
+                    <main id="activity2" class="hidden">
+                        <h4 class="center-align">How do you plan to travel?</h4>
+                        <p id="activity2-invalid" class="hidden center-align" style="font-weight: bolder">Please select
+                            one!
+                        </p>
+                        <form action="#" class="center-align">
                             <p>
                                 <label>
-                                    <input class="transpo" id="walk" name="group1" type="radio" />
+                                    <input class="transpo2" id="walk" name="group1" type="radio" />
                                     <span class="mode">Walk (10 points per mile)</span>
                                 </label>
                             </p>
                             <p>
                                 <label>
-                                    <input class="transpo" id="run" name="group1" type="radio" />
+                                    <input class="transpo2" id="run" name="group1" type="radio" />
                                     <span class="mode">Run (30 points per mile)</span>
                                 </label>
                             </p>
                             <p>
                                 <label>
-                                    <input class="transpo" id="bike" class="with-gap" name="group1" type="radio" />
+                                    <input class="transpo2" id="bike" class="with-gap" name="group1" type="radio" />
                                     <span class="mode">Bike (25 points per mile)</span>
                                 </label>
                             </p>
                             <p>
                                 <label>
-                                    <input class="transpo" id="skateboard" name="group1" type="radio" />
-                                    <span class="mode">Skateboard (25 points per mile)</span>
+                                    <input class="transpo2" id="skateboard" name="group1" type="radio" />
+                                    <span class="mode">Skateboard (15 points per mile)</span>
                                 </label>
                             </p>
                         </form>
-                        <div class="row">
-                            <button id="transpo-submitBtn" class="btn blue darken-8 waves-effect waves-light"
-                                type="submit" name="action" style="float:right">Next
-                                <i class="material-icons right">send</i>
-                            </button>
-                        </div>
-                    </div>
-                </main>
+                        <br>
+                        <button id="transpo-submitBtn2" class="btn blue darken-8 waves-effect waves-light" type="submit"
+                            name="action" style="float:right">NEXT
+                        </button>
+                    </main>
 
-                <!-- USER MEAL SECTION -Choose mode of transport and enter start address. Submit button will launch Zomato function. -->
-                <main id="address-input" class="hidden">
-                    <div class="row">
-                        <form method="post" class="input-field">
+
+                    <main id="eat-div" class="row hidden">
+                        <h4 id="meal-header" class="center-align">Enter your current location</h4>
+                        <p id="meal-invalid" class="hidden center-align" style="font-weight: bolder">Please fill in all
+                            of
+                            your address
+                            information!</p>
+                        <form method="post" class="input-field center-align" id="meal-location">
                             <div class="row">
-                                <p id="address-invalid" class="hidden" style="font-weight: bolder">Please fill in all
-                                    your address information!</p>
-                                <div class="col s6 m6 l6">
-                                    <h4>Starting Location</h4>
-                                    <label for="startLocName" class="input-label">Location Name</label> <input
-                                        class="input" type="text" id="startLocName" name="startLocName" />
-                                    <label for="startAddress" class="input-label">Street Number</label> <input
-                                        class="input" type="text" id="startNum" name="startAddress" />
-                                    <label for="startAddress" class="input-label">Street Name</label> <input
-                                        class="input" type="text" id="startName" name="startAddress" />
-                                    <label for="startCity" class="input-label">City</label> <input class="input"
-                                        type="text" id="startCity" name="startCity" />
+                                <div class="col s4 m4 l4">
+
                                 </div>
-                                <div class="col s6 m6 l6">
-                                    <h4>Destination</h4>
-                                    <label for="endLocName" class="input-label">Location Name</label> <input type="text"
-                                        id="endLocName" name="endLocName" />
-                                    <label for="endAddress" class="input-label">Street Number</label> <input type="text"
-                                        id="endNum" name="endAddress" />
-                                    <label for="endAddress" class="input-label">Street Name</label> <input type="text"
-                                        id="endName" name="endAddress" />
-                                    <label for="endCity" class="input-label">City</label> <input type="text"
-                                        id="endCity" name="endCity" />
+                                <div class="col s4 m4 l4">
+                                    Street Number <input type="text" id="startNumber2" name="startAddress"
+                                        class="center-align" />
+                                    Street Name <input type="text" id="startStreet2" name="startAddress"
+                                        class="center-align" />
+                                    City <input type="text" id="startCity2" name="startCity" class="center-align" />
                                 </div>
                             </div>
+                            <br>
                             <div class="row">
-                                <div class="col s12 m12 l12">
-                                    <!-- <input type="submit" id="submitBtn" class="submit-button" style="align-items: center;"> -->
-                                    <button id="submitBtn" class="btn blue darken-8 waves-effect waves-light"
-                                        type="submit" name="action" style="float:right">Next
-                                        <i class="material-icons right">send</i>
-                                    </button>
-                                    <!-- TODO: add an click event listener to submit button the click event handler must read in the form values -->
-                                </div>
+                                <button id="meal-submit" class="btn blue darken-8 waves-effect waves-light"
+                                    type="submit" name="action" style="float:right">Next
+                                </button>
                             </div>
                         </form>
-                    </div>
-                </main>
-                <main id="activity2" class="hidden">
-                    <h4 class="center-align">How do you plan to travel?</h4>
-                    <p id="activity2-invalid" class="hidden center-align" style="font-weight: bolder">Please select one!
-                    </p>
-                    <form action="#" class="center-align">
-                        <p>
-                            <label>
-                                <input class="transpo2" id="walk" name="group1" type="radio" />
-                                <span class="mode">Walk (10 points per mile)</span>
-                            </label>
-                        </p>
-                        <p>
-                            <label>
-                                <input class="transpo2" id="run" name="group1" type="radio" />
-                                <span class="mode">Run (30 points per mile)</span>
-                            </label>
-                        </p>
-                        <p>
-                            <label>
-                                <input class="transpo2" id="bike" class="with-gap" name="group1" type="radio" />
-                                <span class="mode">Bike (25 points per mile)</span>
-                            </label>
-                        </p>
-                        <p>
-                            <label>
-                                <input class="transpo2" id="skateboard" name="group1" type="radio" />
-                                <span class="mode">Skateboard (15 points per mile)</span>
-                            </label>
-                        </p>
-                    </form>
-                    <br>
-                    <button id="transpo-submitBtn2" class="btn blue darken-8 waves-effect waves-light" type="submit"
-                        name="action" style="float:right">NEXT
-                    </button>
-                </main>
+                    </main>
 
+                    <main id="food-choices" class="hidden">
 
-                <main id="eat-div" class="row hidden">
-                    <h4 id="meal-header" class="center-align">Enter your current location</h4>
-                    <p id="meal-invalid" class="hidden center-align" style="font-weight: bolder">Please fill in all of
-                        your address
-                        information!</p>
-                    <form method="post" class="input-field center-align" id="meal-location">
-                        <div class="row">
-                            <div class="col s4 m4 l4">
+                    </main>
 
-                            </div>
-                            <div class="col s4 m4 l4">
-                                Street Number <input type="text" id="startNumber2" name="startAddress"
-                                    class="center-align" />
-                                Street Name <input type="text" id="startStreet2" name="startAddress"
-                                    class="center-align" />
-                                City <input type="text" id="startCity2" name="startCity" class="center-align" />
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <button id="meal-submit" class="btn blue darken-8 waves-effect waves-light" type="submit"
-                                name="action" style="float:right">Next
-                            </button>
-                        </div>
-                    </form>
-                </main>
-
-                <main id="food-choices" class="hidden">
-
-                </main>
-
-                <main id="food-choice-confirm" class="hidden">
-                    <h4 id="restaurant-confirm" class="center">
-                        </h3>
+                    <main id="food-choice-confirm" class="hidden">
+                        <h4 id="restaurant-confirm" class="center">
+                        </h4>
                         <button id='home-from-food' class="btn blue darken-8 waves-effect waves-light">Home</button>
-                </main>
+                    </main>
 
 
-                <main id='confirmationPage' class="hidden">
-                    <h3>Confirm:</h3>
-                    <h5 id='startingLoc'></h5>
-                    <h5 id='endingLoc'></h5>
-                    <h5 id='totalDistance'></h5>
-                    <h5 id='pointsEarned'></h5>
-                    <h5 id='confirmMessage1'>
-                    </h5>
-                    <h5 id='confirmMessage2'>
-                    </h5>
-                    <h5 id='displayHighScore'>
-                    </h5>
+                    <main id='confirmationPage' class="hidden">
+                        <h3>Confirmation</h3>
+                        <h5 id='startingLoc'></h5>
+                        <h5 id='endingLoc'></h5>
+                        <h5 id='totalDistance'></h5>
+                        <h5 id='pointsEarned'></h5>
+                        <h5 id='confirmMessage1'></h5>
+                        <h5 id='confirmMessage2'></h5>
+                        <h5 id='displayHighScore'></h5>
 
-                    <button id='btn-home' class="btn blue darken-8 waves-effect waves-light">Home</button>
-                </main>
+                        <button id='btn-home' class="btn blue darken-8 waves-effect waves-light">Home</button>
+                    </main>
+                </div>
             </div>
         </div>
     </div>
