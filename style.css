@@ -1,11 +1,13 @@
-nav {
+#top {
     background-color: #08374e;
     background-image: url("Assets/images/nav-bkg-top.png");
     color: whitesmoke;
+    height: 5vh;
+    
 }
 
 body {
-    height: 100%;
+    min-height: 100vh;
     margin: 0;
     background-color: black;
     font-family: 'Quicksand', sans-serif;
@@ -21,7 +23,7 @@ h4 {
     font-size: 20px;
     padding-top: 10px;
     padding-bottom: 5px;
-    color:white;
+    color: white;
 }
 
 p {
@@ -32,9 +34,17 @@ p {
 
 .badges {
     display: inline-block;
-    margin: 20px 10px;
-    height: 50px;
-    width: 50px;
+    margin-left: 25%;
+    height: auto;
+    width: 50%;
+    border-radius: 50%;
+}
+
+.test1 {
+    display: inline-block;
+    margin-left: 0;
+    height: auto;
+    width: 50%;
     border-radius: 50%;
 }
 
@@ -44,20 +54,23 @@ p {
 
 .big-space {
     background-image: url("Assets/images/backimg-logo-blueuniverse.jpg");
+    height: 80%;
 }
 
 .brand-logo {
-    height: 20%;
+    height: 10vh;
     min-height: 40px;
 }
+
 
 .card-content {
     font-weight: bold;
     background-color: #93a6c9;
     font-family: 'Quicksand', sans-serif;
     color: black;
+    margin-bottom: 2%;
 }
-    
+
 
 .card {
     display: block;
@@ -65,12 +78,18 @@ p {
     color: black;
 }
 
+#tip {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    color:white;
+}
+
 .card:hover {
     box-shadow: 0px 0px 6px 6px cadetblue;
 }
 
 .card-image {
-    height:  110px;
+    height: 110px;
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -103,12 +122,24 @@ p {
     color: silver;
     font-weight: bold;
     background-color: #08374e;
-  }
+}
 
 #confirmationPage {
     color: white;
     font-size: 12px;
-    /* text-align: center; */
+    text-align: center;
+}
+
+input {
+    color: white;
+}
+
+
+form {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 105;
+    color: white;
 }
 
 .hidden {
@@ -120,15 +151,92 @@ p {
     align-items: center;
 }
 
-.input .address-input .input-field {
+input .address-input .input-field {
     -webkit-appearance: none;
     appearance: none;
     color: whitesmoke;
 }
 
+#activity2 form {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .input-label {
     font-size: 16px;
-    color: lightblue;
+    color: white;
+}
+
+/* Gabe's additions */
+
+.mode {
+    color: white;
+}
+
+.tabulator-row {
+    color: blue
+}
+
+.tabulator-col-content {
+    color: white;
+    background-color: darkblue;
+    font-weight: bolder;
+}
+
+#initial-prompt {
+    margin-top: 20%;
+}
+
+#activity2 {
+    margin-top: 20%;
+}
+
+#eat-div {
+    margin-top: 20%;
+}
+
+#meal-submit {
+    width: 25%;
+}
+
+#btn-eat {
+    
+    width: 100%;
+    font-size: 10px;
+    margin-top: 20px;
+}
+
+#btn-go {
+  
+    width: 100%;
+    font-size: 10px;
+    margin-top: 20px;
+}
+
+#home-from-food {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+}
+
+#food-choices {
+    margin-top: 50px;
+    background-color: transparent;
+    border: none;
+}
+
+#food-choice-confirm {
+    margin-top: 20%;
+    text-align: center;
+}
+
+#transpo-submitBtn2 {
+    margin-right: 5%;
+}
+
+
+#sideBar {
+    height: 100%;
 }
 
 .sidenav {
@@ -138,12 +246,14 @@ p {
 
 #new-user {
     text-align: center;
+    margin-top: 50px;
 }
 
+
 #profile-img {
-    horizontal-align: middle;
-    width: 200px;
-    margin: 20px 20px;
+    width: 80%;
+    margin-top: 60%;
+    margin-left: 12%;
     border-radius: 50%;
 }
 
@@ -166,11 +276,123 @@ p {
 }
 
 .welcome {
-    /* color: white; */
     font-family: 'Quicksand', sans-serif;
-    background-color: #302b2b;
-    text-shadow: cadetblue;
+    background-color: transparent;
+    text-shadow: white;
+
 }
+
+#btn-home  {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+}
+
+#activity {
+    margin-top: 20%;
+}
+
+#address-input {
+    margin-top: 5%;
+}
+
+#confirmationPage {
+    margin-top: 100px;
+    color: white;
+    background: rgba(0,0,0,0.5);
+}
+
+#transpo-submitBtn {
+    margin-right: 5%;
+}
+
+#submitBtn {
+    margin-right: 5%;
+}
+
+.nav {
+    height: 100%;
+}
+
+.wrapper {
+    height: 90vh;
+    margin-top: 15px;
+    overflow: scroll;
+}
+
+#greeting {
+    font-size: 5vw;
+}
+
+.profile-pic {
+    width:150px;
+    height:150px;
+    border-radius: 50%;
+    float: left !important;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 40px;
+}
+.team-mem-name {
+    color: whitesmoke;
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 40px;
+}
+
+@media only screen and (max-width: 600px) {
+    .wrapper {
+      height: 100%;
+    }
+
+    #profile-img {
+        width: 80%;
+        margin-top: 10%;
+        margin-left: 12%;
+        border-radius: 50%;
+    }
+
+    #initial-prompt {
+        margin-top: 10%;
+    }
+
+    #activity {
+        margin-top: 10%;
+        height: 70vh;
+    }
+    
+    #address-input {
+        margin-top: 10%;
+        height: 70vh;
+    }
+
+    #activity2 {
+        margin-top: 10%;
+        height: 70vh;
+    }
+
+    #eat-div{
+        margin-top: 10%;
+        height: 70vh;
+    }
+
+    #food-choices {
+        margin-top: 10%;
+        height: 70vh;
+    }
+
+    #food-choice-confirm {
+        margin-top: 10%;
+        height: 70vh;
+    }
+
+    #confirmationPage {
+        margin-top: 10%;
+        height: 70vh;
+    }
+
+  }
+
 
 /* font-family: 'Cabin', sans-serif;
 font-family: 'Inconsolata', monospace;
