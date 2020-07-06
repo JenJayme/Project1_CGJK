@@ -1,7 +1,9 @@
-nav {
+#top {
     background-color: #08374e;
     background-image: url("Assets/images/nav-bkg-top.png");
     color: whitesmoke;
+    height: 5vh;
+    
 }
 
 body {
@@ -32,9 +34,9 @@ p {
 
 .badges {
     display: inline-block;
-    margin: 20px 10px;
-    height: 50px;
-    width: 50px;
+    margin-left: 25%;
+    height: auto;
+    width: 50%;
     border-radius: 50%;
 }
 
@@ -48,7 +50,7 @@ p {
 }
 
 .brand-logo {
-    height: 20%;
+    height: 10vh;
     min-height: 40px;
 }
 
@@ -110,7 +112,7 @@ p {
 #confirmationPage {
     color: white;
     font-size: 12px;
-    /* text-align: center; */
+    text-align: center;
 }
 
 input {
@@ -169,11 +171,11 @@ input .address-input .input-field {
 }
 
 #initial-prompt {
-    margin-top: 100px;
+    margin-top: 30%;
 }
 
 #activity2 {
-    margin-top: 100px;
+    margin-top: 22%;
 }
 
 #eat-div {
@@ -185,20 +187,23 @@ input .address-input .input-field {
 }
 
 #btn-eat {
-    width: 80%;
-    width: 80%;
-    font-size: 1vw;
+    
+    width: 100%;
+    font-size: 10px;
+    margin-top: 20px;
 }
 
 #btn-go {
-    width: 90%;
-    width: 90%;
-    font-size: 1vw;
+  
+    width: 100%;
+    font-size: 10px;
+    margin-top: 20px;
 }
 
 #home-from-food {
     margin-left: auto;
     margin-right: auto;
+    margin-top: 30px;
 }
 
 #food-choices {
@@ -216,8 +221,6 @@ input .address-input .input-field {
     margin-right: 5%;
 }
 
-
-
 /* End Gabe's additions */
 
 
@@ -233,7 +236,8 @@ input .address-input .input-field {
 
 #profile-img {
     width: 80%;
-    margin: 10% 20px;
+    margin-top: 70%;
+    margin-left: 12%;
     border-radius: 50%;
 }
 
@@ -263,8 +267,14 @@ input .address-input .input-field {
 }
 
 /* Colin's work station */
+#btn-home  {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+}
+
 #activity {
-    margin-top: 100px;
+    margin-top: 20%;
 }
 
 #address-input {
@@ -285,6 +295,71 @@ input .address-input .input-field {
     margin-right: 5%;
 }
 
+.nav {
+    height: 100%;
+}
+
+.wrapper {
+    height: 60vh;
+    margin-top: 15px;
+}
+
+#greeting {
+    font-size: 5vw;
+}
+
+@media only screen and (max-width: 600px) {
+    .wrapper {
+      height: 100%;
+    }
+
+    #profile-img {
+        width: 80%;
+        margin-top: 10%;
+        margin-left: 12%;
+        border-radius: 50%;
+    }
+
+    #initial-prompt {
+        margin-top: 10%;
+    }
+
+    #activity {
+        margin-top: 10%;
+        height: 70vh;
+    }
+    
+    #address-input {
+        margin-top: 10%;
+        height: 70vh;
+    }
+
+    #activity2 {
+        margin-top: 10%;
+        height: 70vh;
+    }
+
+    #eat-div{
+        margin-top: 10%;
+        height: 70vh;
+    }
+
+    #food-choices {
+        margin-top: 10%;
+        height: 70vh;
+    }
+
+    #food-choice-confirm {
+        margin-top: 10%;
+        height: 70vh;
+    }
+
+    #confirmationPage {
+        margin-top: 10%;
+        height: 70vh;
+    }
+
+  }
 
 /*End Colin's work station */
 

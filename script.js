@@ -98,7 +98,8 @@ function setUp() {
 
     var goBtn = $('#btn-go');
     goBtn.on('click', function () {
-        screen_switcher('activity')
+        screen_switcher('activity');
+        $('#sideBar').addClass('hide-on-small-only');
     });
 
     var transpoSubmit = $('#transpo-submitBtn')
@@ -111,14 +112,14 @@ function setUp() {
 
         if (selectedMoveMode) {
             screen_switcher('address-input');
+        } else {
+            $('#activity-invalid').show();
+            setTimeout(function () {
+                $('#activity-invalid').hide()
+            }, 2000)
         }
 
-        else {
-            $('#activity-invalid').show();
-            setTimeout(function() { $('#activity-invalid').hide() }, 2000)
-        }
-        
-        
+
 
     })
 
@@ -132,28 +133,43 @@ function setUp() {
 
         if (startPointObj.startNum && startPointObj.startName && startPointObj.startCity && endPointObj.endNum && endPointObj.endName && endPointObj.endCity) {
 
-        // storeLocations(startPointObj, endPointObj);
-        console.log("PointA :" + JSON.stringify(startPointObj) + "PointB :" + JSON.stringify(endPointObj))
+            // storeLocations(startPointObj, endPointObj);
+            console.log("PointA :" + JSON.stringify(startPointObj) + "PointB :" + JSON.stringify(endPointObj))
 
-        // push this to global variables
-        var firstLoc = startPointObj.startLocName;
-        console.log(firstLoc);
-        var secondLoc = endPointObj.endLocName;
+            // push this to global variables
+            var firstLoc = startPointObj.startLocName;
+            console.log(firstLoc);
+            var secondLoc = endPointObj.endLocName;
 
-        firstLocName.push(firstLoc);
-        secondLocName.push(secondLoc);
-        console.log("firstLocName = " + firstLocName);
-        console.log("secondLocName = " + secondLocName);
-        doubleAddressRoute(startPointObj, endPointObj);
-        // takeLocNames(startPointObj, endPointObj);
-        }
-
-        else {
+            firstLocName.push(firstLoc);
+            secondLocName.push(secondLoc);
+            console.log("firstLocName = " + firstLocName);
+            console.log("secondLocName = " + secondLocName);
+            doubleAddressRoute(startPointObj, endPointObj);
+            // takeLocNames(startPointObj, endPointObj);
+        } else {
             $('#address-invalid').show();
-            setTimeout( function() { $('#address-invalid').hide() }, 2000)
+            setTimeout(function () {
+                $('#address-invalid').hide()
+            }, 2000)
         }
 
     });
+
+    $('#badgeOne').on('click', function (event) {
+        window.open('About.html');
+
+    })
+
+    $('#badgeTwo').on('click', function (event) {
+        location.reload();
+
+    })
+
+    $('#badgeThree').on('click', function (event) {
+        window.open('Links.html');
+
+    })
 }
 
 // OTHER OBJECTIVES:
@@ -202,7 +218,7 @@ function getStartValues() {
         startCity: startCity,
     }; // end of startPointObj
     return startPointObj;
-}  // end of getStartValues function
+} // end of getStartValues function
 
 function getScore() {
     return parseInt(localStorage.getItem('userScore'));
@@ -242,7 +258,7 @@ function getEndValues() {
     } // end of endPointObj
     return endPointObj;
 }; // end of getEndValues function
- // end of getEndValues function
+// end of getEndValues function
 
 // function storeLocations(startPointObj, endPointObj) {
 
@@ -297,13 +313,13 @@ function getEndValues() {
 
 // Gabe's Workstation
 
-
 $('#btn-eat').on("click", function () {
     screen_switcher('activity2');
+    $('#sideBar').addClass('hide-on-small-only');
 })
 
-$('#home-from-food').on("click", function() {
-    screen_switcher('initial-prompt')
+$('#home-from-food').on("click", function () {
+    location.reload();
 })
 
 var transpoSubmit2 = $('#transpo-submitBtn2')
@@ -315,10 +331,11 @@ transpoSubmit2.on("click", function (event) {
     };
     if (selectedMoveMode) {
         screen_switcher('eat-div');
-    }
-    else {
+    } else {
         $('#activity2-invalid').show();
-        setTimeout(function() { $('#activity2-invalid').hide() }, 2000)
+        setTimeout(function () {
+            $('#activity2-invalid').hide()
+        }, 2000)
     }
 })
 
@@ -336,17 +353,17 @@ $('#meal-submit').on("click", function (event) {
 
     if (street_num && street_name && city) {
 
-    var address = {
-        locStreetNumber: street_num,
-        locStreetName: street_name,
-        locCity: city
-    }
-    find_restaurants(address)
-    }
-
-    else {
+        var address = {
+            locStreetNumber: street_num,
+            locStreetName: street_name,
+            locCity: city
+        }
+        find_restaurants(address)
+    } else {
         $('#meal-invalid').show();
-        setTimeout(function() {$('#meal-invalid').hide()}, 2000)
+        setTimeout(function () {
+            $('#meal-invalid').hide()
+        }, 2000)
     }
 })
 
@@ -355,17 +372,13 @@ function scoreCalculator(distance) {
 
     if (selectedMoveMode === "walk") {
         totalScore = (distance * 10).toFixed();
-    }
-    else if (selectedMoveMode === "walk-jog") {
+    } else if (selectedMoveMode === "walk-jog") {
         totalScore = (distance * 20).toFixed();
-    }
-    else if (selectedMoveMode === "run") {
+    } else if (selectedMoveMode === "run") {
         totalScore = (distance * 30).toFixed();
-    }
-    else if (selectedMoveMode === "skateboard") {
+    } else if (selectedMoveMode === "skateboard") {
         totalScore = (distance * 15).toFixed();
-    }
-    else if (selectedMoveMode === "bike") {
+    } else if (selectedMoveMode === "bike") {
         totalScore = (distance * 25).toFixed();
     }
 
@@ -411,7 +424,12 @@ function find_restaurants(address_object) {
                 }).then(function (response) {
                     var distance_to = response.features[0].properties.summary.distance / 1609;
                     var points = scoreCalculator(distance_to)
-                    tableData.push({ id: index, name: place.restaurant.name, address: place.restaurant.location.address, score: points })
+                    tableData.push({
+                        id: index,
+                        name: place.restaurant.name,
+                        address: place.restaurant.location.address,
+                        score: points
+                    })
                     index += 1
 
                     if (index === 10) {
@@ -425,16 +443,25 @@ function find_restaurants(address_object) {
                         var table = new Tabulator("#food-choices", {
                             data: tableData,
                             layout: "fitColumns",
-                            columns: [
-                                { title: "Name", field: "name" },
-                                { title: "Address", field: "address" },
-                                { title: "Score", field: "score", sorter: "number" },
+                            columns: [{
+                                    title: "Name",
+                                    field: "name"
+                                },
+                                {
+                                    title: "Address",
+                                    field: "address"
+                                },
+                                {
+                                    title: "Score",
+                                    field: "score",
+                                    sorter: "number"
+                                },
                             ],
-                            rowClick:function(e, row){
+                            rowClick: function (e, row) {
                                 let points = row.getData().score;
                                 let name = row.getData().name;
                                 confirm_choice(name, points)
-                                },
+                            },
                         });
                         table.redraw(true)
                         $('#food-choices').prepend(header)
@@ -646,8 +673,7 @@ function confirmationPage(finalDistance, totalScore) {
 // Return home function
 // This is on the last div; however, we could make this a button that persists throughout
 $('#btn-home').on("click", function () {
-    // May need to rename this main id 
-    screen_switcher('initial-prompt');
+    location.reload();
 })
 
 
