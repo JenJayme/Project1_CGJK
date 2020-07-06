@@ -270,8 +270,6 @@ function scoreCalculator(distance) {
 
     if (selectedMoveMode === "walk") {
         totalScore = (distance * 10).toFixed();
-    } else if (selectedMoveMode === "walk-jog") {
-        totalScore = (distance * 20).toFixed();
     } else if (selectedMoveMode === "run") {
         totalScore = (distance * 30).toFixed();
     } else if (selectedMoveMode === "skateboard") {
@@ -460,10 +458,6 @@ function doubleAddressRoute(addressObj1, addressObj2) {
 function scoreGenerator(totalDistance) {
     if (selectedMoveMode === "walk") {
         var totalScore = (totalDistance * 10).toFixed();
-        console.log(totalScore);
-    }
-    if (selectedMoveMode === "walk-jog") {
-        var totalScore = (totalDistance * 20).toFixed();
         console.log(totalScore);
     }
     if (selectedMoveMode === "run") {
