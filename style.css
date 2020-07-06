@@ -68,6 +68,7 @@ p {
     background-color: #93a6c9;
     font-family: 'Quicksand', sans-serif;
     color: black;
+    margin-bottom: 2%;
 }
 
 
@@ -233,7 +234,6 @@ input .address-input .input-field {
     margin-right: 5%;
 }
 
-/* End Gabe's additions */
 
 #sideBar {
     height: 100%;
@@ -246,6 +246,7 @@ input .address-input .input-field {
 
 #new-user {
     text-align: center;
+    margin-top: 50px;
 }
 
 
@@ -275,13 +276,12 @@ input .address-input .input-field {
 }
 
 .welcome {
-    /* color: white; */
     font-family: 'Quicksand', sans-serif;
     background-color: transparent;
     text-shadow: white;
+
 }
 
-/* Colin's work station */
 #btn-home  {
     margin-left: auto;
     margin-right: auto;
@@ -322,6 +322,22 @@ input .address-input .input-field {
 
 #greeting {
     font-size: 5vw;
+}
+
+.profile-pic {
+    width:150px;
+    height:150px;
+    border-radius: 50%;
+    float: left !important;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 40px;
+}
+.team-mem-name {
+    color: whitesmoke;
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 40px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -377,7 +393,6 @@ input .address-input .input-field {
 
   }
 
-/*End Colin's work station */
 
 /* font-family: 'Cabin', sans-serif;
 font-family: 'Inconsolata', monospace;
