@@ -172,6 +172,23 @@ p {
     text-shadow: cadetblue;
 }
 
+.profile-pic {
+    width:150px;
+    height:150px;
+    border-radius: 50%;
+    float: left !important;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 40px;
+}
+
+.team-mem-name {
+    color: whitesmoke;
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 40px;
+}
+
 /* font-family: 'Cabin', sans-serif;
 font-family: 'Inconsolata', monospace;
 font-family: 'Nunito', sans-serif;
