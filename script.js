@@ -4,6 +4,17 @@ var superhero_src;
 var score = 10;
 var firstLocName = [];
 var secondLocName = [];
+var tipsArr = ["By just moderately pushing your skateboard you will burn around 400 calories an hour, 800 calories if you skate aggressively.", 
+                "Keep your fast-food meals around 500 calories or fewer.  Avoid french fries and onion rings. Choose a side salad with light dressing and you will level up the health quality of your meal.",
+                "Grilled chicken or steak are usually your best option on the menu at most fast-food places.",
+                "Do you know about the secret menu at In-N-Out? Order your burger 'Protein Style' with lettuce in lieu of the bun and you will seriously lower your calories and carbs.",
+                "Experts recommend that teens do 60 minutes or more of physical activity every day. Walking counts!",
+                "Riding your bike for 20 minutes will burn 150 to 250 calories!"
+            ]
+
+function random_tip() {
+    return tipsArr[Math.floor(Math.random()*tipsArr.length)]
+};
 
 // The following array will be used for a drop-down to select mode of transportation.  The move the user selects will be returned to the selectedMoveMode var, to be used in Colin's distance/points calculation function.
 var moveModesArr = ["walk", "bike", "run", "skateboard", "walk-jog"];
@@ -161,12 +172,12 @@ function setUp() {
 
     })
 
-    $('#badgeTwo').on('click', function (event) {
+    $('#badgeThree').on('click', function (event) {
         location.reload();
 
     })
 
-    $('#badgeThree').on('click', function (event) {
+    $('#badgeTwo').on('click', function (event) {
         window.open('Links.html');
 
     })
@@ -442,8 +453,13 @@ function find_restaurants(address_object) {
                     if (index === 10) {
                         screen_switcher('food-choices')
                         var header = $('<h4>');
-                        header.attr("style", "text-align: center")
+                        var tip = $('<h6>')
+                        header.attr("style", "text-align: center; font-weight: bold")
                         header.text('Choose a restaurant to ' + selectedMoveMode + ' to and earn points!')
+                        tip.attr('id', 'tip')
+                        tip.text("Tip: " + random_tip())
+                        tip.addClass("hide-on-small-only")
+                        
 
                         ;
 
@@ -472,6 +488,7 @@ function find_restaurants(address_object) {
                         });
                         table.redraw(true)
                         $('#food-choices').prepend(header)
+                        $('#food-choices').prepend(tip)
                     }
                 })
             };
