@@ -1,4 +1,3 @@
-git stat
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,6 +36,10 @@ git stat
                 popularity due to the blockbuster movie series, have powerful appeal and natural connections with both
                 fitness and gaming.
             </p>
+            <button id="go-back" class="btn blue darken-8 waves-effect waves-light" name="action"
+                style="float:right; margin-right: 5%">
+                Back to App
+            </button>
         </div>
         <div id="meet-the-team" style="background-color: #1e5779">
             <div class="row">
@@ -47,9 +50,9 @@ git stat
                     <h3 style="margin-left: 20px">Meet the Team</h3>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col s2 m2 l2">
+                    <!-- <img src="Assets/images/teamimg-colin.jpg" style="size:30px float:left" /> -->
                     <img class="float-sm-none img-fluid profile-pic" src="Assets/images/teamimg-colin.jpg"
                         alt="Profile picture for Colin Whitcomb">
 
@@ -69,6 +72,7 @@ git stat
                         Bootcamp and intend to become a Technical Project Manager.
                     </p>
                 </div>
+
             </div>
 
             <div class="row">
@@ -127,60 +131,15 @@ git stat
                     </p>
                 </div>
             </div>
+
         </div>
-
-        <!-- <div class="container">
-                <div class="row ">
-                <div class="col l4 ">
-                    <div class="card #ff5252 red accent-2">
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src="Assets/Royce.jpeg" alt="Royce Williams">
-                        </div>
-                        <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4">Royce Williams
-                                <i class="material-icons right activator">more_vert</i></span>
-                                <p><a href="https://github.com/RoyceWilliams510">Github</a></p>
-                            </div>
-                            <div class="card-reveal">
-                                <span class="card-title grey-text text-darken-4 activator">Back-End Developer
-                                    <i class="material-icons right">close</i></span>
-                                    <p>Royce has been the ideological, strategical, and developmental leaders in this project. Royce is one of the back-end muscles of this project. From day one, his ideas have constructed what is the finished project today. Highly considered the director of this project and the strong suit of ideas.</p>
-                        ---
-                        </div>
-                      </div>
-                </div>
-            </div> -->
-
-        <!-- <div class="row">
-                        <div class="col s3 m3 l3">
-                           <div class="card #ff5252 red accent-2">
-                               <div class="card-image waves-effect waves-block waves-light">
-                                   <img class="activator" src="Assets/images/teamimg-colin.jpg" alt="Colin Whitcomb">
-                                </div>
-                                <div class="card-content">
-                                    <span class="card-title activator grey-text text-darken-4">Colin Whitcomb
-                                        <i class="material-icons right activator">more_vert</i></span>
-                                        <p><a href="#">portfolio</a></p>
-                                    </div>
-                                    <div class="card-reveal">
-                                        <span class="card-title grey-text text-darken-4 activator">Back-End Developer
-                                            <i class="material-icons right">close</i></span>
-                                            <p>
-                                                Since the fall of 2007 I have been an active member and teacher specializing in marching
-                                                percussion. Through my marching career I was part of several World Champion ensembles
-                                                including the Blue Devils Drum and Bugle Corps and RCC Indoor Percussion. I have also
-                                                participated as a cast member for the 49ers drumline "Niner-Noise" as well as the Golden
-                                                State Warriors drumline "Aftershock."
-                                            </p>
-                                            <p>
-                                                After graduating from UC Berkeley in December, 2019 (Bachelor of Arts with Honors in
-                                                Music), I decided to change trajectories. I enrolled in the UC Berkeley Extension
-                                                Full-Stack Coding Bootcamp and intend to become a Technical Project Manager.
-                                            </p>
-                        ---
-                        </div> -->
     </div>
-    </container>
+
+<script type="text/javascript">
+    document.getElementById('go-back').addEventListener("click", function() {
+        window.open('index.html')
+    })
+</script>
 </body>
 
 </html>
